@@ -2,7 +2,7 @@
     "name": "Motus",
     "maps": [
         {
-            "name": "Control",
+            "name": "Controller",
             "id": "20e05cdc-cb99-49b6-bc87-3d8504b18d9d",
             "actions": [
                 {
@@ -108,61 +108,6 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "KBM",
-                    "id": "e77ec90b-3e5a-4e05-9b36-9a5f5e7206b9",
-                    "path": "2DVector",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Move",
-                    "isComposite": true,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "up",
-                    "id": "a0847a1f-e043-4b20-b1cc-3e708e08aa98",
-                    "path": "<Keyboard>/w",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "down",
-                    "id": "a82989bf-1036-4cbb-85df-306e54bb1d87",
-                    "path": "<Keyboard>/s",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "left",
-                    "id": "85791d85-9989-46e5-8f2d-4353975a8f19",
-                    "path": "<Keyboard>/a",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
-                    "name": "right",
-                    "id": "d7f3ad1b-11ca-4ffe-9551-96387e2bcf96",
-                    "path": "<Keyboard>/d",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Move",
-                    "isComposite": false,
-                    "isPartOfComposite": true
-                },
-                {
                     "name": "Gamepad",
                     "id": "a909feea-119f-431c-8a5e-c6fdca41f092",
                     "path": "2DVector(mode=2)",
@@ -219,17 +164,6 @@
                 },
                 {
                     "name": "",
-                    "id": "e6494972-6895-48f9-ae68-2b81a11e6f71",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "MouseShiftValue",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "95cc5cd4-ad09-440c-8e28-afd686231dc2",
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
@@ -252,33 +186,11 @@
                 },
                 {
                     "name": "",
-                    "id": "de69ca79-f129-42e7-9ed1-49d10e290eb3",
-                    "path": "<Mouse>/leftButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Shoot",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "bab6a765-d8ea-402f-abca-f24bcff79b83",
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Dash",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "0f931a4d-d9b2-4956-81b9-2b9face04c80",
-                    "path": "<Mouse>/rightButton",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Keyboard&Mouse",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -293,10 +205,151 @@
                     "action": "Deflect",
                     "isComposite": false,
                     "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "KeyboardMouse",
+            "id": "4cd96835-baaa-41b1-b74d-d2b6ab53217d",
+            "actions": [
+                {
+                    "name": "Move",
+                    "type": "Value",
+                    "id": "374b2602-9fdd-4f3e-9b09-9b50be0bd1ea",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Aim",
+                    "type": "Value",
+                    "id": "b3be0664-1c04-460f-bec6-d39f2b5fb107",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": true
+                },
+                {
+                    "name": "Shoot",
+                    "type": "Button",
+                    "id": "e1ae90da-6891-4822-8ea1-0a6b09ef64e1",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Dash",
+                    "type": "Button",
+                    "id": "cf4b564f-0bfa-4354-bbad-91d01d623a73",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Deflect",
+                    "type": "Button",
+                    "id": "dc48c2a3-7365-4eef-9890-0b00959cfd7a",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "KBM",
+                    "id": "ba0821b0-1214-4fe2-b0bd-0ed16e3807fa",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Move",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "9e068ae9-a4c9-42fb-8295-1dfbf0adca9c",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "4d2f33c2-19fa-47dc-bedc-fba3bebd960b",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "f8d076c2-2b3b-4028-8902-01d4f436e7ed",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "7d4ea206-4388-418f-a81d-4f116de611a9",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 },
                 {
                     "name": "",
-                    "id": "5d035b1e-0aa8-4e36-8c6c-36b9f274dd38",
+                    "id": "d3aefe12-8ef7-48ab-b23e-3dd7f84902e9",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "MouseShiftValue",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Aim",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "fa7e7277-338a-48cd-bbce-8b5b5691e917",
+                    "path": "<Mouse>/leftButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Shoot",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "aa810550-6b43-42b5-95e5-a9f6d76dec6d",
+                    "path": "<Mouse>/rightButton",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Dash",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0050fe69-184a-4bb0-947f-7c0aebec89dd",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
