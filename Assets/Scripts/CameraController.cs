@@ -3,7 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Editors: Frank Alfano
-// Date: 9/12/22
+// Date Created: 9/12/22
+// Date Last Editted: 9/14/22
 
 public class CameraController : MonoBehaviour {
 	[SerializeField] private PlayerController playerController;

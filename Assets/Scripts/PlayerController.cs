@@ -4,11 +4,13 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Editors: Frank Alfano
-// Date: 9/12/22
+// Date Created: 9/12/22
+// Date Last Editted: 9/14/22
 
 public class PlayerController : MonoBehaviour {
 	[SerializeField] private Transform aimObject;
 	[SerializeField] private GameObject bulletPrefab;
+	[SerializeField] private new Rigidbody2D rigidbody2D;
 	[Space]
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float dashLength;
@@ -46,12 +48,20 @@ public class PlayerController : MonoBehaviour {
 			dashTime += Time.deltaTime;
 		}
 
-		// Move the aiming direction
+		// Move the aiming object
 		aimObject.localPosition = Aim;
 		aimObject.rotation = Quaternion.Euler(0, 0, aimAngle);
+	}
 
+	private void FixedUpdate ( ) {
 		// Move the player
-		transform.position += (Vector3) (moveSpeed * Time.deltaTime * Movement);
+		rigidbody2D.velocity = moveSpeed * Time.deltaTime * Movement;
+	}
+
+	// Have the player lose health
+	// int damage: The amount of health to make the player lose
+	public void TakeDamage (int damage) {
+		// TO DO: Implement this later
 	}
 
 	public void OnMove (InputValue value) {
@@ -82,12 +92,13 @@ public class PlayerController : MonoBehaviour {
 		// Calculate the position and rotation of the aim arrow
 		// The position of the aim arrow is also the direction the player is aiming
 		Aim = newAim.normalized;
-		aimAngle = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x) + 90;
+		aimAngle = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x) - 90f;
 	}
 
 	public void OnShoot (InputValue value) {
 		// If the player is dashing, prevent them from shooting
-		if (IsDashing && !IsAiming) {
+		// If the player is not aiming, then do not try to shoot in a certain direction
+		if (IsDashing || !IsAiming) {
 			return;
 		}
 
@@ -96,7 +107,8 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnDash (InputValue value) {
 		// If the player is dashing, prevent them from dashing again as they are dashing
-		if (IsDashing && !IsAiming) {
+		// If the player is not aiming, then do not try to dash in a certain direction
+		if (IsDashing || !IsAiming) {
 			return;
 		}
 
@@ -112,7 +124,8 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnDeflect (InputValue value) {
 		// If the player is dashing, prevent them from dashing again as they are dashing
-		if (IsDashing && !IsAiming) {
+		// If the player is not aiming, then do not try to deflect in a certain direction
+		if (IsDashing || !IsAiming) {
 			return;
 		}
 

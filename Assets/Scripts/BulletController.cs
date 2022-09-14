@@ -3,13 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Editors: Frank Alfano
-// Date: 9/12/22
+// Date Created: 9/12/22
+// Date Last Editted: 9/14/22
 
 public enum BulletType {
 	PLAYER, DEFLECTABLE, DASHABLE, ENEMY
 }
 
 public class BulletController : MonoBehaviour {
+	[SerializeField] private new Rigidbody2D rigidbody2D;
+	[Space]
 	// *** 'lifetime' will probably be replaced with collision down the line, right now it is used to
 	// despawn the bullets after a certain amount of time
 	[SerializeField] private float lifetime;
@@ -19,20 +22,48 @@ public class BulletController : MonoBehaviour {
 
 	public Vector2 Direction;
 
-	private void OnCollisionEnter2D (Collision2D collision) {
+	private void OnTriggerEnter2D (Collider2D collision) {
 		GameObject collisionGameObject = collision.gameObject;
 
-		// If player
-		// If the bullet is DASHABLE and player IsDashing
-		// ... destroy self
-		// else
-		// ... decrease health
+		// Try and get various components off the collision game object
+		// This will tell us what object this bullet collided with
+		// For example, if the collision game object has a PlayerController component, we know that this bullet has collided with the player
+		PlayerController playerController = collisionGameObject.GetComponent<PlayerController>( );
+		BulletController bulletController = collisionGameObject.GetComponent<BulletController>( );
 
-		// If enemy
-		// ... decrease health
+		// If this bullet collides with another bullet, have nothing happen
+		if (bulletController != null) {
+			return;
+		}
 
-		// If not bullet
-		// ... destroy self
+		// If this bullet collides with the player ...
+		if (playerController != null) {
+			// If the bullet type is not PLAYER, then it shouldnt make the player lose health or collide with the player
+			if (bulletType == BulletType.PLAYER) {
+				return;
+			}
+
+			// If the bullet is 
+			bool hitEnemyBullet = (bulletType == BulletType.ENEMY);
+			// If the bullet is DASHABLE and the player is not dashing, the player should take damage
+			bool hitDashableBullet = (bulletType == BulletType.DASHABLE && !playerController.IsDashing);
+			// TO DO: Add logic for deflectable bullets when those are added in
+			bool hitDeflectableBullet = (false);
+
+			// If the bullet hits the player correctly in any way
+			// ... have the player take damage
+			if (hitEnemyBullet || hitDashableBullet || hitDeflectableBullet) {
+				playerController.TakeDamage(1);
+			}
+		}
+
+		// if EnemyController != null
+		// ... if bulletType != PLAYER
+		// ... ... return
+		// ... damage enemy
+
+		// Destroy the bullet
+		Destroy(gameObject);
 	}
 
 	private void Update ( ) {
@@ -41,9 +72,6 @@ public class BulletController : MonoBehaviour {
 		if (Direction.magnitude == 0) {
 			return;
 		}
-
-		// Move the position of the bullet
-		transform.position += (Vector3) (Direction * bulletSpeed * Time.deltaTime);
 
 		// Decrease the lifetime by how many seconds has passed
 		lifetime -= Time.deltaTime;
@@ -54,7 +82,12 @@ public class BulletController : MonoBehaviour {
 		}
 	}
 
-	// Spawn a bullet
+	private void FixedUpdate ( ) {
+		// Move the position of the bullet
+		rigidbody2D.velocity = bulletSpeed * Time.deltaTime * Direction;
+	}
+
+	// Spawn a bullet that moves in a direction from a starting point
 	// GameObject bulletPrefab: The bullet game object
 	// Vector2 position: The starting position for the bullet
 	// Vector2 direction: The direction for the bullet to move
