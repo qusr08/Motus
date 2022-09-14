@@ -41,9 +41,15 @@ TagManager:
   - name: Default
     uniqueID: 0
     locked: 0
+  - name: Arena Ground
+    uniqueID: 1045266887
+    locked: 0
   - name: Bullets
     uniqueID: 1688034209
     locked: 0
   - name: Player
     uniqueID: 1746658895
+    locked: 0
+  - name: Arena Walls
+    uniqueID: 3283473911
     locked: 0
