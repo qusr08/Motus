@@ -26353,7 +26353,7 @@ MonoBehaviour:
   bulletPrefab: {fileID: 8680594460709146428, guid: dc6c4837afc9e7d4687560250f353278, type: 3}
   rigidbody2D: {fileID: 2131832808}
   moveSpeed: 250
-  dashLength: 7
+  dashDistance: 7
   dashSpeed: 0.15
   Aim: {x: 0, y: 0}
   Movement: {x: 0, y: 0}

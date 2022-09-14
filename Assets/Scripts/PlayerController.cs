@@ -13,7 +13,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private new Rigidbody2D rigidbody2D;
 	[Space]
 	[SerializeField] private float moveSpeed;
-	[SerializeField] private float dashLength;
+	[SerializeField] private float dashDistance;
 	[SerializeField] private float dashSpeed;
 	[Space]
 	[SerializeField] public Vector2 Aim;
@@ -112,11 +112,26 @@ public class PlayerController : MonoBehaviour {
 			return;
 		}
 
+		// 'newDashDistance' is the actual distance that the player is going to dash as the player might hit something
+		float newDashDistance = dashDistance;
+
+		// Send out a raycast in the direction of the dash to see if the player is going to hit something during the dash
+		RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Aim, dashDistance);
+		// If the player hits something
+		// ... make the dash distance meet the object the player hit
+		if (hit2D) {
+			// The dash distance is now the distance between the position of the player and the point that the RaycastHit hit
+			// Also subtract 0.75f to place the player a little bit away from the object hit by the dash
+			newDashDistance = Vector2.Distance(transform.position, hit2D.point) - 0.75f;
+		}
+
 		// Set the positions that dictate the players dash
 		fromDashPosition = transform.position;
-		toDashPosition = transform.position + (Vector3) (Aim * dashLength);
+		toDashPosition = transform.position + (Vector3) (Aim * newDashDistance);
+
 		// Reset the dash time
-		dashTime = 0;
+		// This equation makes sure that even if the player hits something with the dash, the speed of the dash stays the same
+		dashTime = dashSpeed - ((newDashDistance / dashDistance) * dashSpeed);
 
 		// Reset movement so the player doesn't continue to move after exiting a dash
 		Movement = Vector2.zero;
