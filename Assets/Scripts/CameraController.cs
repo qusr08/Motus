@@ -6,26 +6,27 @@ using UnityEngine;
 // Date: 9/12/22
 
 public class CameraController : MonoBehaviour {
-	[SerializeField] private Transform Target;
+	[SerializeField] private PlayerController playerController;
 	[Space]
 	// How smooth the camera moves towards the target object
 	[SerializeField] [Range(0f, 1f)] private float smoothness;
+	[SerializeField] [Min(0f)] private float aimDistance;
 
 	private Vector2 velocity;
 
 	private void Start ( ) {
 		// If the target is set to an object
 		// ... Set the position instantly when the game starts so the camera starts locked on the target
-		if (Target != null) {
-			SetXYPosition(Target.position);
+		if (playerController != null) {
+			SetXYPosition(playerController.transform.position);
 		}
 	}
 
 	private void Update ( ) {
 		// If the target is set to an object
 		// ... Smoothly move towards the position of the target
-		if (Target != null) {
-			SetXYPosition(Vector2.SmoothDamp(transform.position, Target.position, ref velocity, smoothness));
+		if (playerController != null) {
+			SetXYPosition(Vector2.SmoothDamp(transform.position, playerController.transform.position + (Vector3) (playerController.Aim * aimDistance), ref velocity, smoothness));
 		}
 	}
 

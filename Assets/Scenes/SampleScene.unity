@@ -162,8 +162,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f22bfe3345b48864cbb24b75790c79c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Target: {fileID: 2131832804}
-  smoothness: 0.3
+  playerController: {fileID: 2131832805}
+  smoothness: 0.2
+  aimDistance: 1.5
 --- !u!20 &519420031
 Camera:
   m_ObjectHideFlags: 0
@@ -349,7 +350,7 @@ MonoBehaviour:
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
-  m_DefaultActionMap: Controller
+  m_DefaultActionMap: Control
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
 --- !u!4 &2131832804
@@ -384,6 +385,8 @@ MonoBehaviour:
   moveSpeed: 10
   dashLength: 8
   dashSpeed: 0.2
+  Aim: {x: 0, y: 0}
+  Movement: {x: 0, y: 0}
 --- !u!212 &2131832806
 SpriteRenderer:
   m_ObjectHideFlags: 0
