@@ -13,14 +13,10 @@ public enum BulletType {
 public class BulletController : MonoBehaviour {
 	[SerializeField] private new Rigidbody2D rigidbody2D;
 	[Space]
-	// *** 'lifetime' will probably be replaced with collision down the line, right now it is used to
-	// despawn the bullets after a certain amount of time
-	[SerializeField] private float lifetime;
 	[SerializeField] private float bulletSpeed;
+	[SerializeField] public Vector2 Direction;
 	[Space]
 	[SerializeField] private BulletType bulletType;
-
-	public Vector2 Direction;
 
 	private void OnTriggerEnter2D (Collider2D collision) {
 		GameObject collisionGameObject = collision.gameObject;
@@ -66,23 +62,13 @@ public class BulletController : MonoBehaviour {
 		Destroy(gameObject);
 	}
 
-	private void Update ( ) {
+	private void FixedUpdate ( ) {
 		// If the direction of the bullet has not been set, then do not update the position or decrease the lifetime
 		// Each time a bullet is instantiated this direction needs to be set
 		if (Direction.magnitude == 0) {
 			return;
 		}
 
-		// Decrease the lifetime by how many seconds has passed
-		lifetime -= Time.deltaTime;
-		// If the lifetime has reached 0
-		// ... destroy the bullet
-		if (lifetime <= 0) {
-			Destroy(gameObject);
-		}
-	}
-
-	private void FixedUpdate ( ) {
 		// Move the position of the bullet
 		rigidbody2D.velocity = bulletSpeed * Time.deltaTime * Direction;
 	}
@@ -98,5 +84,8 @@ public class BulletController : MonoBehaviour {
 		// Set the direction of the bullet to the direction the player is currently aiming
 		bullet.Direction = direction;
 		bullet.bulletType = bulletType;
+		
+		// Have the bullet face the direction it is being shot in
+		bullet.transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) - 90f);
 	}
 }

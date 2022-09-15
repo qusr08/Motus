@@ -2,7 +2,7 @@
     "name": "Motus",
     "maps": [
         {
-            "name": "Controller",
+            "name": "Control",
             "id": "20e05cdc-cb99-49b6-bc87-3d8504b18d9d",
             "actions": [
                 {
@@ -205,63 +205,10 @@
                     "action": "Deflect",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "KeyboardMouse",
-            "id": "4cd96835-baaa-41b1-b74d-d2b6ab53217d",
-            "actions": [
-                {
-                    "name": "Move",
-                    "type": "Value",
-                    "id": "374b2602-9fdd-4f3e-9b09-9b50be0bd1ea",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
                 },
-                {
-                    "name": "Aim",
-                    "type": "Value",
-                    "id": "b3be0664-1c04-460f-bec6-d39f2b5fb107",
-                    "expectedControlType": "Vector2",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": true
-                },
-                {
-                    "name": "Shoot",
-                    "type": "Button",
-                    "id": "e1ae90da-6891-4822-8ea1-0a6b09ef64e1",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Dash",
-                    "type": "Button",
-                    "id": "cf4b564f-0bfa-4354-bbad-91d01d623a73",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "Deflect",
-                    "type": "Button",
-                    "id": "dc48c2a3-7365-4eef-9890-0b00959cfd7a",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
                 {
                     "name": "KBM",
-                    "id": "ba0821b0-1214-4fe2-b0bd-0ed16e3807fa",
+                    "id": "3279e140-3ef6-406f-9db3-f46854d172b8",
                     "path": "2DVector",
                     "interactions": "",
                     "processors": "",
@@ -272,7 +219,7 @@
                 },
                 {
                     "name": "up",
-                    "id": "9e068ae9-a4c9-42fb-8295-1dfbf0adca9c",
+                    "id": "9b4bf00e-38d9-44e1-bc08-5f7fe692ab6c",
                     "path": "<Keyboard>/w",
                     "interactions": "",
                     "processors": "",
@@ -283,7 +230,7 @@
                 },
                 {
                     "name": "down",
-                    "id": "4d2f33c2-19fa-47dc-bedc-fba3bebd960b",
+                    "id": "5fe134fd-6eb9-410f-acf1-22f92b71c9a6",
                     "path": "<Keyboard>/s",
                     "interactions": "",
                     "processors": "",
@@ -294,7 +241,7 @@
                 },
                 {
                     "name": "left",
-                    "id": "f8d076c2-2b3b-4028-8902-01d4f436e7ed",
+                    "id": "6bba655d-9328-4c96-8e88-e0a6f1d8d440",
                     "path": "<Keyboard>/a",
                     "interactions": "",
                     "processors": "",
@@ -305,7 +252,7 @@
                 },
                 {
                     "name": "right",
-                    "id": "7d4ea206-4388-418f-a81d-4f116de611a9",
+                    "id": "27a3c8bb-71b1-41f0-b1e9-3ee7ba20781b",
                     "path": "<Keyboard>/d",
                     "interactions": "",
                     "processors": "",
@@ -316,7 +263,7 @@
                 },
                 {
                     "name": "",
-                    "id": "d3aefe12-8ef7-48ab-b23e-3dd7f84902e9",
+                    "id": "f818ac7e-1111-4322-a4da-566a52f389fb",
                     "path": "<Mouse>/position",
                     "interactions": "",
                     "processors": "MouseShiftValue",
@@ -327,7 +274,7 @@
                 },
                 {
                     "name": "",
-                    "id": "fa7e7277-338a-48cd-bbce-8b5b5691e917",
+                    "id": "d01514e5-2975-425f-a0e5-c52c8832774c",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
@@ -338,7 +285,7 @@
                 },
                 {
                     "name": "",
-                    "id": "aa810550-6b43-42b5-95e5-a9f6d76dec6d",
+                    "id": "0f93788b-feae-4668-a9ae-7ffe94b842ca",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
@@ -349,7 +296,7 @@
                 },
                 {
                     "name": "",
-                    "id": "0050fe69-184a-4bb0-947f-7c0aebec89dd",
+                    "id": "712a8644-2610-4820-8a8f-e6e7a400ef01",
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
