@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors: Frank Alfano
 // Date Created: 9/12/22
-// Date Last Editted: 9/14/22
+// Date Last Editted: 9/15/22
 
 public enum BulletType {
 	PLAYER, DEFLECTABLE, DASHABLE, ENEMY
