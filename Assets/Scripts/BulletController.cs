@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors: Frank Alfano
 // Date Created: 9/12/22
-// Date Last Editted: 9/15/22
+// Date Last Editted: 9/16/22
 
 public enum BulletType {
 	PLAYER, DEFLECTABLE, DASHABLE, ENEMY
@@ -26,6 +26,7 @@ public class BulletController : MonoBehaviour {
 		// For example, if the collision game object has a PlayerController component, we know that this bullet has collided with the player
 		PlayerController playerController = collisionGameObject.GetComponent<PlayerController>( );
 		BulletController bulletController = collisionGameObject.GetComponent<BulletController>( );
+		EnemyController enemyController = collisionGameObject.GetComponent<EnemyController>( );
 
 		// If this bullet collides with another bullet, have nothing happen
 		if (bulletController != null) {
@@ -53,10 +54,17 @@ public class BulletController : MonoBehaviour {
 			}
 		}
 
-		// if EnemyController != null
-		// ... if bulletType != PLAYER
-		// ... ... return
-		// ... damage enemy
+		// If this bullet collides with an enemy ...
+		if (enemyController != null) {
+			// If the bullet type is not PLAYER
+			// ... then an enemy shot the bullet and it should not collide with any other enemies
+			if (bulletType != BulletType.PLAYER) {
+				return;
+			}
+
+			// If the bullet is PLAYER then have the enemy take damage
+			enemyController.TakeDamage(1);
+		}
 
 		// Destroy the bullet
 		Destroy(gameObject);

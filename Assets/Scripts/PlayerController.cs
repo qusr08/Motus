@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 // Editors: Frank Alfano
 // Date Created: 9/12/22
-// Date Last Editted: 9/15/22
+// Date Last Editted: 9/16/22
 
 public class PlayerController : MonoBehaviour {
 	[SerializeField] private Transform aimObject;
