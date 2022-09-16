@@ -107,16 +107,23 @@ public class PlayerController : MonoBehaviour {
 		float newDashDistance = dashDistance;
 
 		// Send out a raycast in the direction of the dash to see if the player is going to hit something during the dash
-		RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Aim, dashDistance);
+		// The list is ordered from closest objects to furthest objects
+		RaycastHit2D[] hits2D = Physics2D.RaycastAll(transform.position, Aim, dashDistance);
+
 		// If the player hits something
 		// ... make the dash distance meet the object the player hit
-		if (hit2D) {
+		for (int i = 0; i < hits2D.Length; i++) {
 			// Make sure the player's dash doesn't stop because of bullets
-			if (hit2D.transform.GetComponent<BulletController>( ) == null) {
-				// The dash distance is now the distance between the position of the player and the point that the RaycastHit hit
-				// Also subtract 1f to place the player a little bit away from the object hit by the dash
-				newDashDistance = Vector2.Distance(transform.position, hit2D.point) - 1f;
+			if (hits2D[i].transform.GetComponent<BulletController>( ) != null) {
+				continue;
 			}
+
+			// The dash distance is now the distance between the position of the player and the point that the RaycastHit hit
+			// Also subtract 1f to place the player a little bit away from the object hit by the dash
+			newDashDistance = Vector2.Distance(transform.position, hits2D[i].point) - 1f;
+			
+			// Don't need to check the other hits because the closest thing was already found
+			break;
 		}
 
 		// Set the positions that dictate the players dash
