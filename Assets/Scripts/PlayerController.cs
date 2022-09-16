@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 // Editors: Frank Alfano
 // Date Created: 9/12/22
-// Date Last Editted: 9/14/22
+// Date Last Editted: 9/15/22
 
 public class PlayerController : MonoBehaviour {
 	[SerializeField] private Transform aimObject;
@@ -79,19 +79,10 @@ public class PlayerController : MonoBehaviour {
 			return;
 		}
 
-		// Get the new aim value from the controller
-		Vector2 newAim = value.Get<Vector2>( );
-
-		// If the joystick is centered (not moving)
-		// ... return and don't set a new aim value.
-		// This is so the aim arrow always stays visible next to the player
-		/*if (newAim.magnitude == 0) {
-			return;
-		}*/
-
+		// Aim towards the direction of the controller joystick
 		// Calculate the position and rotation of the aim arrow
 		// The position of the aim arrow is also the direction the player is aiming
-		Aim = newAim.normalized;
+		Aim = value.Get<Vector2>( ).normalized;
 		aimAngle = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x) - 90f;
 	}
 
@@ -120,9 +111,12 @@ public class PlayerController : MonoBehaviour {
 		// If the player hits something
 		// ... make the dash distance meet the object the player hit
 		if (hit2D) {
-			// The dash distance is now the distance between the position of the player and the point that the RaycastHit hit
-			// Also subtract 0.75f to place the player a little bit away from the object hit by the dash
-			newDashDistance = Vector2.Distance(transform.position, hit2D.point) - 0.75f;
+			// Make sure the player's dash doesn't stop because of bullets
+			if (hit2D.transform.GetComponent<BulletController>( ) == null) {
+				// The dash distance is now the distance between the position of the player and the point that the RaycastHit hit
+				// Also subtract 1f to place the player a little bit away from the object hit by the dash
+				newDashDistance = Vector2.Distance(transform.position, hit2D.point) - 1f;
+			}
 		}
 
 		// Set the positions that dictate the players dash

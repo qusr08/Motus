@@ -263,17 +263,6 @@
                 },
                 {
                     "name": "",
-                    "id": "f818ac7e-1111-4322-a4da-566a52f389fb",
-                    "path": "<Mouse>/position",
-                    "interactions": "",
-                    "processors": "MouseShiftValue",
-                    "groups": "Keyboard&Mouse",
-                    "action": "Aim",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "d01514e5-2975-425f-a0e5-c52c8832774c",
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
@@ -302,6 +291,17 @@
                     "processors": "",
                     "groups": "Keyboard&Mouse",
                     "action": "Deflect",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f818ac7e-1111-4322-a4da-566a52f389fb",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "CenterMouseOnScreen",
+                    "groups": "Keyboard&Mouse",
+                    "action": "Aim",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
