@@ -50,6 +50,12 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	public bool IsMoving {
+		get {
+			return (Movement.magnitude > 0);
+		}
+	}
+
 	private void Update ( ) {
 		if (IsAlive)
         {
@@ -122,8 +128,8 @@ public class PlayerController : MonoBehaviour {
 
 	public void OnDash (InputValue value) {
 		// If the player is dashing, prevent them from dashing again as they are dashing
-		// If the player is not aiming, then do not try to dash in a certain direction
-		if (IsDashing || !IsAiming) {
+		// If the player is not moving, then do not try to dash in a certain direction
+		if (IsDashing || !IsMoving) {
 			return;
 		}
 
@@ -132,7 +138,7 @@ public class PlayerController : MonoBehaviour {
 
 		// Send out a raycast in the direction of the dash to see if the player is going to hit something during the dash
 		// The list is ordered from closest objects to furthest objects
-		RaycastHit2D[] hits2D = Physics2D.RaycastAll(transform.position, Aim, dashDistance);
+		RaycastHit2D[] hits2D = Physics2D.RaycastAll(transform.position, Movement, dashDistance);
 
 		// If the player hits something
 		// ... make the dash distance meet the object the player hit
@@ -152,14 +158,11 @@ public class PlayerController : MonoBehaviour {
 
 		// Set the positions that dictate the players dash
 		fromDashPosition = transform.position;
-		toDashPosition = transform.position + (Vector3) (Aim * newDashDistance);
+		toDashPosition = transform.position + (Vector3) (Movement * newDashDistance);
 
 		// Reset the dash time
 		// This equation makes sure that even if the player hits something with the dash, the speed of the dash stays the same
 		dashTime = dashSpeed - ((newDashDistance / dashDistance) * dashSpeed);
-
-		// Reset movement so the player doesn't continue to move after exiting a dash
-		Movement = Vector2.zero;
 	}
 
 	public void OnDeflect (InputValue value) {
