@@ -53,3 +53,6 @@ TagManager:
   - name: Arena Walls
     uniqueID: 3283473911
     locked: 0
+  - name: UI
+    uniqueID: 1592146273
+    locked: 0

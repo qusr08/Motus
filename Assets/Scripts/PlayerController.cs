@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-// Editors: Frank Alfano
+// Editors: Frank Alfano; Steven Feldman
 // Date Created: 9/12/22
 // Date Last Editted: 9/16/22
 
@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float dashDistance;
 	[SerializeField] private float dashSpeed;
+	[SerializeField] private int health;
 	[Space]
 	[SerializeField] public Vector2 Aim;
 	[SerializeField] public Vector2 Movement;
@@ -24,10 +25,23 @@ public class PlayerController : MonoBehaviour {
 	private Vector2 toDashPosition;
 	private float dashTime;
 
+	public int Health{
+        get{
+			return health;
+		}
+	}
+
 	public bool IsDashing {
 		get {
 			return (dashTime < dashSpeed);
 		}
+	}
+	public bool IsAlive
+	{
+        get
+        {
+			return (health > 0);
+        }
 	}
 
 	public bool IsAiming {
@@ -37,20 +51,29 @@ public class PlayerController : MonoBehaviour {
 	}
 
 	private void Update ( ) {
-		// If the player is dashing
-		// ... update the position based on the dash
-		if (IsDashing) {
-			// Lerp between the last position of the player and the new dash position
-			// 'dashTime' is the time the player has taken as it travels between the two points
-			// Dividing 'dashTime' by 'dashSpeed' will get a value between 0 and 1 which is used to linearly interpolate between the two points
-			transform.position = Vector2.Lerp(fromDashPosition, toDashPosition, dashTime / dashSpeed);
-			// Increment the 'dashTime' by the time that has passed
-			dashTime += Time.deltaTime;
-		}
+		if (IsAlive)
+        {
+			// If the player is dashing
+			// ... update the position based on the dash
+			if (IsDashing) {
+				// Lerp between the last position of the player and the new dash position
+				// 'dashTime' is the time the player has taken as it travels between the two points
+				// Dividing 'dashTime' by 'dashSpeed' will get a value between 0 and 1 which is used to linearly interpolate between the two points
+				transform.position = Vector2.Lerp(fromDashPosition, toDashPosition, dashTime / dashSpeed);
+				// Increment the 'dashTime' by the time that has passed
+				dashTime += Time.deltaTime;
+			}
 
-		// Move the aiming object
-		aimObject.localPosition = Aim;
-		aimObject.rotation = Quaternion.Euler(0, 0, aimAngle);
+		
+
+			// Move the aiming object
+			aimObject.localPosition = Aim;
+			aimObject.rotation = Quaternion.Euler(0, 0, aimAngle);
+        }
+		else
+		{
+			Destroy(gameObject, 2);
+		}
 	}
 
 	private void FixedUpdate ( ) {
@@ -62,6 +85,7 @@ public class PlayerController : MonoBehaviour {
 	// int damage: The amount of health to make the player lose
 	public void TakeDamage (int damage) {
 		// TO DO: Implement this later
+		health -= damage;
 	}
 
 	public void OnMove (InputValue value) {
