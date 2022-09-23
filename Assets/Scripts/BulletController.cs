@@ -20,11 +20,11 @@ public class BulletController : MonoBehaviour {
 
 	private void OnTriggerEnter2D (Collider2D collision) {
 		GameObject collisionGameObject = collision.gameObject;
-
-		// Try and get various components off the collision game object
-		// This will tell us what object this bullet collided with
-		// For example, if the collision game object has a PlayerController component, we know that this bullet has collided with the player
-		PlayerController playerController = collisionGameObject.GetComponent<PlayerController>( );
+		
+        // Try and get various components off the collision game object
+        // This will tell us what object this bullet collided with
+        // For example, if the collision game object has a PlayerController component, we know that this bullet has collided with the player
+        PlayerController playerController = collisionGameObject.GetComponent<PlayerController>( );
 		BulletController bulletController = collisionGameObject.GetComponent<BulletController>( );
 		EnemyController enemyController = collisionGameObject.GetComponent<EnemyController>( );
 
@@ -93,7 +93,26 @@ public class BulletController : MonoBehaviour {
 		bullet.Direction = direction;
 		bullet.bulletType = bulletType;
 		
-		// Have the bullet face the direction it is being shot in
-		bullet.transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) - 90f);
+		
+        if (bulletType == BulletType.DASHABLE)
+		{
+            bullet.GetComponent<Renderer>().material.color = Color.blue;
+        }
+		else if(bulletType == BulletType.DEFLECTABLE)
+		{
+            bullet.GetComponent<Renderer>().material.color = Color.green;
+        }
+		else if(bulletType == BulletType.ENEMY)
+		{
+            bullet.GetComponent<Renderer>().material.color = Color.red;
+        }
+		else if(bulletType == BulletType.PLAYER)
+		{
+            bullet.GetComponent<Renderer>().material.color = Color.white;
+
+        }
+
+        // Have the bullet face the direction it is being shot in
+        bullet.transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) - 90f);
 	}
 }
