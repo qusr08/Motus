@@ -115,4 +115,12 @@ public class BulletController : MonoBehaviour {
         // Have the bullet face the direction it is being shot in
         bullet.transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) - 90f);
 	}
+
+	//Picks out a random bullet.
+	public static BulletType Pick()
+    {
+		BulletType pickedType = (BulletType)Random.Range(1, 4);
+
+		return pickedType;
+    }
 }

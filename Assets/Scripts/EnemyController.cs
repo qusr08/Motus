@@ -48,7 +48,7 @@ public class EnemyController : MonoBehaviour {
 
 				timer -= Time.deltaTime;
 				if (timer <= 0) {
-					BulletController.SpawnBullet(bulletPrefab, transform.position, (target.position - transform.position).normalized, BulletType.ENEMY);
+                    rngBullShit();
 					timer = shootTime;
 				}
 
@@ -138,15 +138,39 @@ public class EnemyController : MonoBehaviour {
 
         return (Seek(new Vector3(x, 0, z)));
     }
+
+
+    //Fires multiple bullets at once.
+    public void SpreadFire(int numBullets, float angleSpread)
+    {
+        float targetAngle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x);
+
+        for (float i = angleSpread/numBullets/-2f; i <= numBullets; i += angleSpread / numBullets)
+        {
+            Vector2 bulletDirection = new Vector2(Mathf.Cos(i + targetAngle), Mathf.Sin(i + targetAngle));
+            BulletController.SpawnBullet(bulletPrefab, transform.position, bulletDirection, BulletType.ENEMY);
+        }
+    }
+
+    public void rngBullShit()
+    {
+         BulletController.SpawnBullet(bulletPrefab, transform.position, (target.position - transform.position).normalized, BulletController.Pick());
+    }
 }
 
 // Bullet pattern planning (PROLLY WILL CHANGE)
 
 // BulletPattern
-// List<ahiwdba>
-//		{BulletType, Angle, Delay}
-//		{BulletType, Angle, Delay}
-//		{.....
+ 
+//      {BulletType, Angle, Delay}
+        //pattern.Add(BulletType.DASHABLE, 0f, shootTime); Laser
+        //pattern.Add(BulletType.???, Current Bullet Angle + 60f, shootTime); 6-way Bullets
+        //pattern.Add(BulletType.???, 0f, shootTime); Potential Boomerang
+        //
+//pattern.Add(BulletType.DASHABLE, 0f, shootTime); Laser
+//pattern.Add(BulletType.???, Current Bullet Angle + 60f, shootTime); 6-way Bullets
+//pattern.Add(BulletType.???, 0f, shootTime); Potential Boomerang
+//
 
 // ShootPattern()
 //		for all list items:
