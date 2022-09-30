@@ -145,7 +145,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbody2D: {fileID: 7694467207399495025}
-  spriteRenderer: {fileID: 0}
-  bulletSpeed: 800
+  bulletSpeed: 500
   Direction: {x: 0, y: 0}
   bulletType: 0

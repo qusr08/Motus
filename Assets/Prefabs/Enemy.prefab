@@ -101,7 +101,7 @@ MonoBehaviour:
   rigidbody2D: {fileID: 3189487400666286937}
   player: {fileID: 0}
   moveSpeed: 70
-  shootTime: 1
+  shootTime: 2
   health: 10
   Movement: {x: 0, y: 0}
 --- !u!61 &3189487400666286934

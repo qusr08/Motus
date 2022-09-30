@@ -2,12 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 // Editors: Frank Alfano; Steven Feldman
 // Date Created: 9/12/22
-// Date Last Editted: 9/16/22
+// Date Last Editted: 9/30/22
 
 public class PlayerController : MonoBehaviour {
+	[SerializeField] private Text healthText;
+	[Space]
 	[SerializeField] private Transform aimObject;
 	[SerializeField] private GameObject bulletPrefab;
 	[SerializeField] private new Rigidbody2D rigidbody2D;
@@ -19,29 +22,24 @@ public class PlayerController : MonoBehaviour {
 	[Space]
 	[SerializeField] public Vector2 Aim;
 	[SerializeField] public Vector2 Movement;
+	[SerializeField] public bool IsDeflecting;
 
 	private float aimAngle;
+
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
 	private float dashTime;
-
-	public int Health{
-        get{
-			return health;
-		}
-	}
 
 	public bool IsDashing {
 		get {
 			return (dashTime < dashSpeed);
 		}
 	}
-	public bool IsAlive
-	{
-        get
-        {
+
+	public bool IsAlive {
+		get {
 			return (health > 0);
-        }
+		}
 	}
 
 	public bool IsAiming {
@@ -56,9 +54,12 @@ public class PlayerController : MonoBehaviour {
 		}
 	}
 
+	private void Start ( ) {
+		UpdateDisplay(healthText, "Player Health: " + health);
+	}
+
 	private void Update ( ) {
-		if (IsAlive)
-        {
+		if (IsAlive) {
 			// If the player is dashing
 			// ... update the position based on the dash
 			if (IsDashing) {
@@ -73,10 +74,8 @@ public class PlayerController : MonoBehaviour {
 			// Move the aiming object
 			aimObject.localPosition = Aim;
 			aimObject.rotation = Quaternion.Euler(0, 0, aimAngle);
-        }
-		else
-		{
-			Destroy(gameObject, 2);
+		} else {
+			Destroy(gameObject);
 		}
 	}
 
@@ -90,6 +89,8 @@ public class PlayerController : MonoBehaviour {
 	public void TakeDamage (int damage) {
 		// TO DO: Implement this later
 		health -= damage;
+
+		UpdateDisplay(healthText, "Player Health: " + health);
 	}
 
 	public void OnMove (InputValue value) {
@@ -117,7 +118,8 @@ public class PlayerController : MonoBehaviour {
 	public void OnShoot (InputValue value) {
 		// If the player is dashing, prevent them from shooting
 		// If the player is not aiming, then do not try to shoot in a certain direction
-		if (IsDashing || !IsAiming) {
+		// If the player is deflecting, prevent them from shooting
+		if (IsDashing || !IsAiming || IsDeflecting) {
 			return;
 		}
 
@@ -127,7 +129,8 @@ public class PlayerController : MonoBehaviour {
 	public void OnDash (InputValue value) {
 		// If the player is dashing, prevent them from dashing again as they are dashing
 		// If the player is not moving, then do not try to dash in a certain direction
-		if (IsDashing || !IsMoving) {
+		// If the player is deflecting, prevent them from breaking out of it with a dash
+		if (IsDashing || !IsMoving || IsDeflecting) {
 			return;
 		}
 
@@ -136,7 +139,7 @@ public class PlayerController : MonoBehaviour {
 
 		// Send out a raycast in the direction of the dash to see if the player is going to hit something during the dash
 		// The list is ordered from closest objects to furthest objects
-		RaycastHit2D[] hits2D = Physics2D.RaycastAll(transform.position, Movement, dashDistance);
+		RaycastHit2D[ ] hits2D = Physics2D.RaycastAll(transform.position, Movement, dashDistance);
 
 		// If the player hits something
 		// ... make the dash distance meet the object the player hit
@@ -149,7 +152,7 @@ public class PlayerController : MonoBehaviour {
 			// The dash distance is now the distance between the position of the player and the point that the RaycastHit hit
 			// Also subtract 1f to place the player a little bit away from the object hit by the dash
 			newDashDistance = Vector2.Distance(transform.position, hits2D[i].point) - 1f;
-			
+
 			// Don't need to check the other hits because the closest thing was already found
 			break;
 		}
@@ -170,6 +173,15 @@ public class PlayerController : MonoBehaviour {
 			return;
 		}
 
-		Debug.Log("Deflect");
+		// TO DO: Maybe have the player move really slow while deflecting?
+		//			Does deflecting act more like a shield or one time action like shooting?
+		
+		IsDeflecting = (value.Get<float>( ) > 0);
+
+		Debug.Log(IsDeflecting ? "...Player is deflecting..." : "...Player is no longer deflecting...");
+	}
+
+	private void UpdateDisplay (Text displayText, string text) {
+		displayText.text = text;
 	}
 }
