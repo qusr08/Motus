@@ -70,8 +70,6 @@ public class PlayerController : MonoBehaviour {
 				dashTime += Time.deltaTime;
 			}
 
-		
-
 			// Move the aiming object
 			aimObject.localPosition = Aim;
 			aimObject.rotation = Quaternion.Euler(0, 0, aimAngle);
@@ -84,7 +82,7 @@ public class PlayerController : MonoBehaviour {
 
 	private void FixedUpdate ( ) {
 		// Move the player
-		rigidbody2D.velocity = moveSpeed * Time.deltaTime * Movement;
+		rigidbody2D.velocity = moveSpeed * Time.fixedDeltaTime * Movement;
 	}
 
 	// Have the player lose health

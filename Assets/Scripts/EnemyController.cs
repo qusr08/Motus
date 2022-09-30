@@ -10,163 +10,167 @@ using UnityEngine;
 
 public class EnemyController : MonoBehaviour {
 	[SerializeField] private GameObject bulletPrefab;
-	[SerializeField] private Transform target;
+	[SerializeField] private new Rigidbody2D rigidbody2D;
+	[SerializeField] private Transform player;
+	[Space]
+	[SerializeField] private float moveSpeed;
 	[SerializeField] private float shootTime;
 	[SerializeField] private int health;
+	[Space]
+	[SerializeField] public Vector2 Movement;
 
-    protected Vector3 acceleration = Vector3.zero;
-    protected Vector3 velocity = Vector3.forward;
-    protected Vector3 desiredVelocity = Vector3.zero;
-    protected Vector3 steeringForce = Vector3.zero;
-    protected Vector3 UltimateForce = Vector3.zero;
+	/*
+	protected Vector2 acceleration = Vector2.zero;
+	protected Vector2 velocity = Vector2.zero;
+	protected Vector2 desiredVelocity = Vector2.zero;
+	protected Vector2 steeringForce = Vector2.zero;
+	protected Vector2 ultimateForce = Vector2.zero;
+	*/
 
-    protected float maxSpeed = 0.01f;
-    protected float maxForce = 0.15f;
-    protected float mass = 1.0f;
+	private float timer;
 
-    protected float futureTime = 1f;
-
-    private float timer;
-
-	private bool IsAlive
-    {
-        get
-        {
+	private bool IsAlive {
+		get {
 			return (health > 0);
-        }
-    }
+		}
+	}
+
+	private void OnValidate ( ) {
+		player = FindObjectOfType<PlayerController>( ).transform;
+	}
 
 	private void Start ( ) {
+		OnValidate( );
+
 		timer = shootTime;
 	}
 
 	private void Update ( ) {
-		if (IsAlive)
-        {
-			if (target != null) {
-				// transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(transform.position.y - target.position.y, transform.position.x - target.position.y) + 90f);
-
+		// While the enemy is alive
+		if (IsAlive) {
+			// While the player is not equal to null
+			if (player != null) {
+				// After a certain amount of time, shoot a bullet
 				timer -= Time.deltaTime;
 				if (timer <= 0) {
-                    rngBullShit();
+					rngBullShit( );
 					timer = shootTime;
 				}
 
-                UltimateForce += Seek(target.position);
+				// Update the movement direction for the enemy
+				Movement = (player.position - transform.position).normalized;
 			}
-            else
-            {
-                UltimateForce += Wander(futureTime, 3);
-            }
+		} else {
+			Destroy(gameObject);
+		}
+	}
 
-            ApplyForce(UltimateForce);
+	private void FixedUpdate ( ) {
+		// Either seek or wander around depending on if the player is not null
+		/*
+		if (player != null) {
+			ultimateForce += Seek(player.position);
+		} else {
+			ultimateForce += Wander(1f, 3f);
+		}
+		*/
 
-            velocity += acceleration * Time.deltaTime;
+		// ApplyForce(ultimateForce);
 
-            velocity = Vector3.ClampMagnitude(velocity, maxSpeed);
+		// Move the enemy
+		// velocity += acceleration * Time.deltaTime;
+		// velocity = Vector3.ClampMagnitude(velocity, moveSpeed);
 
-            transform.position += velocity;
+		rigidbody2D.velocity = moveSpeed * Time.fixedDeltaTime * Movement;
 
-            acceleration = Vector3.zero;
-        }
-        else
-        {
-			Destroy(gameObject, 2);
-        }
+		// acceleration = Vector3.zero;
 	}
 
 	// Have the player lose health
 	// int damage: The amount of health to make the player lose
 	public void TakeDamage (int damage) {
-		// TO DO: Implement this later
 		health -= damage;
-		//introduce a shine() method to show when the enemy takes damage
+
+		// Introduce a shine() method to show when the enemy takes damage
 	}
 
-    //Apply the direction the enemy is going to calculate the acceleration towards that direction
-    public void ApplyForce(Vector3 force)
-    {
-        acceleration += force / mass;
-    }
+	/*
+	// Apply the direction the enemy is going to calculate the acceleration towards that direction
+	public void ApplyForce (Vector2 force) {
+		acceleration += force;
+	}
 
-    //Used to do abstraction for enemies later in the development
-    //public abstract void CalcSteeringForces();
+	// Used to do abstraction for enemies later in the development
+	// public abstract void CalcSteeringForces();
 
-    //Point the enemy towards a target position
-    protected Vector3 Seek(Vector3 targetPos)
-    {
-        //Find the direction for the enemy to point towards
-        desiredVelocity = targetPos - transform.position;
+	// Point the enemy towards a target position
+	protected Vector2 Seek (Vector2 targetPos) {
+		//Find the direction for the enemy to point towards
+		desiredVelocity = targetPos - (Vector2) transform.position;
 
-        //Normalize the vector
-        desiredVelocity = desiredVelocity.normalized * maxSpeed;
+		//Normalize the vector
+		desiredVelocity = desiredVelocity.normalized * moveSpeed;
 
-        //Calculate the vector for the enemy to steer towards
-        steeringForce = desiredVelocity - velocity;
+		//Calculate the vector for the enemy to steer towards
+		steeringForce = desiredVelocity - velocity;
 
-        return steeringForce;
-    }
+		return steeringForce;
+	}
+		// Run away from the target position
+		public Vector2 Flee (Vector2 targetPos) {
+			desiredVelocity = -Seek(targetPos);
 
-    //Run away from the target position
-    public Vector3 Flee(Vector3 targetPos)
-    {
-        desiredVelocity = Seek(targetPos);
+			desiredVelocity *= -1;
 
-        desiredVelocity *= -1;
+			return desiredVelocity;
+		}
 
-        return desiredVelocity;
-    }
+		// Used to calculate the future position of the enemy
+		public Vector2 CalculateFuturePosition (float futureTime) {
+			return (Vector2) transform.position + (velocity * futureTime);
+		}
 
-    //Used to calculate the future position of the enemy
-    public Vector3 CalculateFuturePosition(float futureTime)
-    {
-        Vector3 futurePosition = transform.position + velocity * futureTime;
+		// Wander around the arena to simulate enemy movement
+		public Vector2 Wander (float futuretime, float radius) {
+			// Calculate the future position of the enemy
+			Vector2 futurePos = CalculateFuturePosition(futuretime);
 
-        return futurePosition;
-    }
+			// Go in a random angle in a radius from the calculated position
+			float angle = Random.Range(0, 360);
+			float x = Mathf.Cos(angle * Mathf.Deg2Rad) * radius + futurePos.x;
+			float y = Mathf.Sin(angle * Mathf.Deg2Rad) * radius + futurePos.y;
 
-    //Wander around the arena to simulate enemy movement
-    public Vector3 Wander(float futuretime, float radius)
-    {
-        //Calculate the future position of the enemy
-        Vector3 futurePos = CalculateFuturePosition(futuretime);
-
-        //Go in a random angle in a radius from the calculated position
-        float angle = Random.Range(0, 360);
-        float x = Mathf.Cos(angle * Mathf.Deg2Rad) * radius + futurePos.x;
-        float z = Mathf.Sin(angle * Mathf.Deg2Rad) * radius + futurePos.z;
-
-        return (Seek(new Vector3(x, 0, z)));
-    }
+			return (Seek(new Vector2(x, y)));
+		}
+	*/
 
 
-    //Fires multiple bullets at once.
-    public void SpreadFire(int numBullets, float angleSpread)
-    {
-        float targetAngle = Mathf.Atan2(target.position.y - transform.position.y, target.position.x - transform.position.x);
+	//Fires multiple bullets at once.
+	public void SpreadFire (int numBullets, float angleSpread) {
+		float targetAngle = Mathf.Atan2(player.position.y - transform.position.y, player.position.x - transform.position.x);
 
-        for (float i = angleSpread/numBullets/-2f; i <= numBullets; i += angleSpread / numBullets)
-        {
-            Vector2 bulletDirection = new Vector2(Mathf.Cos(i + targetAngle), Mathf.Sin(i + targetAngle));
-            BulletController.SpawnBullet(bulletPrefab, transform.position, bulletDirection, BulletType.ENEMY);
-        }
-    }
+		for (float i = angleSpread / numBullets / -2f; i <= numBullets; i += angleSpread / numBullets) {
+			Vector2 bulletDirection = new Vector2(Mathf.Cos(i + targetAngle), Mathf.Sin(i + targetAngle));
+			BulletController.SpawnBullet(bulletPrefab, transform.position, bulletDirection, BulletType.ENEMY);
+		}
+	}
 
-    public void rngBullShit()
-    {
-         BulletController.SpawnBullet(bulletPrefab, transform.position, (target.position - transform.position).normalized, BulletController.Pick());
-    }
+	public void rngBullShit ( ) {
+		BulletController.SpawnBullet(bulletPrefab, transform.position, (player.position - transform.position).normalized, BulletController.Pick( ));
+	}
 }
+
+
 
 // Bullet pattern planning (PROLLY WILL CHANGE)
 
 // BulletPattern
- 
+
 //      {BulletType, Angle, Delay}
-        //pattern.Add(BulletType.DASHABLE, 0f, shootTime); Laser
-        //pattern.Add(BulletType.???, Current Bullet Angle + 60f, shootTime); 6-way Bullets
-        //pattern.Add(BulletType.???, 0f, shootTime); Potential Boomerang
-        //
+//pattern.Add(BulletType.DASHABLE, 0f, shootTime); Laser
+//pattern.Add(BulletType.???, Current Bullet Angle + 60f, shootTime); 6-way Bullets
+//pattern.Add(BulletType.???, 0f, shootTime); Potential Boomerang
+//
 //pattern.Add(BulletType.DASHABLE, 0f, shootTime); Laser
 //pattern.Add(BulletType.???, Current Bullet Angle + 60f, shootTime); 6-way Bullets
 //pattern.Add(BulletType.???, 0f, shootTime); Potential Boomerang
