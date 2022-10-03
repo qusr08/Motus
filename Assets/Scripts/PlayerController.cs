@@ -10,6 +10,7 @@ using UnityEngine.UI;
 
 public class PlayerController : MonoBehaviour {
 	[SerializeField] private Text healthText;
+	[SerializeField] private Text ammoText;
 	[Space]
 	[SerializeField] private Transform aimObject;
 	[SerializeField] private GameObject bulletPrefab;
@@ -19,6 +20,7 @@ public class PlayerController : MonoBehaviour {
 	[SerializeField] private float dashDistance;
 	[SerializeField] private float dashSpeed;
 	[SerializeField] private int health;
+	[SerializeField] private int ammo;
 	[Space]
 	[SerializeField] public Vector2 Aim;
 	[SerializeField] public Vector2 Movement;
@@ -30,6 +32,17 @@ public class PlayerController : MonoBehaviour {
 	private Vector2 toDashPosition;
 	private float dashTime;
 
+	public int AmmoCount
+	{
+		get
+		{
+			return ammo;
+		}
+		set
+		{
+			ammo = value;
+		}
+	}
 	public bool IsDashing {
 		get {
 			return (dashTime < dashSpeed);
@@ -56,7 +69,9 @@ public class PlayerController : MonoBehaviour {
 
 	private void Start ( ) {
 		UpdateDisplay(healthText, "Player Health: " + health);
-	}
+
+        UpdateDisplay(ammoText, "Ammo: " + ammo);
+    }
 
 	private void Update ( ) {
 		if (IsAlive) {
@@ -77,7 +92,8 @@ public class PlayerController : MonoBehaviour {
 		} else {
 			Destroy(gameObject);
 		}
-	}
+        UpdateDisplay(ammoText, "Ammo: " + ammo);
+    }
 
 	private void FixedUpdate ( ) {
 		// Move the player
@@ -119,11 +135,22 @@ public class PlayerController : MonoBehaviour {
 		// If the player is dashing, prevent them from shooting
 		// If the player is not aiming, then do not try to shoot in a certain direction
 		// If the player is deflecting, prevent them from shooting
-		if (IsDashing || !IsAiming || IsDeflecting) {
+        if (IsDashing || !IsAiming || IsDeflecting) {
 			return;
 		}
 
-		BulletController.SpawnBullet(bulletPrefab, transform.position, Aim, BulletType.PLAYER);
+		if (ammo == 0)
+		{
+			return;
+		}
+		else
+		{
+			ammo--;
+		}
+
+        UpdateDisplay(ammoText, "Ammo: " + ammo);
+
+        BulletController.SpawnBullet(bulletPrefab, transform.position, Aim, BulletType.PLAYER);
 	}
 
 	public void OnDash (InputValue value) {
@@ -164,7 +191,9 @@ public class PlayerController : MonoBehaviour {
 		// Reset the dash time
 		// This equation makes sure that even if the player hits something with the dash, the speed of the dash stays the same
 		dashTime = dashSpeed - ((newDashDistance / dashDistance) * dashSpeed);
-	}
+        
+		
+    }
 
 	public void OnDeflect (InputValue value) {
 		// If the player is dashing, prevent them from dashing again as they are dashing

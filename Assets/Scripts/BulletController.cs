@@ -76,6 +76,11 @@ public class BulletController : MonoBehaviour {
 
 				return;
 			}
+
+			if (!hitDashableBullet)
+			{
+				playerController.AmmoCount++;
+			}
 		}
 
 		// If this bullet collides with an enemy ...
