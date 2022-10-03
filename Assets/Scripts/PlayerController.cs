@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 // Editors: Frank Alfano; Steven Feldman
 // Date Created: 9/12/22
-// Date Last Editted: 9/30/22
+// Date Last Editted: 10/03/22
 
 public class PlayerController : MonoBehaviour {
 	[SerializeField] private Text healthText;
@@ -90,7 +90,20 @@ public class PlayerController : MonoBehaviour {
 		// TO DO: Implement this later
 		health -= damage;
 
+		if (health < 0)
+		{
+			health = 0;
+		}
+
 		UpdateDisplay(healthText, "Player Health: " + health);
+	}
+
+	public void SecondWind()
+	{
+		if (health <= 0)
+		{
+			health = 1;
+		}
 	}
 
 	public void OnMove (InputValue value) {

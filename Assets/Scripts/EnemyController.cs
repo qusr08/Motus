@@ -2,14 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Editors: Frank Alfano, Michael Xie, Jacob Braunhut
+// Editors: Frank Alfano, Michael Xie, Jacob Braunhut, Steven Feldman
 // Date Created: 9/16/22
-// Date Last Editted: 9/30/22
+// Date Last Editted: 10/03/22
 
 public class EnemyController : MonoBehaviour {
 	[SerializeField] private GameObject bulletPrefab;
 	[SerializeField] private new Rigidbody2D rigidbody2D;
-	[SerializeField] private Transform player;
+	[SerializeField] private PlayerController playerObject;
+	[SerializeField] private Transform playerPos;
 	[Space]
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float shootTime;
@@ -31,7 +32,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	private void OnValidate ( ) {
-		player = FindObjectOfType<PlayerController>( ).transform;
+		playerPos = FindObjectOfType<PlayerController>( ).transform;
 	}
 
 	private void Start ( ) {
@@ -44,7 +45,7 @@ public class EnemyController : MonoBehaviour {
 		// While the enemy is alive
 		if (IsAlive) {
 			// While the player is not equal to null
-			if (player != null) {
+			if (playerPos != null) {
 				// After a certain amount of time, shoot a bullet
 				timer -= Time.deltaTime;
 				if (timer <= 0) {
@@ -54,14 +55,15 @@ public class EnemyController : MonoBehaviour {
 				}
 			}
 		} else {
+			playerObject.SecondWind();
 			Destroy(gameObject);
 		}
 	}
 
 	private void FixedUpdate ( ) {
 		// Either seek or wander around depending on if the player is not null
-		if (player != null) {
-			ultimateForce += Seek(player.position);
+		if (playerPos != null) {
+			ultimateForce += Seek(playerPos.position);
 		} else {
 			ultimateForce += Wander(1f, 3f);
 		}
@@ -143,7 +145,7 @@ public class EnemyController : MonoBehaviour {
 		}
 
 		// Calculate the angle to the player
-		float playerAngle = Mathf.Rad2Deg * Mathf.Atan2(player.position.y - transform.position.y, player.position.x - transform.position.x);
+		float playerAngle = Mathf.Rad2Deg * Mathf.Atan2(playerPos.position.y - transform.position.y, playerPos.position.x - transform.position.x);
 		// Calculate the angle gap between the bullets
 		float angleGap = angleSpread / (numBullets - 1);
 		// Calculate the starting angle for the bullet spread
