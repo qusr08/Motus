@@ -15,7 +15,7 @@ public class EnemyController : MonoBehaviour {
 	[SerializeField] private float shootTime;
 	[SerializeField] private int health;
 	[Space]
-	[SerializeField] public Vector2 Movement;
+	[SerializeField] private int range;
 
 	protected Vector2 acceleration = Vector2.zero;
 	protected Vector2 desiredVelocity = Vector2.zero;
@@ -52,9 +52,6 @@ public class EnemyController : MonoBehaviour {
 					// rngBullShit( );
 					timer = shootTime;
 				}
-
-				// Update the movement direction for the enemy
-				Movement = (player.position - transform.position).normalized;
 			}
 		} else {
 			Destroy(gameObject);
@@ -79,12 +76,12 @@ public class EnemyController : MonoBehaviour {
 
 	// Have the player lose health
 	// int damage: The amount of health to make the player lose
-	public void TakeDamage (int damage) {
+	public void TakeDamage(int damage)
+	{
 		health -= damage;
 
 		// Introduce a shine() method to show when the enemy takes damage
 	}
-
 	
 	// Apply the direction the enemy is going to calculate the acceleration towards that direction
 	public void ApplyForce (Vector2 force) {
