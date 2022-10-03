@@ -2,28 +2,26 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Editors: Frank Alfano, Michael Xie, Jacob Braunhut
+// Editors: Frank Alfano, Michael Xie, Jacob Braunhut, Steven Feldman
 // Date Created: 9/16/22
-// Date Last Editted: 9/30/22
+// Date Last Editted: 10/03/22
 
 public class EnemyController : MonoBehaviour {
 	[SerializeField] private GameObject bulletPrefab;
 	[SerializeField] private new Rigidbody2D rigidbody2D;
-	[SerializeField] private Transform player;
+	[SerializeField] private PlayerController playerObject;
+	[SerializeField] private Transform playerPos;
 	[Space]
 	[SerializeField] private float moveSpeed;
 	[SerializeField] private float shootTime;
 	[SerializeField] private int health;
 	[Space]
-	[SerializeField] public Vector2 Movement;
+	[SerializeField] private int range;
 
-	/*
 	protected Vector2 acceleration = Vector2.zero;
-	protected Vector2 velocity = Vector2.zero;
 	protected Vector2 desiredVelocity = Vector2.zero;
 	protected Vector2 steeringForce = Vector2.zero;
 	protected Vector2 ultimateForce = Vector2.zero;
-	*/
 
 	private float timer;
 
@@ -34,7 +32,7 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	private void OnValidate ( ) {
-		player = FindObjectOfType<PlayerController>( ).transform;
+		playerPos = FindObjectOfType<PlayerController>( ).transform;
 	}
 
 	private void Start ( ) {
@@ -47,7 +45,7 @@ public class EnemyController : MonoBehaviour {
 		// While the enemy is alive
 		if (IsAlive) {
 			// While the player is not equal to null
-			if (player != null) {
+			if (playerPos != null) {
 				// After a certain amount of time, shoot a bullet
 				timer -= Time.deltaTime;
 				if (timer <= 0) {
@@ -55,45 +53,38 @@ public class EnemyController : MonoBehaviour {
 					// rngBullShit( );
 					timer = shootTime;
 				}
-
-				// Update the movement direction for the enemy
-				Movement = (player.position - transform.position).normalized;
 			}
 		} else {
+			playerObject.SecondWind();
 			Destroy(gameObject);
 		}
 	}
 
 	private void FixedUpdate ( ) {
 		// Either seek or wander around depending on if the player is not null
-		/*
-		if (player != null) {
-			ultimateForce += Seek(player.position);
+		if (playerPos != null) {
+			ultimateForce += Seek(playerPos.position);
 		} else {
 			ultimateForce += Wander(1f, 3f);
 		}
-		*/
+		
+		ApplyForce(ultimateForce);
 
-		// ApplyForce(ultimateForce);
+		rigidbody2D.velocity += Time.fixedDeltaTime * acceleration;
+		rigidbody2D.velocity = Vector2.ClampMagnitude(rigidbody2D.velocity, moveSpeed);
 
-		// Move the enemy
-		// velocity += acceleration * Time.deltaTime;
-		// velocity = Vector3.ClampMagnitude(velocity, moveSpeed);
-
-		rigidbody2D.velocity = moveSpeed * Time.fixedDeltaTime * Movement;
-
-		// acceleration = Vector3.zero;
+		acceleration = Vector2.zero;
 	}
 
 	// Have the player lose health
 	// int damage: The amount of health to make the player lose
-	public void TakeDamage (int damage) {
+	public void TakeDamage(int damage)
+	{
 		health -= damage;
 
 		// Introduce a shine() method to show when the enemy takes damage
 	}
-
-	/*
+	
 	// Apply the direction the enemy is going to calculate the acceleration towards that direction
 	public void ApplyForce (Vector2 force) {
 		acceleration += force;
@@ -105,45 +96,44 @@ public class EnemyController : MonoBehaviour {
 	// Point the enemy towards a target position
 	protected Vector2 Seek (Vector2 targetPos) {
 		//Find the direction for the enemy to point towards
-		desiredVelocity = targetPos - (Vector2) transform.position;
+		desiredVelocity = targetPos - (Vector2)transform.position;
 
 		//Normalize the vector
 		desiredVelocity = desiredVelocity.normalized * moveSpeed;
 
 		//Calculate the vector for the enemy to steer towards
-		steeringForce = desiredVelocity - velocity;
+		steeringForce = desiredVelocity - rigidbody2D.velocity;
 
 		return steeringForce;
 	}
-		// Run away from the target position
-		public Vector2 Flee (Vector2 targetPos) {
-			desiredVelocity = -Seek(targetPos);
 
-			desiredVelocity *= -1;
+	// Run away from the target position
+	public Vector2 Flee (Vector2 targetPos) {
+		desiredVelocity = -Seek(targetPos);
 
-			return desiredVelocity;
-		}
+		desiredVelocity *= -1;
 
-		// Used to calculate the future position of the enemy
-		public Vector2 CalculateFuturePosition (float futureTime) {
-			return (Vector2) transform.position + (velocity * futureTime);
-		}
+		return desiredVelocity;
+	}
 
-		// Wander around the arena to simulate enemy movement
-		public Vector2 Wander (float futuretime, float radius) {
-			// Calculate the future position of the enemy
-			Vector2 futurePos = CalculateFuturePosition(futuretime);
+	// Used to calculate the future position of the enemy
+	public Vector2 CalculateFuturePosition (float futureTime) {
+		return (Vector2) transform.position + (rigidbody2D.velocity * futureTime);
+	}
 
-			// Go in a random angle in a radius from the calculated position
-			float angle = Random.Range(0, 360);
-			float x = Mathf.Cos(angle * Mathf.Deg2Rad) * radius + futurePos.x;
-			float y = Mathf.Sin(angle * Mathf.Deg2Rad) * radius + futurePos.y;
+	// Wander around the arena to simulate enemy movement
+	public Vector2 Wander (float futuretime, float radius) {
+		// Calculate the future position of the enemy
+		Vector2 futurePos = CalculateFuturePosition(futuretime);
 
-			return (Seek(new Vector2(x, y)));
-		}
-	*/
+		// Go in a random angle in a radius from the calculated position
+		float angle = Random.Range(0, 360);
+		float x = Mathf.Cos(angle * Mathf.Deg2Rad) * radius + futurePos.x;
+		float y = Mathf.Sin(angle * Mathf.Deg2Rad) * radius + futurePos.y;
 
-
+		return (Seek(new Vector2(x, y)));
+	}
+	
 	// Fires multiple bullets at once
 	// int numBullets: The number of bullets to fire
 	// float angleSpread: The cone that all the bullets will be encompassed in when firing
@@ -155,7 +145,7 @@ public class EnemyController : MonoBehaviour {
 		}
 
 		// Calculate the angle to the player
-		float playerAngle = Mathf.Rad2Deg * Mathf.Atan2(player.position.y - transform.position.y, player.position.x - transform.position.x);
+		float playerAngle = Mathf.Rad2Deg * Mathf.Atan2(playerPos.position.y - transform.position.y, playerPos.position.x - transform.position.x);
 		// Calculate the angle gap between the bullets
 		float angleGap = angleSpread / (numBullets - 1);
 		// Calculate the starting angle for the bullet spread
