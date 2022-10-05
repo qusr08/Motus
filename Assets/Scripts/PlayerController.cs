@@ -127,9 +127,12 @@ public class PlayerController : MonoBehaviour {
 		{
 			health = 1;
 		}
-	}
 
-	public void OnMove (InputValue value) {
+        UpdateDisplay(healthText, "Player Health: " + health);
+
+    }
+
+    public void OnMove (InputValue value) {
 		// If the player is dashing, prevent them from moving
 		if (IsDashing) {
 			return;
