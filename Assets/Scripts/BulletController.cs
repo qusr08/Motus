@@ -77,6 +77,7 @@ public class BulletController : MonoBehaviour {
 				return;
 			}
 
+			//reloads gun when dashing into the bullet
 			if (bulletType == BulletType.DASHABLE && playerController.IsDashing)
 			{
 				playerController.AmmoCount++;
