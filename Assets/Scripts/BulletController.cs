@@ -77,7 +77,7 @@ public class BulletController : MonoBehaviour {
 				return;
 			}
 
-			if (!hitDashableBullet)
+			if (bulletType == BulletType.DASHABLE && playerController.IsDashing)
 			{
 				playerController.AmmoCount++;
 			}
