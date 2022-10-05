@@ -74,24 +74,31 @@ public class PlayerController : MonoBehaviour {
     }
 
 	private void Update ( ) {
-		if (IsAlive) {
-			// If the player is dashing
-			// ... update the position based on the dash
-			if (IsDashing) {
-				// Lerp between the last position of the player and the new dash position
-				// 'dashTime' is the time the player has taken as it travels between the two points
-				// Dividing 'dashTime' by 'dashSpeed' will get a value between 0 and 1 which is used to linearly interpolate between the two points
-				transform.position = Vector2.Lerp(fromDashPosition, toDashPosition, dashTime / dashSpeed);
-				// Increment the 'dashTime' by the time that has passed
-				dashTime += Time.deltaTime;
-			}
+		if (!IsAlive) {
+			CallAfterDelay.Create(3.0f, () =>
+			{
+				if (health <= 0)
+				{
+					Destroy(gameObject);
+				}
+			});
+        }
 
-			// Move the aiming object
-			aimObject.localPosition = Aim;
-			aimObject.rotation = Quaternion.Euler(0, 0, aimAngle);
-		} else {
-			Destroy(gameObject);
+        // If the player is dashing
+        // ... update the position based on the dash
+        if (IsDashing) {
+			// Lerp between the last position of the player and the new dash position
+			// 'dashTime' is the time the player has taken as it travels between the two points
+			// Dividing 'dashTime' by 'dashSpeed' will get a value between 0 and 1 which is used to linearly interpolate between the two points
+			transform.position = Vector2.Lerp(fromDashPosition, toDashPosition, dashTime / dashSpeed);
+			// Increment the 'dashTime' by the time that has passed
+			dashTime += Time.deltaTime;
 		}
+
+		// Move the aiming object
+		aimObject.localPosition = Aim;
+		aimObject.rotation = Quaternion.Euler(0, 0, aimAngle);
+
         UpdateDisplay(ammoText, "Ammo: " + ammo);
     }
 
