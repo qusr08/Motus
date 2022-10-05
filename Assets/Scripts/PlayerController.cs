@@ -4,89 +4,49 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-// Editors: Frank Alfano; Steven Feldman
-// Date Created: 9/12/22
-// Date Last Editted: 10/03/22
+// Editors:				Frank Alfano, Steven Feldman
+// Date Created:		09/12/22
+// Date Last Editted:	10/05/22
 
-public class PlayerController : MonoBehaviour {
-	[SerializeField] private Text healthText;
-	[SerializeField] private Text ammoText;
+public class PlayerController : Entity {
 	[Space]
 	[SerializeField] private Transform aimObject;
-	[SerializeField] private GameObject bulletPrefab;
-	[SerializeField] private new Rigidbody2D rigidbody2D;
 	[Space]
-	[SerializeField] private float moveSpeed;
 	[SerializeField] private float dashDistance;
 	[SerializeField] private float dashSpeed;
-	[SerializeField] private int health;
-	[SerializeField] private int ammo;
-	[Space]
-	[SerializeField] public Vector2 Aim;
-	[SerializeField] public Vector2 Movement;
-	[SerializeField] public bool IsDeflecting;
+	[SerializeField] public int CurrentAmmo;
 
-	private float aimAngle;
-
+	/// <summary>
+	/// Whether or not the player is currently dashing.
+	/// </summary>
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
 	private float dashTime;
-
-	public int AmmoCount
-	{
-		get
-		{
-			return ammo;
-		}
-		set
-		{
-			ammo = value;
-		}
-	}
 	public bool IsDashing {
 		get {
 			return (dashTime < dashSpeed);
 		}
 	}
 
-	public bool IsAlive {
-		get {
-			return (health > 0);
-		}
-	}
+	/// <summary>
+	/// Whether or not the player is currently deflecting.
+	/// </summary>
+	public bool IsDeflecting;
 
-	public bool IsAiming {
-		get {
-			return (Aim.magnitude > 0);
-		}
-	}
-
-	public bool IsMoving {
-		get {
-			return (Movement.magnitude > 0);
-		}
-	}
-
-	private void Start ( ) {
-		UpdateDisplay(healthText, "Player Health: " + health);
-
-        UpdateDisplay(ammoText, "Ammo: " + ammo);
-    }
-
+	/// <summary>
+	/// Called as fast as possible while the game is running
+	/// </summary>
 	private void Update ( ) {
+		// If the player is no longer alive
+		// ... destroy the player game object (FOR NOW)
 		if (!IsAlive) {
-			CallAfterDelay.Create(3.0f, () =>
-			{
-				if (health <= 0)
-				{
-					Destroy(gameObject);
-				}
-			});
-        }
+			Destroy(gameObject);
+			return;
+		}
 
-        // If the player is dashing
-        // ... update the position based on the dash
-        if (IsDashing) {
+		// If the player is dashing
+		// ... update the position based on the dash
+		if (IsDashing) {
 			// Lerp between the last position of the player and the new dash position
 			// 'dashTime' is the time the player has taken as it travels between the two points
 			// Dividing 'dashTime' by 'dashSpeed' will get a value between 0 and 1 which is used to linearly interpolate between the two points
@@ -97,42 +57,14 @@ public class PlayerController : MonoBehaviour {
 
 		// Move the aiming object
 		aimObject.localPosition = Aim;
-		aimObject.rotation = Quaternion.Euler(0, 0, aimAngle);
-
-        UpdateDisplay(ammoText, "Ammo: " + ammo);
-    }
-
-	private void FixedUpdate ( ) {
-		// Move the player
-		rigidbody2D.velocity = moveSpeed * Time.fixedDeltaTime * Movement;
+		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees);
 	}
 
-	// Have the player lose health
-	// int damage: The amount of health to make the player lose
-	public void TakeDamage (int damage) {
-		// TO DO: Implement this later
-		health -= damage;
-
-		if (health < 0)
-		{
-			health = 0;
-		}
-
-		UpdateDisplay(healthText, "Player Health: " + health);
-	}
-
-	public void SecondWind()
-	{
-		if (health <= 0)
-		{
-			health = 1;
-		}
-
-        UpdateDisplay(healthText, "Player Health: " + health);
-
-    }
-
-    public void OnMove (InputValue value) {
+	/// <summary>
+	/// Called whenever input is detected that will make the player move.
+	/// </summary>
+	/// <param name="value">The value of the control input.</param>
+	public void OnMove (InputValue value) {
 		// If the player is dashing, prevent them from moving
 		if (IsDashing) {
 			return;
@@ -141,6 +73,10 @@ public class PlayerController : MonoBehaviour {
 		Movement = value.Get<Vector2>( );
 	}
 
+	/// <summary>
+	/// Called whenever input is detected that will make the player aim.
+	/// </summary>
+	/// <param name="value">The value of the control input.</param>
 	public void OnAim (InputValue value) {
 		// If the player is dashing, prevent them from aiming
 		if (IsDashing) {
@@ -151,31 +87,35 @@ public class PlayerController : MonoBehaviour {
 		// Calculate the position and rotation of the aim arrow
 		// The position of the aim arrow is also the direction the player is aiming
 		Aim = value.Get<Vector2>( ).normalized;
-		aimAngle = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x) - 90f;
+		AimAngleDegrees = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x) - 90f;
 	}
 
+	/// <summary>
+	/// Called whenever input is detected that will make the player shoot.
+	/// </summary>
+	/// <param name="value">The value of the control input.</param>
 	public void OnShoot (InputValue value) {
 		// If the player is dashing, prevent them from shooting
 		// If the player is not aiming, then do not try to shoot in a certain direction
 		// If the player is deflecting, prevent them from shooting
-        if (IsDashing || !IsAiming || IsDeflecting) {
+		if (IsDashing || !IsAiming || IsDeflecting) {
 			return;
 		}
 
-		if (ammo == 0)
-		{
+		// If the player has no more ammo left, do not let them shoot
+		if (CurrentAmmo == 0) {
 			return;
 		}
-		else
-		{
-			ammo--;
-		}
 
-        UpdateDisplay(ammoText, "Ammo: " + ammo);
-
-        BulletController.SpawnBullet(bulletPrefab, transform.position, Aim, BulletType.PLAYER);
+		// Spawn a bullet in a certain direction
+		BulletController.SpawnBullet(bulletPrefab, transform.position, Aim, BulletType.PLAYER);
+		CurrentAmmo--;
 	}
 
+	/// <summary>
+	/// Called whenever input is detected that will make the player dash.
+	/// </summary>
+	/// <param name="value">The value of the control input.</param>
 	public void OnDash (InputValue value) {
 		// If the player is dashing, prevent them from dashing again as they are dashing
 		// If the player is not moving, then do not try to dash in a certain direction
@@ -214,10 +154,12 @@ public class PlayerController : MonoBehaviour {
 		// Reset the dash time
 		// This equation makes sure that even if the player hits something with the dash, the speed of the dash stays the same
 		dashTime = dashSpeed - ((newDashDistance / dashDistance) * dashSpeed);
-        
-		
-    }
+	}
 
+	/// <summary>
+	/// Called whenever input is detected that will make the player deflect.
+	/// </summary>
+	/// <param name="value">The value of the control input.</param>
 	public void OnDeflect (InputValue value) {
 		// If the player is dashing, prevent them from dashing again as they are dashing
 		// If the player is not aiming, then do not try to deflect in a certain direction
@@ -227,13 +169,7 @@ public class PlayerController : MonoBehaviour {
 
 		// TO DO: Maybe have the player move really slow while deflecting?
 		//			Does deflecting act more like a shield or one time action like shooting?
-		
+
 		IsDeflecting = (value.Get<float>( ) > 0);
-
-		Debug.Log(IsDeflecting ? "...Player is deflecting..." : "...Player is no longer deflecting...");
-	}
-
-	private void UpdateDisplay (Text displayText, string text) {
-		displayText.text = text;
 	}
 }

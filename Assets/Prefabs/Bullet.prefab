@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8680594460709146430}
   - component: {fileID: 8680594460709146431}
-  - component: {fileID: 46922182821816286}
+  - component: {fileID: 4559458071661233407}
   - component: {fileID: 7694467207399495025}
   - component: {fileID: 8551431547457543915}
   m_Layer: 0
@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 1688034209
   m_SortingLayer: 2
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 2fe56a9991850744ebb11e3409c941f0, type: 3}
+  m_Sprite: {fileID: 8848993070067138329, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -85,8 +85,8 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!61 &46922182821816286
-BoxCollider2D:
+--- !u!58 &4559458071661233407
+CircleCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -99,18 +99,8 @@ BoxCollider2D:
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
-  m_SpriteTilingProperty:
-    border: {x: 0, y: 0, z: 0, w: 0}
-    pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.5, y: 0.5}
-    newSize: {x: 1, y: 1}
-    adaptiveTilingThreshold: 0.5
-    drawMode: 0
-    adaptiveTiling: 0
-  m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.25, y: 0.5}
-  m_EdgeRadius: 0
+  m_Radius: 0.25
 --- !u!50 &7694467207399495025
 Rigidbody2D:
   serializedVersion: 4
@@ -144,7 +134,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7747c38d87b4032479214bf6c18f11b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rigidbody2D: {fileID: 7694467207399495025}
+  bulletSprites:
+  - {fileID: -7243563388056777162, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
+  - {fileID: 5056628667063805970, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
+  - {fileID: 1115682805434658061, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
+  - {fileID: 8848993070067138329, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
+  colorblindBulletSprites:
+  - {fileID: 1663659671258945594, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
+  - {fileID: 6099260101181312286, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
+  - {fileID: -3500076459514152108, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
+  - {fileID: -2014131868727140717, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
+  rigidBody2D: {fileID: 7694467207399495025}
+  spriteRenderer: {fileID: 8680594460709146431}
   bulletSpeed: 500
-  Direction: {x: 0, y: 0}
   bulletType: 0
+  Direction: {x: 0, y: 0}
+  IsInitialized: 0

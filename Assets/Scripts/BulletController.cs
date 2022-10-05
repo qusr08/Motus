@@ -2,35 +2,49 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Editors: Frank Alfano, Jacob Braunhut, Matthew Meyrowitz
-// Date Created: 9/12/22
-// Date Last Editted: 9/30/22
+// Editors:				Frank Alfano, Jacob Braunhut, Matthew Meyrowitz
+// Date Created:		09/12/22
+// Date Last Editted:	10/05/22
 
 public enum BulletType {
-	PLAYER, DEFLECTABLE, DASHABLE, ENEMY, DEFLECTED
+	PLAYER, DEFLECTABLE, DASHABLE, ENEMY
 }
 
 public class BulletController : MonoBehaviour {
-	[SerializeField] private new Rigidbody2D rigidbody2D;
+	[Tooltip("The sprites for each Bullet Type.\n\nThese sprites should line up with the indeces of the BulletType enum.")]
+	[SerializeField]  private Sprite[ ] bulletSprites;
+	[Tooltip("The colorblind sprites for each Bullet Type.\n\nThese sprites should line up with the indeces of the BulletType enum.")]
+	[SerializeField] private Sprite[ ] colorblindBulletSprites;
+	[Space]
+	[SerializeField] private Rigidbody2D rigidBody2D;
+	[SerializeField] private SpriteRenderer spriteRenderer;
 	[Space]
 	[SerializeField] private float bulletSpeed;
-	[SerializeField] private Vector2 direction;
-	[Space]
 	[SerializeField] private BulletType bulletType;
+	[SerializeField] public Vector2 Direction;
+	[SerializeField] public bool IsInitialized;
 
-	public Vector2 Direction {
+	/// <summary>
+	/// The type of this bullet.
+	/// </summary>
+	public BulletType BulletType {
 		set {
-			direction = value;
+			bulletType = value;
 
-			// Have the bullet face the direction it is being shot in
-			transform.rotation = Quaternion.Euler(0, 0, Mathf.Rad2Deg * Mathf.Atan2(direction.y, direction.x) - 90f);
+			// Set the sprite of the bullet based on the type
+			// Since the sprites of the bullets line up with the BulletType enum, it makes this part very simple!
+			spriteRenderer.sprite = bulletSprites[(int) bulletType];
 		}
 
 		get {
-			return direction;
+			return bulletType;
 		}
 	}
 
+	/// <summary>
+	/// Detects when this bullet collides with another object.
+	/// </summary>
+	/// <param name="collision">The object that the bullet collided with.</param>
 	private void OnTriggerEnter2D (Collider2D collision) {
 		GameObject collisionGameObject = collision.gameObject;
 
@@ -48,99 +62,103 @@ public class BulletController : MonoBehaviour {
 
 		// If this bullet collides with the player ...
 		if (playerController != null) {
-			// If the bullet type is not PLAYER or DEFLECTED, then it shouldnt make the player lose health or collide with the player
-			if (bulletType == BulletType.PLAYER || bulletType == BulletType.DEFLECTED) {
+			// If the bullet type is not PLAYER
+			// ... it shouldnt make the player lose health or collide with the player
+			if (BulletType == BulletType.PLAYER) {
 				return;
 			}
 
-			// If the bullet is 
-			bool hitEnemyBullet = (bulletType == BulletType.ENEMY);
+			// If the bullet is from an enemy, then it should harm the player no matter what
+			bool hitEnemyBullet = (BulletType == BulletType.ENEMY);
 			// If the bullet is DASHABLE and the player is not dashing, the player should take damage
-			bool hitDashableBullet = (bulletType == BulletType.DASHABLE && !playerController.IsDashing);
+			bool hitDashableBullet = (BulletType == BulletType.DASHABLE && !playerController.IsDashing);
 			// If the bullet is DEFLECTABLE and the player is not deflecting, the player should take damage
-			bool hitDeflectableBullet = (bulletType == BulletType.DEFLECTABLE && !playerController.IsDeflecting);
+			bool hitDeflectableBullet = (BulletType == BulletType.DEFLECTABLE && !playerController.IsDeflecting);
 
 			// If the bullet hits the player correctly in any way
 			// ... have the player take damage
 			if (hitEnemyBullet || hitDashableBullet || hitDeflectableBullet) {
-				playerController.TakeDamage(1);
-
-				Debug.Log("Player was hit by " + bulletType.ToString( ) + " bullet!");
+				playerController.Damage(1);
 			}
 
 			// If the player is deflecting when colliding with a deflectable bullet
 			// ... have the bullet reverse directions
-			if (bulletType == BulletType.DEFLECTABLE && playerController.IsDeflecting) {
-				bulletType = BulletType.DEFLECTED;
+			if (BulletType == BulletType.DEFLECTABLE && playerController.IsDeflecting) {
+				BulletType = BulletType.PLAYER;
 				Direction *= -1;
 
 				return;
 			}
 
-			//reloads gun when dashing into the bullet
-			if (bulletType == BulletType.DASHABLE && playerController.IsDashing)
-			{
-				playerController.AmmoCount++;
+			// Reloads gun when dashing into the bullet
+			if (BulletType == BulletType.DASHABLE && playerController.IsDashing) {
+				playerController.CurrentAmmo++;
 			}
 		}
 
 		// If this bullet collides with an enemy ...
 		if (enemyController != null) {
-			// If the bullet type is not PLAYER or DEFLECTED
+			// If the bullet type is not PLAYER
 			// ... then an enemy shot the bullet and it should not collide with any other enemies
-			if (bulletType != BulletType.PLAYER && bulletType != BulletType.DEFLECTED) {
+			if (BulletType != BulletType.PLAYER) {
 				return;
 			}
 
 			// If the bullet is PLAYER then have the enemy take damage
-			enemyController.TakeDamage(1);
+			enemyController.Damage(1);
 		}
 
-		// Destroy the bullet
+		// Destroy the bullet if the logic above has allowed it to reach this point
+		// This usually means that it has hit something and/or dealt damage
 		Destroy(gameObject);
 	}
 
+	/// <summary>
+	/// Update variables each time the Unity Editor is refreshed.
+	/// </summary>
+	private void OnValidate ( ) {
+		rigidBody2D = GetComponent<Rigidbody2D>( );
+		spriteRenderer = GetComponent<SpriteRenderer>( );
+	}
+
+	/// <summary>
+	/// Called when this bullet is created.
+	/// </summary>
+	private void Start ( ) {
+		OnValidate( );
+	}
+
+	/// <summary>
+	/// Called at a max of 60 frames per second.
+	/// </summary>
 	private void FixedUpdate ( ) {
-		// If the direction of the bullet has not been set, then do not update the position or decrease the lifetime
-		// Each time a bullet is instantiated this direction needs to be set
-		if (Direction.magnitude == 0) {
+		// If the bullet has not been initialized
+		// ... do not move it
+		if (!IsInitialized) {
 			return;
 		}
 
 		// Move the position of the bullet
-		rigidbody2D.velocity = bulletSpeed * Time.deltaTime * Direction;
+		rigidBody2D.velocity = bulletSpeed * Time.deltaTime * Direction;
 	}
 
-	// Spawn a bullet that moves in a direction from a starting point
-	// GameObject bulletPrefab: The bullet game object
-	// Vector2 position: The starting position for the bullet
-	// Vector2 direction: The direction for the bullet to move
-	// BulletType bulletType: The type of the bullet (see BulletType enum)
+	/// <summary>
+	/// Spawn a bullet that moves in a certain direction from a starting point.
+	/// </summary>
+	/// <param name="bulletPrefab">The bullet prefab Unity object.</param>
+	/// <param name="position">The position to start the bullet from.</param>
+	/// <param name="direction">The direction the bullet should travel.</param>
+	/// <param name="bulletType">The type of bullet to shoot.</param>
 	public static void SpawnBullet (GameObject bulletPrefab, Vector2 position, Vector2 direction, BulletType bulletType) {
 		// Spawn a bullet at the location of the player
 		BulletController bullet = Instantiate(bulletPrefab, position, Quaternion.identity).GetComponent<BulletController>( );
+
 		// Set the direction of the bullet to the direction the player is currently aiming
 		bullet.Direction = direction;
-		bullet.bulletType = bulletType;
+		bullet.BulletType = bulletType;
 
-		// Set the color of the bullet depending on the type
-		if (bulletType == BulletType.DASHABLE) {
-			bullet.GetComponent<Renderer>( ).material.color = Color.blue;
-		} else if (bulletType == BulletType.DEFLECTABLE || bulletType == BulletType.DEFLECTED) {
-			bullet.GetComponent<Renderer>( ).material.color = Color.green;
-		} else if (bulletType == BulletType.ENEMY) {
-			bullet.GetComponent<Renderer>( ).material.color = Color.red;
-		} else if (bulletType == BulletType.PLAYER) {
-			bullet.GetComponent<Renderer>( ).material.color = Color.white;
-		}
+		// Since all of the variables of the bullet have been set, it can be initialized
+		// This flag means that the bullet can now function properly
+		bullet.IsInitialized = true;
 	}
-
-	// Picks out a random bullet
-	/*
-	public static BulletType Pick ( ) {
-		BulletType pickedType = (BulletType) Random.Range(1, 4);
-
-		return pickedType;
-	}
-	*/
 }

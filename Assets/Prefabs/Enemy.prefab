@@ -98,12 +98,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 8680594460709146428, guid: dc6c4837afc9e7d4687560250f353278, type: 3}
-  rigidbody2D: {fileID: 3189487400666286937}
-  player: {fileID: 0}
-  moveSpeed: 2
-  shootTime: 2
-  health: 10
+  rigidBody2D: {fileID: 3189487400666286937}
+  spriteRenderer: {fileID: 3189487400666286938}
+  MaxHealth: 5
+  MoveSpeed: 100
+  CurrentHealth: 5
+  Aim: {x: 0, y: 0}
+  AimAngleDegrees: 0
   Movement: {x: 0, y: 0}
+  playerController: {fileID: 0}
+  shootTime: 2
+  shootTimer: 0
+  range: 0
 --- !u!61 &3189487400666286934
 BoxCollider2D:
   m_ObjectHideFlags: 0
