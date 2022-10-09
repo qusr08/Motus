@@ -6,15 +6,16 @@ using UnityEngine.UI;
 
 // Editors:				Frank Alfano, Steven Feldman
 // Date Created:		09/12/22
-// Date Last Editted:	10/05/22
+// Date Last Editted:	10/08/22
 
 public class PlayerController : Entity {
 	[Space]
 	[SerializeField] private Transform aimObject;
 	[Space]
-	[SerializeField] private float dashDistance;
-	[SerializeField] private float dashSpeed;
-	[SerializeField] public int CurrentAmmo;
+	[SerializeField] [Min(0f)] private float dashDistance;
+	[SerializeField] [Min(0f)] private float dashSpeed;
+	[SerializeField] [Min(0f)] public int CurrentAmmo;
+	[SerializeField] [Min(0f)] public float BulletSpeed;
 
 	/// <summary>
 	/// Whether or not the player is currently dashing.
@@ -57,7 +58,7 @@ public class PlayerController : Entity {
 
 		// Move the aiming object
 		aimObject.localPosition = Aim;
-		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees);
+		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees - 90f);
 	}
 
 	/// <summary>
@@ -86,8 +87,8 @@ public class PlayerController : Entity {
 		// Aim towards the direction of the controller joystick
 		// Calculate the position and rotation of the aim arrow
 		// The position of the aim arrow is also the direction the player is aiming
-		Aim = value.Get<Vector2>( ).normalized;
-		AimAngleDegrees = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x) - 90f;
+		Aim = value.Get<Vector2>( ).normalized;	
+		AimAngleDegrees = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x);
 	}
 
 	/// <summary>
@@ -108,7 +109,7 @@ public class PlayerController : Entity {
 		}
 
 		// Spawn a bullet in a certain direction
-		BulletController.SpawnBullet(bulletPrefab, transform.position, Aim, BulletType.PLAYER);
+		BulletController.SpawnBullet(bulletPrefab, transform.position, AimAngleDegrees, BulletSpeed, BulletType.PLAYER);
 		CurrentAmmo--;
 	}
 

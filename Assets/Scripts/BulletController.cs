@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano, Jacob Braunhut, Matthew Meyrowitz
 // Date Created:		09/12/22
-// Date Last Editted:	10/05/22
+// Date Last Editted:	10/08/22
 
 public enum BulletType {
 	PLAYER, DEFLECTABLE, DASHABLE, ENEMY
@@ -12,15 +12,15 @@ public enum BulletType {
 
 public class BulletController : MonoBehaviour {
 	[Tooltip("The sprites for each Bullet Type.\n\nThese sprites should line up with the indeces of the BulletType enum.")]
-	[SerializeField]  private Sprite[ ] bulletSprites;
+	[SerializeField] private Sprite[ ] bulletSprites;
 	[Tooltip("The colorblind sprites for each Bullet Type.\n\nThese sprites should line up with the indeces of the BulletType enum.")]
 	[SerializeField] private Sprite[ ] colorblindBulletSprites;
 	[Space]
 	[SerializeField] private Rigidbody2D rigidBody2D;
 	[SerializeField] private SpriteRenderer spriteRenderer;
 	[Space]
-	[SerializeField] private float bulletSpeed;
 	[SerializeField] private BulletType bulletType;
+	[SerializeField] public float BulletSpeed;
 	[SerializeField] public Vector2 Direction;
 	[SerializeField] public bool IsInitialized;
 
@@ -51,17 +51,17 @@ public class BulletController : MonoBehaviour {
 		// Try and get various components off the collision game object
 		// This will tell us what object this bullet collided with
 		// For example, if the collision game object has a PlayerController component, we know that this bullet has collided with the player
-		PlayerController playerController = collisionGameObject.GetComponent<PlayerController>( );
-		BulletController bulletController = collisionGameObject.GetComponent<BulletController>( );
-		EnemyController enemyController = collisionGameObject.GetComponent<EnemyController>( );
+		PlayerController playerCollision = collisionGameObject.GetComponent<PlayerController>( );
+		BulletController bulletCollision = collisionGameObject.GetComponent<BulletController>( );
+		EnemyController enemyCollision = collisionGameObject.GetComponent<EnemyController>( );
 
 		// If this bullet collides with another bullet, have nothing happen
-		if (bulletController != null) {
+		if (bulletCollision != null) {
 			return;
 		}
 
 		// If this bullet collides with the player ...
-		if (playerController != null) {
+		if (playerCollision != null) {
 			// If the bullet type is not PLAYER
 			// ... it shouldnt make the player lose health or collide with the player
 			if (BulletType == BulletType.PLAYER) {
@@ -71,19 +71,19 @@ public class BulletController : MonoBehaviour {
 			// If the bullet is from an enemy, then it should harm the player no matter what
 			bool hitEnemyBullet = (BulletType == BulletType.ENEMY);
 			// If the bullet is DASHABLE and the player is not dashing, the player should take damage
-			bool hitDashableBullet = (BulletType == BulletType.DASHABLE && !playerController.IsDashing);
+			bool hitDashableBullet = (BulletType == BulletType.DASHABLE && !playerCollision.IsDashing);
 			// If the bullet is DEFLECTABLE and the player is not deflecting, the player should take damage
-			bool hitDeflectableBullet = (BulletType == BulletType.DEFLECTABLE && !playerController.IsDeflecting);
+			bool hitDeflectableBullet = (BulletType == BulletType.DEFLECTABLE && !playerCollision.IsDeflecting);
 
 			// If the bullet hits the player correctly in any way
 			// ... have the player take damage
 			if (hitEnemyBullet || hitDashableBullet || hitDeflectableBullet) {
-				playerController.Damage(1);
+				playerCollision.Damage(1);
 			}
 
 			// If the player is deflecting when colliding with a deflectable bullet
 			// ... have the bullet reverse directions
-			if (BulletType == BulletType.DEFLECTABLE && playerController.IsDeflecting) {
+			if (BulletType == BulletType.DEFLECTABLE && playerCollision.IsDeflecting) {
 				BulletType = BulletType.PLAYER;
 				Direction *= -1;
 
@@ -91,13 +91,13 @@ public class BulletController : MonoBehaviour {
 			}
 
 			// Reloads gun when dashing into the bullet
-			if (BulletType == BulletType.DASHABLE && playerController.IsDashing) {
-				playerController.CurrentAmmo++;
+			if (BulletType == BulletType.DASHABLE && playerCollision.IsDashing) {
+				playerCollision.CurrentAmmo++;
 			}
 		}
 
 		// If this bullet collides with an enemy ...
-		if (enemyController != null) {
+		if (enemyCollision != null) {
 			// If the bullet type is not PLAYER
 			// ... then an enemy shot the bullet and it should not collide with any other enemies
 			if (BulletType != BulletType.PLAYER) {
@@ -105,7 +105,7 @@ public class BulletController : MonoBehaviour {
 			}
 
 			// If the bullet is PLAYER then have the enemy take damage
-			enemyController.Damage(1);
+			enemyCollision.Damage(1);
 		}
 
 		// Destroy the bullet if the logic above has allowed it to reach this point
@@ -139,7 +139,7 @@ public class BulletController : MonoBehaviour {
 		}
 
 		// Move the position of the bullet
-		rigidBody2D.velocity = bulletSpeed * Time.deltaTime * Direction;
+		rigidBody2D.velocity = BulletSpeed * Time.deltaTime * Direction;
 	}
 
 	/// <summary>
@@ -147,14 +147,16 @@ public class BulletController : MonoBehaviour {
 	/// </summary>
 	/// <param name="bulletPrefab">The bullet prefab Unity object.</param>
 	/// <param name="position">The position to start the bullet from.</param>
-	/// <param name="direction">The direction the bullet should travel.</param>
+	/// <param name="bulletAngleDegrees">The angle in degrees to shoot the bullet in. Right is 0 degrees (like the unit circle).</param>
+	/// <param name="bulletSpeed">The speed of the bullet.</param>
 	/// <param name="bulletType">The type of bullet to shoot.</param>
-	public static void SpawnBullet (GameObject bulletPrefab, Vector2 position, Vector2 direction, BulletType bulletType) {
+	public static void SpawnBullet (GameObject bulletPrefab, Vector2 position, float bulletAngleDegrees, float bulletSpeed, BulletType bulletType) {
 		// Spawn a bullet at the location of the player
 		BulletController bullet = Instantiate(bulletPrefab, position, Quaternion.identity).GetComponent<BulletController>( );
 
 		// Set the direction of the bullet to the direction the player is currently aiming
-		bullet.Direction = direction;
+		bullet.Direction = new Vector2(Mathf.Cos(bulletAngleDegrees * Mathf.Deg2Rad), Mathf.Sin(bulletAngleDegrees * Mathf.Deg2Rad));
+		bullet.BulletSpeed = bulletSpeed;
 		bullet.BulletType = bulletType;
 
 		// Since all of the variables of the bullet have been set, it can be initialized

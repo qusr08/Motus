@@ -8,9 +8,10 @@ using UnityEngine.UI;
 // Date Last Editted:	10/05/22
 
 public class DebugManager : MonoBehaviour {
-	[SerializeField] private Text debugHealthText;
-	[SerializeField] private Text debugAmmoText;
+	[SerializeField] private Text debugPlayerHealthText;
+	[SerializeField] private Text debugPlayerAmmoText;
 	[SerializeField] private Text debugFPSText;
+	[SerializeField] private Text debugEnemyCountText;
 	[Space]
 	[SerializeField] private PlayerController playerController;
 
@@ -46,7 +47,8 @@ public class DebugManager : MonoBehaviour {
 	/// </summary>
 	private void UpdateDisplay ( ) {
 		debugFPSText.text = $"FPS: {fps}";
-		debugHealthText.text = $"Player Health: {playerController.CurrentHealth}";
-		debugAmmoText.text = $"Player Ammo: {playerController.CurrentAmmo}";
+		debugPlayerHealthText.text = $"Player Health: {playerController.CurrentHealth}";
+		debugPlayerAmmoText.text = $"Player Ammo: {playerController.CurrentAmmo}";
+		debugEnemyCountText.text = $"Enemy Count: {FindObjectsOfType<EnemyController>( ).Length}";
 	}
 }
