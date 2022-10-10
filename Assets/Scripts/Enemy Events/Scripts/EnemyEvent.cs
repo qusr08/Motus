@@ -39,9 +39,8 @@ public abstract class EnemyEvent : ScriptableObject {
 // Enemy Events List:
 
 // Halt movement AI (DONE)
-// Resume movement AI (DONE)
 // Bullet Pattern (DONE)
-// Pursue target
+// Pursue target (DONE)
 // Orbit target
 // Jump away from target
 // Jump towards target

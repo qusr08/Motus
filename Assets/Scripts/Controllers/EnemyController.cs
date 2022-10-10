@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano, Michael Xie, Jacob Braunhut, Steven Feldman
 // Date Created:		09/16/22
-// Date Last Editted:	10/09/22
+// Date Last Editted:	10/10/22
 
 public class EnemyController : EntityController {
 	[Space]
@@ -27,13 +27,15 @@ public class EnemyController : EntityController {
 	private float distanceToPlayer = 0;
 
 	private int playerInSightEventIndex = 0;
-	private int playerInRangeEventIndex = 0;
-	private int regularAttackEventIndex = 0;
-	private int specialAttackEventIndex = 0;
-
 	private bool isRunningPlayerInSightEvent = false;
+
+	private int playerInRangeEventIndex = 0;
 	private bool isRunningPlayerInRangeEvent = false;
+
+	private int regularAttackEventIndex = 0;
 	private bool isRunningRegularAttackEvent = false;
+
+	private int specialAttackEventIndex = 0;
 	private bool isRunningSpecialAttackEvent = false;
 
 	/// <summary>
@@ -69,14 +71,14 @@ public class EnemyController : EntityController {
 		// Range should be for interactions with the player at a close range, and sight should be interactions with the player from a far range.
 		// If the player is within range of the enemy
 		if (distanceToPlayer <= Range) {
-			UpdateEnemyEventList(playerInRange, playerInRangeEventIndex, isRunningPlayerInRangeEvent, out playerInRangeEventIndex, out isRunningPlayerInRangeEvent);
+			UpdateEventList(playerInRange, ref playerInRangeEventIndex, ref isRunningPlayerInRangeEvent);
 			// If the player is within sight of the enemy
 		} else if (distanceToPlayer <= Sight) {
-			UpdateEnemyEventList(playerInSight, playerInSightEventIndex, isRunningPlayerInSightEvent, out playerInSightEventIndex, out isRunningPlayerInSightEvent);
+			UpdateEventList(playerInSight, ref playerInSightEventIndex, ref isRunningPlayerInSightEvent);
 		}
 
-		UpdateEnemyEventList(regularAttack, regularAttackEventIndex, isRunningRegularAttackEvent, out regularAttackEventIndex, out isRunningRegularAttackEvent);
-		UpdateEnemyEventList(specialAttack, specialAttackEventIndex, isRunningSpecialAttackEvent, out specialAttackEventIndex, out isRunningSpecialAttackEvent);
+		UpdateEventList(regularAttack, ref regularAttackEventIndex, ref isRunningRegularAttackEvent);
+		UpdateEventList(specialAttack, ref specialAttackEventIndex, ref isRunningSpecialAttackEvent);
 	}
 
 	/// <summary>
@@ -87,30 +89,25 @@ public class EnemyController : EntityController {
 	/// <param name="isRunningEvent">Whether or not an event from this array is currently being updated.</param>
 	/// <param name="_eventIndex">The output value of the event index after this method finishes.</param>
 	/// <param name="_isRunningEvent">The output value of whether or not an event is currently being run.</param>
-	private void UpdateEnemyEventList (List<EnemyEvent> enemyEvents, int eventIndex, bool isRunningEvent, out int _eventIndex, out bool _isRunningEvent) {
-		// Both the event index and whether or not an event is running are passed in for this particular array
-		// These variables are set like this so different variables can be input and output from the function for different lists of enemy events
-		_eventIndex = eventIndex;
-		_isRunningEvent = isRunningEvent;
-
+	private void UpdateEventList (List<EnemyEvent> enemyEvents, ref int eventIndex, ref bool isRunningEvent) {
 		// If an event is currently running
 		// ... update it
-		if (_isRunningEvent) {
-			enemyEvents[_eventIndex].Execute(gameManager, this, PlayerController);
+		if (isRunningEvent) {
+			enemyEvents[eventIndex].Execute(gameManager, this, PlayerController);
 		}
 
-		while (_eventIndex < enemyEvents.Count) {
-			if (!_isRunningEvent) {
+		while (eventIndex < enemyEvents.Count) {
+			if (!isRunningEvent) {
 				// Start the next enemy event in the attack list
-				enemyEvents[_eventIndex].Initialize(gameManager, this, PlayerController);
-				_isRunningEvent = true;
+				enemyEvents[eventIndex].Initialize(gameManager, this, PlayerController);
+				isRunningEvent = true;
 			}
 
 			// If the attack is already finished (as in it didn't need to update over time)
 			// ... continue to the next event
-			if (enemyEvents[_eventIndex].IsFinished) {
-				_isRunningEvent = false;
-				_eventIndex++;
+			if (enemyEvents[eventIndex].IsFinished) {
+				isRunningEvent = false;
+				eventIndex++;
 			} else {
 				break;
 			}
@@ -118,8 +115,8 @@ public class EnemyController : EntityController {
 
 		// If the last event has been completed
 		// ... reset the index back to the beginning of the list so it can restart the next loop
-		if (_eventIndex == enemyEvents.Count) {
-			_eventIndex = 0;
+		if (eventIndex == enemyEvents.Count) {
+			eventIndex = 0;
 		}
 	}
 

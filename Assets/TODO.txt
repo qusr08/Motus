@@ -1,0 +1,22 @@
+# TO DO LIST
+
+# Coding
+- [ ] Change Entity hitboxes to make a more 3D effect
+- [ ] Enemy event functionality
+- [ ] Different enemy prefabs
+- [ ] Enemy waves
+- [ ] Game loop
+- [ ] Title screen (EXTRA)
+- [ ] Health bar
+- [ ] Health pickups
+
+# Visuals
+- [ ] Trash on ground of arena (EXTRA)
+- [ ] New font (EXTRA)
+- [ ] Lights around arena (?)
+- [ ] Arena walls
+- [ ] Arena crowd sprites (EXTRA)
+- [ ] Character sprite/animation
+- [ ] Enemy spawning animation (EXTRA)
+- [ ] Particle effects (EXTRA)
+- [ ] Add light to bullets (EXTRA)

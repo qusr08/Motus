@@ -15,7 +15,6 @@ public class HaltMovementEnemyEvent : EnemyEvent {
 	}
 
 	public override void Execute (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
-		// Since the bullet pattern should just be spawned in the Initialize() method, if it reaches this part of the code something has gone wrong
 		throw new System.NotImplementedException( );
 	}
 }

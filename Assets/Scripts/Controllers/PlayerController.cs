@@ -17,12 +17,12 @@ public class PlayerController : EntityController {
 	[SerializeField] [Min(0f)] public int CurrentAmmo;
 	[SerializeField] [Min(0f)] public float BulletSpeed;
 
-	/// <summary>
-	/// Whether or not the player is currently dashing.
-	/// </summary>
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
 	private float dashTime;
+	/// <summary>
+	/// Whether or not the player is currently dashing.
+	/// </summary>
 	public bool IsDashing {
 		get {
 			return (dashTime < dashSpeed);
