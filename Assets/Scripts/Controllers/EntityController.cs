@@ -97,24 +97,3 @@ public abstract class EntityController : MonoBehaviour {
 		return CurrentHealth;
 	}
 }
-
-// Enemy class should include:
-//	how regular attack works
-//		bullet pattern(s)
-//		how often pattern(s) are fired
-//		all regular attacks should:
-//			not fire if not not close to the player
-//	how ai works
-//		what point the enemy moves towards
-//		all AIs should:
-//			avoid other enemies
-//	how special attack works
-//		bullet pattern(s)
-//		how often pattern(s) are fired
-//		changes to ai
-//		** this should be like a list of events that activate sequentially instead of regular ai/attacks
-//		all special attacks should:
-//			only fire if in range of the player
-//				a timer should be reset each time it leaves the player range, so that way it doesnt just fire its special all the time without shooting anything else
-
-// each should have a list of events that trigger at certain times

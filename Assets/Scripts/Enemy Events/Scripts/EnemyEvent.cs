@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano
 // Date Created:		10/09/22
-// Date Last Editted:	10/09/22
+// Date Last Editted:	10/10/22
 
 public abstract class EnemyEvent : ScriptableObject {
 	/// <summary>
@@ -21,22 +21,25 @@ public abstract class EnemyEvent : ScriptableObject {
 	/// </summary>
 	/// <param name="gameManager">A reference to the game manager object.</param>
 	/// <param name="enemyController">A reference to the enemy controller that called this event.</param>
-	public abstract void Initialize (GameManager gameManager, EnemyController enemyController);
+	/// <param name="playerController">A reference to the player controller in the scene.</param>
+	public abstract void Initialize (GameManager gameManager, EnemyController enemyController, PlayerController playerController);
 
 	/// <summary>
 	/// Called every loop of Update().
 	/// 
-	/// *** Make sure if this method is used that IsFinished is set to true at the end of it. If IsFinished is not set, the enemy controller will never move onto the next event in the list
+	/// *** Make sure if this method is used that IsFinished is set to true at the end of it.
+	/// *** If IsFinished is not set, the enemy controller will never move onto the next event in the list.
 	/// </summary>
 	/// <param name="gameManager">A reference to the game manager object.</param>
 	/// <param name="enemyController">A reference to the enemy controller that called this event.</param>
-	public abstract void Execute (GameManager gameManager, EnemyController enemyController);
+	/// <param name="playerController">A reference to the player controller in the scene.</param>
+	public abstract void Execute (GameManager gameManager, EnemyController enemyController, PlayerController playerController);
 }
 
 // Enemy Events List:
 
-// Halt movement AI
-// Resume movement AI
+// Halt movement AI (DONE)
+// Resume movement AI (DONE)
 // Bullet Pattern (DONE)
 // Pursue target
 // Orbit target

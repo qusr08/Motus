@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano
 // Date Created:		10/09/22
-// Date Last Editted:	10/09/22
+// Date Last Editted:	10/10/22
 
 [CreateAssetMenu(fileName = "NewDelayEnemyEvent", menuName = "Enemy Events/Delay Enemy Event")]
 public class DelayEnemyEvent : EnemyEvent {
@@ -14,14 +14,14 @@ public class DelayEnemyEvent : EnemyEvent {
 	private float startTime;
 	private float delayTime;
 
-	public override void Initialize (GameManager gameManager, EnemyController enemyController) {
+	public override void Initialize (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		IsFinished = false;
 
 		startTime = Time.time;
 		delayTime = Random.Range(minimumDelayTime, maximumDelayTime);
 	}
 
-	public override void Execute (GameManager gameManager, EnemyController enemyController) {
+	public override void Execute (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		// Wait a specified amount of time before finishing the event
 		if (Time.time - startTime >= delayTime) {
 			IsFinished = true;

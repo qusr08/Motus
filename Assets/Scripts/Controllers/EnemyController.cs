@@ -8,21 +8,23 @@ using UnityEngine;
 
 public class EnemyController : EntityController {
 	[Space]
-	[SerializeField] public PlayerController Player;
+	[SerializeField] public PlayerController PlayerController;
 	[Space]
 	[Tooltip("The range that the player needs to be in to start the enemy events in 'playerInSight'.")]
 	[SerializeField] public float Sight;
 	[Tooltip("The range that the player needs to be in to start the enemy events in 'playerInRange'.")]
 	[SerializeField] public float Range;
 	[Space]
-	[Tooltip("Run these events in order while the player is in sight of this enemy.")]
+	[Tooltip("Run these events in order while the player is in sight of this enemy. Contains events that tell the enemy what to do when the player is far away.")]
 	[SerializeField] private List<EnemyEvent> playerInSight;
-	[Tooltip("Run these events in order while the player is in range of this enemy, or when the enemy gets a certain distance away from the player.")]
+	[Tooltip("Run these events in order while the player is in range of this enemy. Contains events that tell the enemy what to do when the player is close.")]
 	[SerializeField] private List<EnemyEvent> playerInRange;
 	[Tooltip("Run these events in order while the player is in sight or in range of the enemy.")]
 	[SerializeField] private List<EnemyEvent> regularAttack;
 	[Tooltip("Run these events in order after a certain amount of time. Make sure the first element in this array is a delay event with a specified amount of seconds that it should take to start the special attack.")]
 	[SerializeField] private List<EnemyEvent> specialAttack;
+	
+	private float distanceToPlayer = 0;
 
 	private int playerInSightEventIndex = 0;
 	private int playerInRangeEventIndex = 0;
@@ -40,7 +42,7 @@ public class EnemyController : EntityController {
 	private new void OnValidate ( ) {
 		base.OnValidate( );
 
-		Player = FindObjectOfType<PlayerController>( );
+		PlayerController = FindObjectOfType<PlayerController>( );
 	}
 
 	/// <summary>
@@ -55,21 +57,24 @@ public class EnemyController : EntityController {
 			return;
 		}
 
-		// While the player is not equal to null
-		if (Player != null) {
-			// Update the enemy aim direction
-			Aim = (Player.transform.position - transform.position).normalized;
-			AimAngleDegrees = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x);
+		// Update the enemy aim direction
+		// Might change this later? Enemies should usually just aim at the player
+		Aim = (PlayerController.transform.position - transform.position).normalized;
+		AimAngleDegrees = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x);
 
-			/// TODO: REPLACE THIS WITH AI MOVEMENT IN PLAYERINSIGHTT ENEMY EVENT LIST
-			Movement = (Player.transform.position - transform.position).normalized;
-		} else {
-			Movement = Vector2.zero;
-		} 
+		// Get the distance between the player and this enemy
+		distanceToPlayer = (PlayerController.transform.position - transform.position).magnitude;
 
-		// Update all enemy event lists
-		UpdateEnemyEventList(playerInSight, playerInSightEventIndex, isRunningPlayerInSightEvent, out playerInSightEventIndex, out isRunningPlayerInSightEvent);
-		UpdateEnemyEventList(playerInRange, playerInRangeEventIndex, isRunningPlayerInRangeEvent, out playerInRangeEventIndex, out isRunningPlayerInRangeEvent);
+		// The range needs to be checked before sight because the range will always be smaller than sight.
+		// Range should be for interactions with the player at a close range, and sight should be interactions with the player from a far range.
+		// If the player is within range of the enemy
+		if (distanceToPlayer <= Range) {
+			UpdateEnemyEventList(playerInRange, playerInRangeEventIndex, isRunningPlayerInRangeEvent, out playerInRangeEventIndex, out isRunningPlayerInRangeEvent);
+			// If the player is within sight of the enemy
+		} else if (distanceToPlayer <= Sight) {
+			UpdateEnemyEventList(playerInSight, playerInSightEventIndex, isRunningPlayerInSightEvent, out playerInSightEventIndex, out isRunningPlayerInSightEvent);
+		}
+
 		UpdateEnemyEventList(regularAttack, regularAttackEventIndex, isRunningRegularAttackEvent, out regularAttackEventIndex, out isRunningRegularAttackEvent);
 		UpdateEnemyEventList(specialAttack, specialAttackEventIndex, isRunningSpecialAttackEvent, out specialAttackEventIndex, out isRunningSpecialAttackEvent);
 	}
@@ -91,13 +96,13 @@ public class EnemyController : EntityController {
 		// If an event is currently running
 		// ... update it
 		if (_isRunningEvent) {
-			enemyEvents[_eventIndex].Execute(gameManager, this);
+			enemyEvents[_eventIndex].Execute(gameManager, this, PlayerController);
 		}
 
 		while (_eventIndex < enemyEvents.Count) {
 			if (!_isRunningEvent) {
 				// Start the next enemy event in the attack list
-				enemyEvents[_eventIndex].Initialize(gameManager, this);
+				enemyEvents[_eventIndex].Initialize(gameManager, this, PlayerController);
 				_isRunningEvent = true;
 			}
 
@@ -116,5 +121,13 @@ public class EnemyController : EntityController {
 		if (_eventIndex == enemyEvents.Count) {
 			_eventIndex = 0;
 		}
+	}
+
+	/// <summary>
+	/// Move the enemy towards a position.
+	/// </summary>
+	/// <param name="position">The position to move towards.</param>
+	public void MoveTowardsPosition (Vector2 position) {
+		Movement = (position - (Vector2) transform.position).normalized;
 	}
 }
