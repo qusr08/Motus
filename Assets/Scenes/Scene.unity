@@ -203,6 +203,51 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 393362423}
   m_CullTransparentMesh: 1
+--- !u!1 &461664530
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 461664532}
+  - component: {fileID: 461664531}
+  m_Layer: 0
+  m_Name: Game Manager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &461664531
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461664530}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ac9ba0461e96dd4cb1ea87ec70becec, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bulletPrefab: {fileID: 8680594460709146428, guid: dc6c4837afc9e7d4687560250f353278, type: 3}
+--- !u!4 &461664532
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 461664530}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &519420028
 GameObject:
   m_ObjectHideFlags: 0
@@ -22165,9 +22210,29 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2131832805}
     - target: {fileID: 3189487400666286936, guid: 9a63ddaef2cdbd048abbfb8d1e81d962, type: 3}
+      propertyPath: regularAttack.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 3189487400666286936, guid: 9a63ddaef2cdbd048abbfb8d1e81d962, type: 3}
       propertyPath: bulletPatterns.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3189487400666286936, guid: 9a63ddaef2cdbd048abbfb8d1e81d962, type: 3}
+      propertyPath: regularAttack.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: a08c38b69b0bc024fba52cb8aae08dd0, type: 2}
+    - target: {fileID: 3189487400666286936, guid: 9a63ddaef2cdbd048abbfb8d1e81d962, type: 3}
+      propertyPath: regularAttack.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: bca5bd3fd68c96548a3e170457ba3268, type: 2}
+    - target: {fileID: 3189487400666286936, guid: 9a63ddaef2cdbd048abbfb8d1e81d962, type: 3}
+      propertyPath: regularAttack.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 9a4f09fb46a34674fae7380bd279c97a, type: 2}
+    - target: {fileID: 3189487400666286936, guid: 9a63ddaef2cdbd048abbfb8d1e81d962, type: 3}
+      propertyPath: regularAttack.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: bca5bd3fd68c96548a3e170457ba3268, type: 2}
     - target: {fileID: 3189487400666286936, guid: 9a63ddaef2cdbd048abbfb8d1e81d962, type: 3}
       propertyPath: bulletPatterns.Array.data[0]
       value: 

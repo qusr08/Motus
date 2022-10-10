@@ -9,7 +9,7 @@ using UnityEngine;
 public class CameraController : MonoBehaviour {
 	[SerializeField] private PlayerController playerController;
 	[Space]
-	// How smooth the camera moves towards the target object
+	[Tooltip("How smooth the camera moves towards the target transform.")]
 	[SerializeField] [Range(0f, 1f)] private float smoothness;
 	[SerializeField] [Min(0f)] private float aimDistance;
 
@@ -31,9 +31,12 @@ public class CameraController : MonoBehaviour {
 		}
 	}
 
-	// Set the position of the camera object without changing the Z value
-	// The camera needs to stay some distance away from the target in order for it to be in view of the camera
-	// Vector2 position: The position to set
+	/// <summary>
+	/// Set the position of the camera object without changing the Z value.
+	/// 
+	/// The camera needs to be a certain distance away from the sprites in 3-dimensional space in order for them to be visible.
+	/// </summary>
+	/// <param name="position">The position to set the camera to.</param>
 	private void SetXYPosition (Vector2 position) {
 		transform.position = new Vector3(position.x, position.y, transform.position.z);
 	}

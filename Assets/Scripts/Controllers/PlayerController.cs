@@ -6,9 +6,9 @@ using UnityEngine.UI;
 
 // Editors:				Frank Alfano, Steven Feldman
 // Date Created:		09/12/22
-// Date Last Editted:	10/08/22
+// Date Last Editted:	10/09/22
 
-public class PlayerController : Entity {
+public class PlayerController : EntityController {
 	[Space]
 	[SerializeField] private Transform aimObject;
 	[Space]
@@ -109,7 +109,7 @@ public class PlayerController : Entity {
 		}
 
 		// Spawn a bullet in a certain direction
-		BulletController.SpawnBullet(bulletPrefab, transform.position, AimAngleDegrees, BulletSpeed, BulletType.PLAYER);
+		gameManager.SpawnBullet(transform.position, AimAngleDegrees, BulletSpeed, BulletType.PLAYER);
 		CurrentAmmo--;
 	}
 

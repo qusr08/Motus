@@ -4,19 +4,20 @@ using UnityEngine;
 
 // Editors:				Frank Alfano
 // Date Created:		10/05/22
-// Date Last Editted:	10/05/22
+// Date Last Editted:	10/09/22
 
-public abstract class Entity : MonoBehaviour {
-	[SerializeField] protected GameObject bulletPrefab;
+public abstract class EntityController : MonoBehaviour {
+	[SerializeField] protected GameManager gameManager;
 	[SerializeField] protected Rigidbody2D rigidBody2D;
 	[SerializeField] protected SpriteRenderer spriteRenderer;
 	[Space]
 	[SerializeField] [Min(0f)] public float MaxHealth;
 	[SerializeField] [Min(0f)] public float MoveSpeed;
-	[SerializeField] [Min(0f)] public float CurrentHealth;
-	[SerializeField] public Vector2 Aim;
-	[SerializeField] public float AimAngleDegrees;
-	[SerializeField] public Vector2 Movement;
+
+	public float CurrentHealth { get; protected set; }
+	public Vector2 Movement { get; protected set; }
+	public Vector2 Aim { get; protected set; }
+	public float AimAngleDegrees { get; protected set; }
 
 	/// <summary>
 	/// Whether or not the entity is alive.
@@ -49,7 +50,8 @@ public abstract class Entity : MonoBehaviour {
 	/// Update variables each time the Unity Editor is refreshed.
 	/// </summary>
 	protected void OnValidate ( ) {
-		// Get references to these components automatically
+		// Get references to these components/gameobjects automatically
+		gameManager = FindObjectOfType<GameManager>( );
 		rigidBody2D = GetComponent<Rigidbody2D>( );
 		spriteRenderer = GetComponent<SpriteRenderer>( );
 	}
@@ -59,6 +61,8 @@ public abstract class Entity : MonoBehaviour {
 	/// </summary>
 	protected void Start ( ) {
 		OnValidate( );
+
+		CurrentHealth = MaxHealth;
 	}
 
 	/// <summary>

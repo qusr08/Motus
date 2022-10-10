@@ -9,16 +9,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 384a5be71a713a8428f797809ce04f9e, type: 3}
-  m_Name: Spread3Deflect
+  m_Script: {fileID: 11500000, guid: 625ab22f4718dfb4d8a68fcbf1d012d3, type: 3}
+  m_Name: SpreadFourShotRed
   m_EditorClassIdentifier: 
   bulletInstructions:
   - BulletType: 3
-    BulletAngleOffsetDegrees: -30
-    BulletSpeed: 500
-  - BulletType: 1
-    BulletAngleOffsetDegrees: 0
+    BulletAngleOffsetDegrees: -60
     BulletSpeed: 500
   - BulletType: 3
-    BulletAngleOffsetDegrees: 30
+    BulletAngleOffsetDegrees: -20
+    BulletSpeed: 500
+  - BulletType: 3
+    BulletAngleOffsetDegrees: 20
+    BulletSpeed: 500
+  - BulletType: 3
+    BulletAngleOffsetDegrees: 60
     BulletSpeed: 500
