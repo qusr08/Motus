@@ -6,17 +6,19 @@
 - [ ] Different enemy prefabs
 - [ ] Enemy waves
 - [ ] Game loop
-- [ ] Title screen (EXTRA)
-- [ ] Health bar
+- [ ] Title screen
+- [ ] Health bar + UI
 - [ ] Health pickups
+- [ ] Dash cooldown + UI
+- [ ] Ammo count + UI
 
 # Visuals
-- [ ] Trash on ground of arena (EXTRA)
-- [ ] New font (EXTRA)
+- [ ] Trash on ground of arena
+- [X] New font
 - [ ] Lights around arena (?)
 - [ ] Arena walls
-- [ ] Arena crowd sprites (EXTRA)
+- [ ] Arena crowd sprites
 - [ ] Character sprite/animation
-- [ ] Enemy spawning animation (EXTRA)
-- [ ] Particle effects (EXTRA)
-- [ ] Add light to bullets (EXTRA)
+- [ ] Enemy spawning animation
+- [ ] Particle effects
+- [ ] Add light to bullets
