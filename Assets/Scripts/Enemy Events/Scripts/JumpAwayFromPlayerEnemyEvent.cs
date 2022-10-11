@@ -8,11 +8,11 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewJumpAwayFromPlayerEnemyEvent", menuName = "Enemy Events/Jump Away From Player Enemy Event")]
 public class JumpAwayFromPlayerEnemyEvent : EnemyEvent {
-	public override void Execute (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		throw new System.NotImplementedException( );
 	}
 
-	public override void Initialize (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		throw new System.NotImplementedException( );
 	}
 }

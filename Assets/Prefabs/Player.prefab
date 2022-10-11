@@ -262,18 +262,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53d283a920aada941b1f724ae5777996, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 8680594460709146428, guid: dc6c4837afc9e7d4687560250f353278, type: 3}
+  gameManager: {fileID: 0}
   rigidBody2D: {fileID: 139476638015781122}
   spriteRenderer: {fileID: 139476638015781132}
   MaxHealth: 15
   MoveSpeed: 250
-  CurrentHealth: 15
-  Aim: {x: 0, y: 0}
-  AimAngleDegrees: 0
-  Movement: {x: 0, y: 0}
   aimObject: {fileID: 139476637833884899}
   dashDistance: 6
   dashSpeed: 0.15
   CurrentAmmo: 10
-  BulletSpeed: 500
+  BulletSpeed: 900
   IsDeflecting: 0

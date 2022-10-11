@@ -8,11 +8,11 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewOrbitPlayerEnemyEvent", menuName = "Enemy Events/Orbit Player Enemy Event")]
 public class OrbitPlayerEnemyEvent : EnemyEvent {
-	public override void Execute (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		throw new System.NotImplementedException( );
 	}
 
-	public override void Initialize (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		throw new System.NotImplementedException( );
 	}
 }

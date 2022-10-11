@@ -22,7 +22,7 @@ public abstract class EnemyEvent : ScriptableObject {
 	/// <param name="gameManager">A reference to the game manager object.</param>
 	/// <param name="enemyController">A reference to the enemy controller that called this event.</param>
 	/// <param name="playerController">A reference to the player controller in the scene.</param>
-	public abstract void Initialize (GameManager gameManager, EnemyController enemyController, PlayerController playerController);
+	public abstract void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController);
 
 	/// <summary>
 	/// Called every loop of Update().
@@ -33,7 +33,7 @@ public abstract class EnemyEvent : ScriptableObject {
 	/// <param name="gameManager">A reference to the game manager object.</param>
 	/// <param name="enemyController">A reference to the enemy controller that called this event.</param>
 	/// <param name="playerController">A reference to the player controller in the scene.</param>
-	public abstract void Execute (GameManager gameManager, EnemyController enemyController, PlayerController playerController);
+	public abstract void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController);
 }
 
 // Enemy Events List:

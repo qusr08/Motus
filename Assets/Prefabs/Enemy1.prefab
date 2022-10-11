@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3189487400666286937}
   - component: {fileID: 3189487400666286936}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Enemy1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,16 +146,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf9eadd00ba19c40869be1d4a9a9b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 8680594460709146428, guid: dc6c4837afc9e7d4687560250f353278, type: 3}
+  gameManager: {fileID: 0}
   rigidBody2D: {fileID: 3189487400666286937}
   spriteRenderer: {fileID: 3189487400666286938}
   MaxHealth: 8
-  MoveSpeed: 120
-  CurrentHealth: 8
-  Aim: {x: 0, y: 0}
-  AimAngleDegrees: 0
-  Movement: {x: 0, y: 0}
-  player: {fileID: 0}
-  bulletPatterns: []
-  minTimeBetweenBulletPatterns: 1
-  maxTimeBetweenBulletPatterns: 1
+  MoveSpeed: 150
+  PlayerController: {fileID: 0}
+  Sight: 20
+  Range: 10
+  SpecialAttackTime: 15
+  playerInSight:
+  - {fileID: 11400000, guid: 5c7f760996d462041b0450250c4d6673, type: 2}
+  playerInRange:
+  - {fileID: 11400000, guid: 5ac2009421da24d4d91244ac1bcd5a94, type: 2}
+  regularAttack:
+  - {fileID: 11400000, guid: a08c38b69b0bc024fba52cb8aae08dd0, type: 2}
+  - {fileID: 11400000, guid: bca5bd3fd68c96548a3e170457ba3268, type: 2}
+  specialAttack:
+  - {fileID: 11400000, guid: efe9eba762f65b94494b691be3ccb71b, type: 2}

@@ -11,7 +11,7 @@ public class BulletPatternEnemyEvent : EnemyEvent {
 	[Tooltip("A list of all bullets in this bullet pattern.")]
 	[SerializeField] private List<BulletInstruction> bulletInstructions;
 
-	public override void Initialize (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		// For each bullet instruction of the bullet pattern
 		// ... spawn a bullet with the specified values
 		foreach (BulletInstruction bulletInstruction in bulletInstructions) {
@@ -21,7 +21,7 @@ public class BulletPatternEnemyEvent : EnemyEvent {
 		IsFinished = true;
 	}
 
-	public override void Execute (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		// Since the bullet pattern should just be spawned in the Initialize() method, if it reaches this part of the code something has gone wrong
 		throw new System.NotImplementedException( );
 	}

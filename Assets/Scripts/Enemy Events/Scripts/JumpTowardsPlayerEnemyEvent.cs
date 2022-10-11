@@ -8,11 +8,11 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewJumpTowardsPlayerEnemyEvent", menuName = "Enemy Events/Jump Towards Player Enemy Event")]
 public class JumpTowardsPlayerEnemyEvent : EnemyEvent {
-	public override void Initialize (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		throw new System.NotImplementedException( );
 	}
 
-	public override void Execute (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		throw new System.NotImplementedException( );
 	}
 }
