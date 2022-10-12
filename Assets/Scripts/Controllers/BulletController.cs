@@ -34,6 +34,7 @@ public class BulletController : MonoBehaviour {
 			// Set the sprite of the bullet based on the type
 			// Since the sprites of the bullets line up with the BulletType enum, it makes this part very simple!
 			spriteRenderer.sprite = bulletSprites[(int) bulletType];
+			spriteRenderer.sortingOrder = (int) bulletType;
 		}
 
 		get {

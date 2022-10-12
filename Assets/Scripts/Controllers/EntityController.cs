@@ -10,6 +10,7 @@ public abstract class EntityController : MonoBehaviour {
 	[SerializeField] protected GameManager gameManager;
 	[SerializeField] protected Rigidbody2D rigidBody2D;
 	[SerializeField] protected SpriteRenderer spriteRenderer;
+	[SerializeField] protected Animator animator;
 	[Space]
 	[SerializeField] [Min(0f)] public float MaxHealth;
 	[SerializeField] [Min(0f)] public float MoveSpeed;
@@ -54,6 +55,7 @@ public abstract class EntityController : MonoBehaviour {
 		gameManager = FindObjectOfType<GameManager>( );
 		rigidBody2D = GetComponent<Rigidbody2D>( );
 		spriteRenderer = GetComponent<SpriteRenderer>( );
+		animator = GetComponent<Animator>( );
 	}
 
 	/// <summary>

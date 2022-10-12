@@ -76,7 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 1746658895
   m_SortingLayer: 3
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 08e48df4ae45c2c4f8c15610e96854b6, type: 3}
+  m_Sprite: {fileID: -394040455, guid: 08e48df4ae45c2c4f8c15610e96854b6, type: 3}
   m_Color: {r: 0.3018868, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -149,6 +149,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   rigidBody2D: {fileID: 3189487400666286937}
   spriteRenderer: {fileID: 3189487400666286938}
+  animator: {fileID: 0}
   MaxHealth: 20
   MoveSpeed: 90
   PlayerController: {fileID: 0}

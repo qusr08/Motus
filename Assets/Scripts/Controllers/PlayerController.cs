@@ -59,6 +59,11 @@ public class PlayerController : EntityController {
 		// Move the aiming object
 		aimObject.localPosition = Aim;
 		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees - 90f);
+
+		// Update the animator
+		animator.SetFloat("MovementX", Movement.x);
+		animator.SetFloat("MovementY", Movement.y);
+		Debug.Log(Movement);
 	}
 
 	/// <summary>
