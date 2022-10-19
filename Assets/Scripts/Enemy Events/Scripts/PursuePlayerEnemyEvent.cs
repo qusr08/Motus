@@ -8,8 +8,13 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewPursuePlayerEnemyEvent", menuName = "Enemy Events/Pursue Player Enemy Event")]
 public class PursuePlayerEnemyEvent : EnemyEvent {
+	[SerializeField] [Min(0f)] private float maximumRange;
+	[SerializeField] [Min(0f)] private float minimumRange;
+
 	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
-		enemyController.SeekPosition(playerController.transform.position);
+		if (enemyController.DistanceToPlayer >= minimumRange && enemyController.DistanceToPlayer < maximumRange) {
+			enemyController.SeekPosition(playerController.transform.position);
+		}
 
 		IsFinished = true;
 	}

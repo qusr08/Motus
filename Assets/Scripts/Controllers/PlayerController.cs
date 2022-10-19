@@ -19,7 +19,6 @@ public class PlayerController : EntityController {
 	[SerializeField] [Min(0f)] private float dashCooldownTime;
 	[SerializeField] [Min(0f)] private float dashRegenerationTime;
 	[SerializeField] [Min(0f)] public int CurrentAmmo;
-	[SerializeField] [Min(0f)] public float BulletSpeed;
 
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
@@ -163,7 +162,7 @@ public class PlayerController : EntityController {
 		}
 
 		// Spawn a bullet in a certain direction
-		gameManager.SpawnBullet(transform.position, AimAngleDegrees, BulletSpeed, BulletType.PLAYER);
+		gameManager.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER);
 		CurrentAmmo--;
 	}
 

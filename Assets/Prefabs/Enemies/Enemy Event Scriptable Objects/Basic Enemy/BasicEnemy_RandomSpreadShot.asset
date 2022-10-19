@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155c4169516519f4aace12d92fab4dc6, type: 3}
-  m_Name: Delay_AboutSevenSeconds
+  m_Script: {fileID: 11500000, guid: 7c5bfc74194d5bc408d30f08d29c49fd, type: 3}
+  m_Name: BasicEnemy_RandomSpreadShot
   m_EditorClassIdentifier: 
-  minimumDelayTime: 6.9
-  maximumDelayTime: 7.1
+  bulletPatterns:
+  - {fileID: 11400000, guid: c055074c5c68e8748b57cb869baedf33, type: 2}
+  - {fileID: 11400000, guid: 5c172630599c2634c8cc99c790c93946, type: 2}

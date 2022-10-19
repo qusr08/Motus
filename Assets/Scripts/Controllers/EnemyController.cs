@@ -10,42 +10,39 @@ public class EnemyController : EntityController {
 	[Space]
 	[SerializeField] public PlayerController PlayerController;
 	[Space]
-	[Tooltip("The range that the player needs to be in to start the enemy events in 'playerInSight'.")]
-	[SerializeField] public float Sight;
-	[Tooltip("The range that the player needs to be in to start the enemy events in 'playerInRange'.")]
-	[SerializeField] public float Range;
-	[Tooltip("The time it takes for the enemy's special attack to be triggered.")]
-	[SerializeField] public float SpecialAttackTime;
-	[Space]
-	[Tooltip("Run these events in order while the player is in sight of this enemy. Contains events that tell the enemy what to do when the player is far away.")]
-	[SerializeField] private List<EnemyEvent> playerInSight;
-	[Tooltip("Run these events in order while the player is in range of this enemy. Contains events that tell the enemy what to do when the player is close.")]
-	[SerializeField] private List<EnemyEvent> playerInRange;
+	[Tooltip("Run these events in order to tell the enemy how to move.")]
+	[SerializeField] private List<EnemyEvent> enemyAI;
 	[Tooltip("Run these events in order while the player is in sight or in range of the enemy.")]
 	[SerializeField] private List<EnemyEvent> regularAttack;
 	[Tooltip("Run these events in order after a certain amount of time. Make sure the first element in this array is a delay event with a specified amount of seconds that it should take to start the special attack.")]
 	[SerializeField] private List<EnemyEvent> specialAttack;
+	[Tooltip("The time it takes for the enemy's special attack to be triggered.")]
+	[SerializeField] public float SpecialAttackTime;
 
-	private float distanceToPlayer = 0;
 	private float specialAttackTimer = 0;
 
-	private int playerInSightEventIndex = 0;
-	private bool isUpdatingPlayerInSightEvent = false;
-
-	private int playerInRangeEventIndex = 0;
-	private bool isUpdatingPlayerInRangeEvent = false;
+	private int enemyAIEventIndex = 0;
+	private bool isUpdatingEnemyAIEvent = false;
 
 	private int regularAttackEventIndex = 0;
 	private bool isUpdatingRegularAttackEvent = false;
+	/// <summary>
+	/// If the regular attack is currently in the middle of being updated.
+	/// </summary>
+	public bool IsUpdatingRegularAttackEvents {
+		get {
+			return (isUpdatingRegularAttackEvent || regularAttackEventIndex != 0);
+		}
+	}
 
 	private int specialAttackEventIndex = 0;
 	private bool isUpdatingSpecialAttackEvent = false;
 	/// <summary>
-	/// Whether or not the enemy is currently doing it's special attack.
+	/// If the special attack is currently in the middle of being updated.
 	/// </summary>
-	public bool IsUpdatingSpecialAttack {
+	public bool IsUpdatingSpecialAttackEvents {
 		get {
-			return (specialAttackTimer <= 0);
+			return (isUpdatingSpecialAttackEvent || specialAttackEventIndex != 0);
 		}
 	}
 
@@ -57,7 +54,14 @@ public class EnemyController : EntityController {
 			return Mathf.Atan2(transform.position.y - PlayerController.transform.position.y, transform.position.x - PlayerController.transform.position.x);
 		}
 	}
-
+	/// <summary>
+	/// The distance from the player to this enemy.
+	/// </summary>
+	public float DistanceToPlayer {
+		get {
+			return (PlayerController.transform.position - transform.position).magnitude;
+		}
+	}
 	/// <summary>
 	/// A value that can be used for modifying specific enemies in events.
 	/// </summary>
@@ -77,6 +81,10 @@ public class EnemyController : EntityController {
 	/// </summary>
 	private new void Start ( ) {
 		base.Start( );
+
+		CloneEnemyEventScriptableObjects(ref enemyAI);
+		CloneEnemyEventScriptableObjects(ref regularAttack);
+		CloneEnemyEventScriptableObjects(ref specialAttack);
 
 		specialAttackTimer = SpecialAttackTime;
 
@@ -102,48 +110,29 @@ public class EnemyController : EntityController {
 		Aim = (PlayerController.transform.position - transform.position).normalized;
 		AimAngleDegrees = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x);
 
-		// Get the distance between the player and this enemy
-		distanceToPlayer = (PlayerController.transform.position - transform.position).magnitude;
-
+		// Update event lists
 		// The range needs to be checked before sight because the range will always be smaller than sight.
 		// Range should be for interactions with the player at a close range, and sight should be interactions with the player from a far range.
-		// If the player is in sight of the enemy
-		// ... update event lists
-		if (distanceToPlayer <= Sight) {
-			// When the player is in sight, decrease the time until the special attack triggers
-			specialAttackTimer -= Time.deltaTime;
+		// Could get a little weird of ai ranges overlap, so make sure they do not when creating a new enemy
+		UpdateEventList(enemyAI, ref enemyAIEventIndex, ref isUpdatingEnemyAIEvent);
 
-			// Either update the range event list or sight event list, not both at the same time
-			if (distanceToPlayer <= Range) {
-				UpdateEventList(playerInRange, ref playerInRangeEventIndex, ref isUpdatingPlayerInRangeEvent);
-			} else {
-				UpdateEventList(playerInSight, ref playerInSightEventIndex, ref isUpdatingPlayerInSightEvent);
-			}
-
-			// The attacking of the enemy should be the same no matter the ai movement
-			// Make sure the enemy is not special attacking when updating the regular attack though, as we don't want the two of them to interfere
-			if (!IsUpdatingSpecialAttack) {
-				/// TODO: MAKE SURE THE ENEMY RESTARTS ITS REGULAR ATTACK EACH TIME IT COMPELTES A SPECIAL ATTACK
-				UpdateEventList(regularAttack, ref regularAttackEventIndex, ref isUpdatingRegularAttackEvent);
-			}
-		} else {
-			// If the player is not in range, add a bit of time back to the special attack timer
-			specialAttackTimer = Mathf.Clamp(specialAttackTimer + (Time.deltaTime / 2), 0, SpecialAttackTime);
+		// Only either update the special attack events or the regular attack events, never both at the same time
+		if (!IsUpdatingSpecialAttackEvents) {
+			UpdateEventList(regularAttack, ref regularAttackEventIndex, ref isUpdatingRegularAttackEvent);
 		}
 
-		// If the special attack should be triggered
-		// IsUpdatingSpecialAttack automatically gets set to true when the timer is less than or equal to 0
-		if (IsUpdatingSpecialAttack) {
-			// Update the special attack event list
+		// If it is time for the special attack of the enemy
+		// and the regular attack is finished updating
+		// ... start the special attack
+		if (specialAttackTimer <= 0f && !IsUpdatingRegularAttackEvents) {
 			UpdateEventList(specialAttack, ref specialAttackEventIndex, ref isUpdatingSpecialAttackEvent);
 
-			// This checks for when the special attack has finished completely
-			// When the special attack has finished
-			// ... reset the timer and wait for the next time to fire the special attack again
-			if (!isUpdatingSpecialAttackEvent && specialAttackEventIndex == 0) {
+			if (!IsUpdatingSpecialAttackEvents) {
 				specialAttackTimer = SpecialAttackTime;
 			}
 		}
+
+		specialAttackTimer = Mathf.Clamp(specialAttackTimer - Time.deltaTime, 0, SpecialAttackTime);
 	}
 
 	/// <summary>
@@ -191,5 +180,15 @@ public class EnemyController : EntityController {
 	/// <param name="position">The position to move towards.</param>
 	public void SeekPosition (Vector2 position) {
 		Movement = (position - (Vector2) transform.position).normalized;
+	}
+
+	/// <summary>
+	/// Make sure each enemy's event values are separate when the game is running.
+	/// </summary>
+	/// <param name="eventList"></param>
+	private void CloneEnemyEventScriptableObjects (ref List<EnemyEvent> eventList) {
+		for (int i = 0; i < eventList.Count; i++) {
+			eventList[i] = Instantiate(eventList[i]);
+		}
 	}
 }

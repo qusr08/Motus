@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3189487400666286937}
   - component: {fileID: 3189487400666286936}
   m_Layer: 8
-  m_Name: Enemy1
+  m_Name: Basic Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3189487400666286941}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 8, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -153,17 +153,11 @@ MonoBehaviour:
   MaxHealth: 8
   MoveSpeed: 150
   PlayerController: {fileID: 0}
-  Sight: 20
-  Range: 5
-  SpecialAttackTime: 15
-  playerInSight:
-  - {fileID: 11400000, guid: 5c7f760996d462041b0450250c4d6673, type: 2}
-  playerInRange:
-  - {fileID: 11400000, guid: 5ac2009421da24d4d91244ac1bcd5a94, type: 2}
+  enemyAI:
+  - {fileID: 11400000, guid: 4cd2d0f248749064aae2d76e667eab70, type: 2}
+  - {fileID: 11400000, guid: 0636383ccebe0b9499a9712116ff5892, type: 2}
   regularAttack:
-  - {fileID: 11400000, guid: a08c38b69b0bc024fba52cb8aae08dd0, type: 2}
-  - {fileID: 11400000, guid: bca5bd3fd68c96548a3e170457ba3268, type: 2}
-  - {fileID: 11400000, guid: f7bb35b68c052cc45aefb117484c95e3, type: 2}
-  - {fileID: 11400000, guid: bca5bd3fd68c96548a3e170457ba3268, type: 2}
+  - {fileID: 11400000, guid: b3dce1f38ae7b274faeccca8c25e7f5a, type: 2}
   specialAttack:
-  - {fileID: 11400000, guid: efe9eba762f65b94494b691be3ccb71b, type: 2}
+  - {fileID: 11400000, guid: 7e55bee8b51f29e4799b801cd1759d14, type: 2}
+  SpecialAttackTime: 5

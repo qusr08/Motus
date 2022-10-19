@@ -11,15 +11,21 @@ public class RandomBulletPatternEnemyEvent : EnemyEvent {
 	[Tooltip("Choose a random bullet pattern from this list each time the event is called.")]
 	[SerializeField] private List<BulletPatternEnemyEvent> bulletPatterns;
 
+	private int randomIndex;
+
 	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		// Choose a random bullet pattern and run it
-		int randomIndex = Random.Range(0, bulletPatterns.Count);
+		randomIndex = Random.Range(0, bulletPatterns.Count);
 		bulletPatterns[randomIndex].StartEvent(gameManager, enemyController, playerController);
 
-		IsFinished = true;
+		IsFinished = false;
 	}
 
 	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
-		throw new System.NotImplementedException( );
+		bulletPatterns[randomIndex].UpdateEvent(gameManager, enemyController, playerController);
+
+		if (bulletPatterns[randomIndex].IsFinished) {
+			IsFinished = true;
+		}
 	}
 }

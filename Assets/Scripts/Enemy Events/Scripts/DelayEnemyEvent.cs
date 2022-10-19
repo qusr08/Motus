@@ -8,22 +8,23 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewDelayEnemyEvent", menuName = "Enemy Events/Delay Enemy Event")]
 public class DelayEnemyEvent : EnemyEvent {
-	[SerializeField] [Min(0f)] private float minimumDelayTime;
-	[SerializeField] [Min(0f)] private float maximumDelayTime;
+	[SerializeField] [Min(0f)] private float delayTime;
+	[Tooltip("How far the delay time can be randomly offset from a static value.")]
+	[SerializeField] [Min(0f)] private float delayTimeError;
 
 	private float startTime;
-	private float delayTime;
+	private float delayTimer;
 
 	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		IsFinished = false;
 
 		startTime = Time.time;
-		delayTime = Random.Range(minimumDelayTime, maximumDelayTime);
+		delayTimer = delayTime + Random.Range(-delayTimeError, delayTimeError);
 	}
 
 	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
 		// Wait a specified amount of time before finishing the event
-		if (Time.time - startTime >= delayTime) {
+		if (Time.time - startTime >= delayTimer) {
 			IsFinished = true;
 		}
 	}

@@ -151,6 +151,6 @@ MonoBehaviour:
   - {fileID: -3500076459514152108, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
   - {fileID: -2014131868727140717, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
   bulletType: 0
-  BulletSpeed: 0
+  BulletSpeed: 500
   Direction: {x: 0, y: 0}
   IsInitialized: 0

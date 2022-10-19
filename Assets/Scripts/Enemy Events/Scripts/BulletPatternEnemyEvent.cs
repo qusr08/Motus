@@ -8,22 +8,34 @@ using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewBulletPatternEnemyEvent", menuName = "Enemy Events/Bullet Pattern Enemy Event")]
 public class BulletPatternEnemyEvent : EnemyEvent {
+	[SerializeField] [Min(0f)] private float delayTime;
+	[Tooltip("How far the delay time can be randomly offset from a static value.")]
+	[SerializeField] [Min(0f)] private float delayTimeError;
+	[Space]
 	[Tooltip("A list of all bullets in this bullet pattern.")]
 	[SerializeField] private List<BulletInstruction> bulletInstructions;
 
-	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
-		// For each bullet instruction of the bullet pattern
-		// ... spawn a bullet with the specified values
-		foreach (BulletInstruction bulletInstruction in bulletInstructions) {
-			gameManager.SpawnBullet(enemyController.transform.position, enemyController.AimAngleDegrees + bulletInstruction.BulletAngleOffsetDegrees, bulletInstruction.BulletSpeed, bulletInstruction.BulletType);
-		}
+	private float startTime;
+	private float delayTimer;
 
-		IsFinished = true;
+	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+		IsFinished = false;
+
+		startTime = Time.time;
+		delayTimer = delayTime + Random.Range(-delayTimeError, delayTimeError);
 	}
 
 	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
-		// Since the bullet pattern should just be spawned in the Initialize() method, if it reaches this part of the code something has gone wrong
-		throw new System.NotImplementedException( );
+		// Wait a specified amount of time before finishing the event
+		if (Time.time - startTime >= delayTimer) {
+			// For each bullet instruction of the bullet pattern
+			// ... spawn a bullet with the specified values
+			foreach (BulletInstruction bulletInstruction in bulletInstructions) {
+				gameManager.SpawnBullet(enemyController.transform.position, enemyController.AimAngleDegrees + bulletInstruction.BulletAngleOffsetDegrees, bulletInstruction.BulletType);
+			}
+
+			IsFinished = true;
+		}
 	}
 }
 
@@ -33,6 +45,4 @@ public class BulletInstruction {
 	[SerializeField] public BulletType BulletType = BulletType.ENEMY;
 	[Tooltip("The angle offset to shoot the bullet at.\n\n0 means to shoot the bullet in the direction that the enemy is facing.")]
 	[SerializeField] [Range(-180f, 180f)] public float BulletAngleOffsetDegrees = 0f;
-	[Tooltip("The speed of the bullet.")]
-	[SerializeField] [Min(0f)] public float BulletSpeed = 500f;
 }

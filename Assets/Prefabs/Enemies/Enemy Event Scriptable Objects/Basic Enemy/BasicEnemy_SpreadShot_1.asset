@@ -10,15 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 625ab22f4718dfb4d8a68fcbf1d012d3, type: 3}
-  m_Name: BulletPattern_SpreadWithDashable
+  m_Name: BasicEnemy_SpreadShot_1
   m_EditorClassIdentifier: 
+  delayTime: 2
+  delayTimeError: 0.1
   bulletInstructions:
   - BulletType: 3
-    BulletAngleOffsetDegrees: -40
-    BulletSpeed: 900
-  - BulletType: 2
+    BulletAngleOffsetDegrees: -30
+  - BulletType: 1
     BulletAngleOffsetDegrees: 0
-    BulletSpeed: 900
   - BulletType: 3
-    BulletAngleOffsetDegrees: 40
-    BulletSpeed: 900
+    BulletAngleOffsetDegrees: 30
