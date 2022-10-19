@@ -8,13 +8,15 @@
 - [ ] Enemy waves
 - [ ] Game loop
 - [ ] Title screen
+- [ ] Game over screen
 - [X] Health bar + UI
 - [ ] Health pickups
 - [X] Dash cooldown + UI
 - [ ] Ammo count + UI
 - [ ] Fix mouse aiming
-- [ ] Adjust bullet speed
+- [X] Adjust bullet speed
 - [ ] Adjust enemy movement to have them not bunch up together
+- [X] Fix enemies all acting the same
 
 # Visuals
 - [ ] Trash on ground of arena (+ just better ground sprites)
@@ -29,6 +31,7 @@
 - [ ] Enemy sprites
 - [ ] Enemy spawning animation
 - [ ] UI button sprite
+
 - [ ] Extras
 	- [ ] Lights around arena
 	- [ ] Particle effects
