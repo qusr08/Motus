@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano, Michael Xie, Jacob Braunhut, Steven Feldman
 // Date Created:		09/16/22
-// Date Last Editted:	10/18/22
+// Date Last Editted:	10/19/22
 
 public class EnemyController : EntityController {
 	[Space]
@@ -72,6 +72,9 @@ public class EnemyController : EntityController {
 		PlayerController = FindObjectOfType<PlayerController>( );
 	}
 
+	/// <summary>
+	/// Called when this enemy object is created
+	/// </summary>
 	private new void Start ( ) {
 		base.Start( );
 
@@ -83,7 +86,9 @@ public class EnemyController : EntityController {
 	/// <summary>
 	/// Called as fast as possible as the game is running.
 	/// </summary>
-	private void Update ( ) {
+	private new void Update ( ) {
+		base.Update( );
+
 		// If the enemy is no longer alive
 		// ... destroy the game object (FOR NOW)
 		if (!IsAlive) {

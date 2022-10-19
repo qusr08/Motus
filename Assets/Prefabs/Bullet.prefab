@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4559458071661233407}
   - component: {fileID: 7694467207399495025}
   - component: {fileID: 8551431547457543915}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Bullet
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -73,8 +73,8 @@ SpriteRenderer:
   m_AutoUVMaxDistance: 0.5
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 1688034209
-  m_SortingLayer: 2
+  m_SortingLayerID: 1746658895
+  m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: 8848993070067138329, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -136,6 +136,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7747c38d87b4032479214bf6c18f11b1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameManager: {fileID: 0}
+  rigidBody2D: {fileID: 7694467207399495025}
+  spriteRenderer: {fileID: 8680594460709146431}
+  animator: {fileID: 0}
   bulletSprites:
   - {fileID: -7243563388056777162, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
   - {fileID: 5056628667063805970, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
@@ -146,8 +150,6 @@ MonoBehaviour:
   - {fileID: 6099260101181312286, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
   - {fileID: -3500076459514152108, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
   - {fileID: -2014131868727140717, guid: 1a8f39493c909504d97da6ef258e2f3a, type: 3}
-  rigidBody2D: {fileID: 7694467207399495025}
-  spriteRenderer: {fileID: 8680594460709146431}
   bulletType: 0
   BulletSpeed: 0
   Direction: {x: 0, y: 0}

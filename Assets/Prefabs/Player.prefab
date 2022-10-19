@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 139476637833884899}
   - component: {fileID: 139476637833884896}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Aim
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 139476638015781129}
   - component: {fileID: 139476638015781135}
   - component: {fileID: 6568622921131447124}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -187,7 +187,7 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.25}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -198,7 +198,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.5, y: 0.5}
   m_EdgeRadius: 0
 --- !u!50 &139476638015781122
 Rigidbody2D:
@@ -266,6 +266,7 @@ MonoBehaviour:
   gameManager: {fileID: 0}
   rigidBody2D: {fileID: 139476638015781122}
   spriteRenderer: {fileID: 139476638015781132}
+  animator: {fileID: 6568622921131447124}
   MaxHealth: 15
   MoveSpeed: 250
   aimObject: {fileID: 139476637833884899}

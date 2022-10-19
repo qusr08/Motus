@@ -4,20 +4,18 @@ using UnityEngine;
 
 // Editors:				Frank Alfano, Jacob Braunhut, Matthew Meyrowitz
 // Date Created:		09/12/22
-// Date Last Editted:	10/09/22
+// Date Last Editted:	10/19/22
 
 public enum BulletType {
 	PLAYER, DEFLECTABLE, DASHABLE, ENEMY
 }
 
-public class BulletController : MonoBehaviour {
+public class BulletController : ObjectController {
+	[Space]
 	[Tooltip("The sprites for each Bullet Type.\n\nThese sprites should line up with the indeces of the BulletType enum.")]
 	[SerializeField] private Sprite[ ] bulletSprites;
 	[Tooltip("The colorblind sprites for each Bullet Type.\n\nThese sprites should line up with the indeces of the BulletType enum.")]
 	[SerializeField] private Sprite[ ] colorblindBulletSprites;
-	[Space]
-	[SerializeField] private Rigidbody2D rigidBody2D;
-	[SerializeField] private SpriteRenderer spriteRenderer;
 	[Space]
 	[SerializeField] private BulletType bulletType;
 	[SerializeField] public float BulletSpeed;
@@ -53,13 +51,7 @@ public class BulletController : MonoBehaviour {
 		// This will tell us what object this bullet collided with
 		// For example, if the collision game object has a PlayerController component, we know that this bullet has collided with the player
 		PlayerController playerCollision = collisionGameObject.GetComponent<PlayerController>( );
-		BulletController bulletCollision = collisionGameObject.GetComponent<BulletController>( );
 		EnemyController enemyCollision = collisionGameObject.GetComponent<EnemyController>( );
-
-		// If this bullet collides with another bullet, have nothing happen
-		if (bulletCollision != null) {
-			return;
-		}
 
 		// If this bullet collides with the player ...
 		if (playerCollision != null) {
@@ -112,21 +104,6 @@ public class BulletController : MonoBehaviour {
 		// Destroy the bullet if the logic above has allowed it to reach this point
 		// This usually means that it has hit something and/or dealt damage
 		Destroy(gameObject);
-	}
-
-	/// <summary>
-	/// Update variables each time the Unity Editor is refreshed.
-	/// </summary>
-	private void OnValidate ( ) {
-		rigidBody2D = GetComponent<Rigidbody2D>( );
-		spriteRenderer = GetComponent<SpriteRenderer>( );
-	}
-
-	/// <summary>
-	/// Called when this bullet is created.
-	/// </summary>
-	private void Start ( ) {
-		OnValidate( );
 	}
 
 	/// <summary>

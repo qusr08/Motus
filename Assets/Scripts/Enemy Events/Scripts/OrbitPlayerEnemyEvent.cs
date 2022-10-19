@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano
 // Date Created:		10/10/22
-// Date Last Editted:	10/18/22
+// Date Last Editted:	10/19/22
 
 [CreateAssetMenu(fileName = "NewOrbitPlayerEnemyEvent", menuName = "Enemy Events/Orbit Player Enemy Event")]
 public class OrbitPlayerEnemyEvent : EnemyEvent {

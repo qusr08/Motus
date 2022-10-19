@@ -4,20 +4,16 @@ using UnityEngine;
 
 // Editors:				Frank Alfano
 // Date Created:		10/05/22
-// Date Last Editted:	10/18/22
+// Date Last Editted:	10/19/22
 
-public abstract class EntityController : MonoBehaviour {
-	[SerializeField] protected GameManager gameManager;
-	[SerializeField] protected Rigidbody2D rigidBody2D;
-	[SerializeField] protected SpriteRenderer spriteRenderer;
-	[SerializeField] protected Animator animator;
+public abstract class EntityController : ObjectController {
 	[Space]
 	[SerializeField] [Min(0f)] public float MaxHealth;
 	[SerializeField] [Min(0f)] public float MoveSpeed;
 
 	// The friction that each entity experiences as they move
 	// This will prevent entities from not slowing down if no movement is set
-	private float MoveFriction = 0.9f;
+	private float moveFriction = 0.9f;
 
 	public float CurrentHealth { get; protected set; }
 	public Vector2 Movement { get; protected set; }
@@ -52,21 +48,10 @@ public abstract class EntityController : MonoBehaviour {
 	}
 
 	/// <summary>
-	/// Update variables each time the Unity Editor is refreshed.
-	/// </summary>
-	protected void OnValidate ( ) {
-		// Get references to these components/gameobjects automatically
-		gameManager = FindObjectOfType<GameManager>( );
-		rigidBody2D = GetComponent<Rigidbody2D>( );
-		spriteRenderer = GetComponent<SpriteRenderer>( );
-		animator = GetComponent<Animator>( );
-	}
-
-	/// <summary>
 	/// Called when this entity object is created
 	/// </summary>
-	protected void Start ( ) {
-		OnValidate( );
+	protected new void Start ( ) {
+		base.Start( );
 
 		CurrentHealth = MaxHealth;
 	}
@@ -84,7 +69,7 @@ public abstract class EntityController : MonoBehaviour {
 			rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, MoveSpeed * Time.fixedDeltaTime);
 		} else {
 			// Slowly decrease the velocity to slow the entity down
-			rigidBody2D.velocity *= MoveFriction;
+			rigidBody2D.velocity *= moveFriction;
 		}
 	}
 

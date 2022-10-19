@@ -12,9 +12,9 @@ TagManager:
   - Water
   - UI
   - 
-  - 
-  - 
-  - 
+  - Player
+  - Enemy
+  - Bullet
   - 
   - 
   - 
@@ -44,14 +44,14 @@ TagManager:
   - name: Arena Ground
     uniqueID: 1045266887
     locked: 0
-  - name: Bullets
-    uniqueID: 1688034209
+  - name: Arena Walls Background
+    uniqueID: 3283473911
     locked: 0
-  - name: Player
+  - name: Objects
     uniqueID: 1746658895
     locked: 0
-  - name: Arena Walls
-    uniqueID: 3283473911
+  - name: Arena Walls Foreground
+    uniqueID: 1551488897
     locked: 0
   - name: UI
     uniqueID: 1592146273

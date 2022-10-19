@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 // Editors:				Frank Alfano, Steven Feldman
 // Date Created:		09/12/22
-// Date Last Editted:	10/09/22
+// Date Last Editted:	10/19/22
 
 public class PlayerController : EntityController {
 	[Space]
@@ -37,7 +37,9 @@ public class PlayerController : EntityController {
 	/// <summary>
 	/// Called as fast as possible while the game is running
 	/// </summary>
-	private void Update ( ) {
+	private new void Update ( ) {
+		base.Update( );
+
 		// If the player is no longer alive
 		// ... destroy the player game object (FOR NOW)
 		if (!IsAlive) {
