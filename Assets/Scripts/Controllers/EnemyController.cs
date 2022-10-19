@@ -59,6 +59,11 @@ public class EnemyController : EntityController {
 	}
 
 	/// <summary>
+	/// A value that can be used for modifying specific enemies in events.
+	/// </summary>
+	public int ModValue { get; private set; }
+
+	/// <summary>
 	/// Update variables each time the Unity Editor is refreshed.
 	/// </summary>
 	private new void OnValidate ( ) {
@@ -71,6 +76,8 @@ public class EnemyController : EntityController {
 		base.Start( );
 
 		specialAttackTimer = SpecialAttackTime;
+
+		ModValue = Random.Range(0, 2);
 	}
 
 	/// <summary>

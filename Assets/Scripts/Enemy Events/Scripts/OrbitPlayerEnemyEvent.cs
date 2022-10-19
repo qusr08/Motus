@@ -14,7 +14,8 @@ public class OrbitPlayerEnemyEvent : EnemyEvent {
 
 		// Calculate the angle to move the enemy to
 		// This is just the angle the enemy is already around the player plus the velocity
-		float moveToAngle = enemyController.AngleRadiansAroundPlayer + angularVelocity;
+		// Have the direction the enemy travels depend on its instance id
+		float moveToAngle = enemyController.AngleRadiansAroundPlayer + (angularVelocity * (enemyController.ModValue % 2 == 0 ? 1 : -1));
 
 		// Calculate the position to move the enemy to based on the angle
 		Vector2 moveToPosition = (Vector2) playerController.transform.position + (enemyController.Range * new Vector2(Mathf.Cos(moveToAngle), Mathf.Sin(moveToAngle)));

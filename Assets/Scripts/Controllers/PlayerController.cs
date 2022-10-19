@@ -71,9 +71,9 @@ public class PlayerController : EntityController {
 	/// <param name="value">The value of the control input.</param>
 	public void OnMove (InputValue value) {
 		// If the player is dashing, prevent them from moving
-		if (IsDashing) {
+		/*if (IsDashing) {
 			return;
-		}
+		}*/
 
 		Movement = value.Get<Vector2>( );
 	}
