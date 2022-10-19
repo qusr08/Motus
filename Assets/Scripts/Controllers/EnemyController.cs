@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano, Michael Xie, Jacob Braunhut, Steven Feldman
 // Date Created:		09/16/22
-// Date Last Editted:	10/10/22
+// Date Last Editted:	10/18/22
 
 public class EnemyController : EntityController {
 	[Space]
@@ -46,6 +46,15 @@ public class EnemyController : EntityController {
 	public bool IsUpdatingSpecialAttack {
 		get {
 			return (specialAttackTimer <= 0);
+		}
+	}
+
+	/// <summary>
+	/// The angle in radians of the enemy around the player. The angle will follow the unit circle.
+	/// </summary>
+	public float AngleRadiansAroundPlayer {
+		get {
+			return Mathf.Atan2(transform.position.y - PlayerController.transform.position.y, transform.position.x - PlayerController.transform.position.x);
 		}
 	}
 
@@ -168,7 +177,7 @@ public class EnemyController : EntityController {
 	/// Move the enemy towards a position.
 	/// </summary>
 	/// <param name="position">The position to move towards.</param>
-	public void MoveTowardsPosition (Vector2 position) {
+	public void SeekPosition (Vector2 position) {
 		Movement = (position - (Vector2) transform.position).normalized;
 	}
 }

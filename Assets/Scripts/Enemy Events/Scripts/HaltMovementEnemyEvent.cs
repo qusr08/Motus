@@ -9,7 +9,7 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewHaltMovementEnemyEvent", menuName = "Enemy Events/Halt Movement Enemy Event")]
 public class HaltMovementEnemyEvent : EnemyEvent {
 	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
-		enemyController.MoveTowardsPosition(enemyController.transform.position);
+		enemyController.SeekPosition(enemyController.transform.position);
 
 		IsFinished = true;
 	}

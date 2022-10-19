@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano
 // Date Created:		10/05/22
-// Date Last Editted:	10/09/22
+// Date Last Editted:	10/18/22
 
 public abstract class EntityController : MonoBehaviour {
 	[SerializeField] protected GameManager gameManager;
@@ -14,6 +14,10 @@ public abstract class EntityController : MonoBehaviour {
 	[Space]
 	[SerializeField] [Min(0f)] public float MaxHealth;
 	[SerializeField] [Min(0f)] public float MoveSpeed;
+
+	// The friction that each entity experiences as they move
+	// This will prevent entities from not slowing down if no movement is set
+	private float MoveFriction = 0.9f;
 
 	public float CurrentHealth { get; protected set; }
 	public Vector2 Movement { get; protected set; }
@@ -72,7 +76,16 @@ public abstract class EntityController : MonoBehaviour {
 	/// </summary>
 	protected void FixedUpdate ( ) {
 		// Move the entity in the direction they should travel
-		rigidBody2D.velocity = MoveSpeed * Time.fixedDeltaTime * Movement;
+		if (Movement.magnitude > 0) {
+			// Doing kinda some fancy math to make the smoothing right, this can change in the future if a better method is found
+			// Mathf.Sqrt() is usually not good to use for loop computations like this, but it works :D
+			rigidBody2D.AddForce(Mathf.Sqrt(MoveSpeed) * Time.fixedDeltaTime * Movement, ForceMode2D.Impulse);
+			// Make sure the velocity does not go faster than the allowed move speed
+			rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, MoveSpeed * Time.fixedDeltaTime);
+		} else {
+			// Slowly decrease the velocity to slow the entity down
+			rigidBody2D.velocity *= MoveFriction;
+		}
 	}
 
 	/// <summary>

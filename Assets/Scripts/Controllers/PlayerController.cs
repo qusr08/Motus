@@ -63,7 +63,6 @@ public class PlayerController : EntityController {
 		// Update the animator
 		animator.SetFloat("MovementX", Movement.x);
 		animator.SetFloat("MovementY", Movement.y);
-		Debug.Log(Movement);
 	}
 
 	/// <summary>
@@ -92,7 +91,7 @@ public class PlayerController : EntityController {
 		// Aim towards the direction of the controller joystick
 		// Calculate the position and rotation of the aim arrow
 		// The position of the aim arrow is also the direction the player is aiming
-		Aim = value.Get<Vector2>( ).normalized;	
+		Aim = value.Get<Vector2>( ).normalized;
 		AimAngleDegrees = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x);
 	}
 

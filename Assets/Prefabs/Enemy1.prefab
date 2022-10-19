@@ -154,7 +154,7 @@ MonoBehaviour:
   MoveSpeed: 150
   PlayerController: {fileID: 0}
   Sight: 20
-  Range: 10
+  Range: 5
   SpecialAttackTime: 15
   playerInSight:
   - {fileID: 11400000, guid: 5c7f760996d462041b0450250c4d6673, type: 2}
