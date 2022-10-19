@@ -11,21 +11,36 @@ using UnityEngine.UI;
 public class PlayerController : EntityController {
 	[Space]
 	[SerializeField] private Transform aimObject;
+	[SerializeField] private UIBarController healthBarController;
+	[SerializeField] private UIBarController dashBarController;
 	[Space]
 	[SerializeField] [Min(0f)] private float dashDistance;
-	[SerializeField] [Min(0f)] private float dashSpeed;
+	[SerializeField] [Min(0f)] private float dashTime;
+	[SerializeField] [Min(0f)] private float dashCooldownTime;
+	[SerializeField] [Min(0f)] private float dashRegenerationTime;
 	[SerializeField] [Min(0f)] public int CurrentAmmo;
 	[SerializeField] [Min(0f)] public float BulletSpeed;
 
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
-	private float dashTime;
+	private float dashTimer;
+	private float dashCooldownTimer;
 	/// <summary>
 	/// Whether or not the player is currently dashing.
 	/// </summary>
 	public bool IsDashing {
 		get {
-			return (dashTime < dashSpeed);
+			return (dashTimer < dashTime);
+		}
+	}
+	public bool IsDashOnCooldown {
+		get {
+			return (dashCooldownTimer > 0);
+		}
+	}
+	public bool CanDash {
+		get {
+			return (dashBarController.Percentage >= 0.25f);
 		}
 	}
 
@@ -33,6 +48,13 @@ public class PlayerController : EntityController {
 	/// Whether or not the player is currently deflecting.
 	/// </summary>
 	public bool IsDeflecting;
+
+	private new void Start ( ) {
+		base.Start( );
+
+		healthBarController.Percentage = 1f;
+		dashBarController.Percentage = 1f;
+	}
 
 	/// <summary>
 	/// Called as fast as possible while the game is running
@@ -53,18 +75,44 @@ public class PlayerController : EntityController {
 			// Lerp between the last position of the player and the new dash position
 			// 'dashTime' is the time the player has taken as it travels between the two points
 			// Dividing 'dashTime' by 'dashSpeed' will get a value between 0 and 1 which is used to linearly interpolate between the two points
-			transform.position = Vector2.Lerp(fromDashPosition, toDashPosition, dashTime / dashSpeed);
+			transform.position = Vector2.Lerp(fromDashPosition, toDashPosition, dashTimer / dashTime);
+
 			// Increment the 'dashTime' by the time that has passed
-			dashTime += Time.deltaTime;
+			dashTimer += Time.deltaTime;
+
+			// Debug.Log("Dashed!");
+		} else if (IsDashOnCooldown) {
+			dashCooldownTimer -= Time.deltaTime;
+			// Debug.Log("Cooldown!");
+		} else {
+			dashBarController.Percentage += dashRegenerationTime * Time.deltaTime;
+			// Debug.Log("Increment!");
 		}
 
 		// Move the aiming object
 		aimObject.localPosition = Aim;
-		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees - 90f);
+		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees - 45f);
+		// Make sure to flip the gun based on the aim angle around the player
+		// This way the gun sprite is always facing up
+		// aimObject.GetComponent<SpriteRenderer>( ).flipX = (Mathf.Abs(AimAngleDegrees) > 90f);
 
 		// Update the animator
 		animator.SetFloat("MovementX", Movement.x);
 		animator.SetFloat("MovementY", Movement.y);
+	}
+
+	/// <summary>
+	/// Override the Damage() method in the EntityController class for more functionality.
+	/// </summary>
+	/// <param name="damage">The damage to deal to the player.</param>
+	/// <returns>The current health of the player after.</returns>
+	public new float Damage (float damage) {
+		float returnValue = base.Damage(damage);
+
+		// Update the health bar
+		healthBarController.Percentage = (float) CurrentHealth / MaxHealth;
+
+		return returnValue;
 	}
 
 	/// <summary>
@@ -131,6 +179,18 @@ public class PlayerController : EntityController {
 			return;
 		}
 
+		// If the dash is still on cooldown
+		// ... prevent the player from dashing
+		if (IsDashOnCooldown) {
+			return;
+		}
+
+		// If the player cannot dash, as in one dash bar has not been fully regenerated
+		// ... return from the method
+		if (!CanDash) {
+			return;
+		}
+
 		// 'newDashDistance' is the actual distance that the player is going to dash as the player might hit something
 		float newDashDistance = dashDistance;
 
@@ -142,13 +202,13 @@ public class PlayerController : EntityController {
 		// ... make the dash distance meet the object the player hit
 		for (int i = 0; i < hits2D.Length; i++) {
 			// Make sure the player's dash doesn't stop because of bullets
-			if (hits2D[i].transform.GetComponent<BulletController>( ) != null) {
+			if (hits2D[i].transform.GetComponent<BulletController>( ) != null || hits2D[i].transform.GetComponent<PlayerController>( ) != null) {
 				continue;
 			}
 
 			// The dash distance is now the distance between the position of the player and the point that the RaycastHit hit
 			// Also subtract 1f to place the player a little bit away from the object hit by the dash
-			newDashDistance = Vector2.Distance(transform.position, hits2D[i].point) - 1f;
+			newDashDistance = Mathf.Clamp(Vector2.Distance(transform.position, hits2D[i].point) - 1f, 0, dashDistance);
 
 			// Don't need to check the other hits because the closest thing was already found
 			break;
@@ -160,7 +220,11 @@ public class PlayerController : EntityController {
 
 		// Reset the dash time
 		// This equation makes sure that even if the player hits something with the dash, the speed of the dash stays the same
-		dashTime = dashSpeed - ((newDashDistance / dashDistance) * dashSpeed);
+		dashTimer = dashTime - (newDashDistance / dashDistance * dashTime);
+		dashCooldownTimer = dashCooldownTime;
+
+		// Remove one full dash bar
+		dashBarController.Percentage -= 0.25f;
 	}
 
 	/// <summary>

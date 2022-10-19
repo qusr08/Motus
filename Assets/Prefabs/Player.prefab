@@ -73,7 +73,7 @@ SpriteRenderer:
   m_SortingLayerID: 1746658895
   m_SortingLayer: 3
   m_SortingOrder: -1
-  m_Sprite: {fileID: 21300000, guid: 11e539fea5ee4eb45afc498c2aa68382, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 7c6dd92fe5438fc4ea8985243831608b, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 0.5882353}
   m_FlipX: 0
   m_FlipY: 0
@@ -270,9 +270,13 @@ MonoBehaviour:
   MaxHealth: 15
   MoveSpeed: 250
   aimObject: {fileID: 139476637833884899}
+  healthBarController: {fileID: 0}
+  dashBarController: {fileID: 0}
   dashDistance: 6
-  dashSpeed: 0.15
-  CurrentAmmo: 10
+  dashTime: 0.15
+  dashCooldownTime: 1
+  dashRegenerationTime: 0.1
+  CurrentAmmo: 25
   BulletSpeed: 900
   IsDeflecting: 0
 --- !u!95 &6568622921131447124

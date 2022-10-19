@@ -1,5 +1,5 @@
 # Coding
-- [ ] Change Entity hitboxes to make a more 3D effect
+- [X] Change Entity hitboxes to make a more 3D effect
 - [ ] Enemy event functionality
 	- [X] Finish orbit event
 	- [ ] Finish jumping back and towards event
@@ -8,18 +8,29 @@
 - [ ] Enemy waves
 - [ ] Game loop
 - [ ] Title screen
-- [ ] Health bar + UI
+- [X] Health bar + UI
 - [ ] Health pickups
-- [ ] Dash cooldown + UI
+- [X] Dash cooldown + UI
 - [ ] Ammo count + UI
+- [ ] Fix mouse aiming
+- [ ] Adjust bullet speed
+- [ ] Adjust enemy movement to have them not bunch up together
 
 # Visuals
 - [ ] Trash on ground of arena (+ just better ground sprites)
 - [X] New font
-- [ ] Lights around arena (?)
 - [ ] Arena walls
 - [ ] Arena crowd sprites
 - [ ] Character sprite/animation
+- [ ] Object shadows
+- [ ] Title screen art
+	- [ ] Title text "Motus"
+	- [ ] Title background
+- [ ] Enemy sprites
 - [ ] Enemy spawning animation
-- [ ] Particle effects
-- [ ] Add light to bullets
+- [ ] UI button sprite
+- [ ] Extras
+	- [ ] Lights around arena
+	- [ ] Particle effects
+	- [ ] Add light to bullets
+	- [ ] Bullet movement trails
