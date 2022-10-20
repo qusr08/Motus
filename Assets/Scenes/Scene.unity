@@ -23035,10 +23035,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
-      propertyPath: MaxHealth
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: dashBarController
       value: 
       objectReference: {fileID: 1623130190}

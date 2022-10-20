@@ -18,6 +18,9 @@ public class PlayerController : EntityController {
 	[SerializeField] [Min(0f)] private float dashTime;
 	[SerializeField] [Min(0f)] private float dashCooldownTime;
 	[SerializeField] [Min(0f)] private float dashRegenerationTime;
+	[Space]
+	[SerializeField] public bool IsDeflecting;
+	[Space]
 	[SerializeField] [Min(0f)] public int CurrentAmmo;
 
 	private Vector2 fromDashPosition;
@@ -42,11 +45,6 @@ public class PlayerController : EntityController {
 			return (dashBarController.Percentage >= 0.25f);
 		}
 	}
-
-	/// <summary>
-	/// Whether or not the player is currently deflecting.
-	/// </summary>
-	public bool IsDeflecting;
 
 	private new void Start ( ) {
 		base.Start( );
@@ -78,22 +76,18 @@ public class PlayerController : EntityController {
 
 			// Increment the 'dashTime' by the time that has passed
 			dashTimer += Time.deltaTime;
-
-			// Debug.Log("Dashed!");
 		} else if (IsDashOnCooldown) {
 			dashCooldownTimer -= Time.deltaTime;
-			// Debug.Log("Cooldown!");
 		} else {
 			dashBarController.Percentage += dashRegenerationTime * Time.deltaTime;
-			// Debug.Log("Increment!");
 		}
 
 		// Move the aiming object
-		aimObject.localPosition = Aim;
-		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees - 45f);
+		aimObject.localPosition = Aim * 0.5f;
+		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees + (Mathf.Abs(AimAngleDegrees) > 90f ? -135f : -45f));
 		// Make sure to flip the gun based on the aim angle around the player
 		// This way the gun sprite is always facing up
-		// aimObject.GetComponent<SpriteRenderer>( ).flipX = (Mathf.Abs(AimAngleDegrees) > 90f);
+		aimObject.GetComponent<SpriteRenderer>( ).flipX = (Mathf.Abs(AimAngleDegrees) > 90f);
 
 		// Update the animator
 		animator.SetFloat("MovementX", Movement.x);
@@ -119,11 +113,6 @@ public class PlayerController : EntityController {
 	/// </summary>
 	/// <param name="value">The value of the control input.</param>
 	public void OnMove (InputValue value) {
-		// If the player is dashing, prevent them from moving
-		/*if (IsDashing) {
-			return;
-		}*/
-
 		Movement = value.Get<Vector2>( );
 	}
 
