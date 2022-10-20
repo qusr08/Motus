@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3189487400666286937}
   - component: {fileID: 3189487400666286936}
   m_Layer: 8
-  m_Name: Basic Enemy
+  m_Name: Wander Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -394040455, guid: 08e48df4ae45c2c4f8c15610e96854b6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0, g: 0.2588687, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -150,15 +150,19 @@ MonoBehaviour:
   rigidBody2D: {fileID: 3189487400666286937}
   spriteRenderer: {fileID: 3189487400666286938}
   animator: {fileID: 0}
-  MaxHealth: 8
-  MoveSpeed: 200
+  MaxHealth: 16
+  MoveSpeed: 180
   PlayerController: {fileID: 0}
-  enemyAI:
-  - {fileID: 11400000, guid: 4cd2d0f248749064aae2d76e667eab70, type: 2}
-  - {fileID: 11400000, guid: 0636383ccebe0b9499a9712116ff5892, type: 2}
+  enemyAI: []
   regularAttack:
-  - {fileID: 11400000, guid: b3dce1f38ae7b274faeccca8c25e7f5a, type: 2}
-  specialAttack:
-  - {fileID: 11400000, guid: 7e55bee8b51f29e4799b801cd1759d14, type: 2}
-  SpecialAttackTime: 5
+  - {fileID: 11400000, guid: 594c23e267293f04c83d80e4b79471ed, type: 2}
+  - {fileID: 11400000, guid: c5b534585dd2d984fb3487ae0666cae2, type: 2}
+  - {fileID: 11400000, guid: ce721939ea4f19d48ae951968c02a54e, type: 2}
+  - {fileID: 11400000, guid: 759d8f369d9fc88478dcf1ea9a4f75c5, type: 2}
+  - {fileID: 11400000, guid: 594c23e267293f04c83d80e4b79471ed, type: 2}
+  - {fileID: 11400000, guid: c5b534585dd2d984fb3487ae0666cae2, type: 2}
+  - {fileID: 11400000, guid: 9a2fee9e2124875468bff6a9f51c8f37, type: 2}
+  - {fileID: 11400000, guid: 759d8f369d9fc88478dcf1ea9a4f75c5, type: 2}
+  specialAttack: []
+  SpecialAttackTime: 12.5
   IsMovementHalted: 0

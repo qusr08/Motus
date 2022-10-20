@@ -6,6 +6,10 @@
 
 # Coding
 - [ ] Different enemy prefabs *****
+	- [ ] Shotgun enemy special attack
+	- [ ] Tank enemy special attack
+	- [ ] Wander enemy AI
+	- [ ] Hazard enemy landmines
 - [ ] Game loop *****
 	- [ ] Title screen *****
 	- [ ] Game over screen *****
@@ -25,6 +29,7 @@
 - [ ] Adjust enemy movement to have them not bunch up together
 - [ ] Make a better player controller
 - [X] Properly rotate gun sprite around player
+- [ ] Add knockback when firing bullets (to both player and enemy)
 
 # Visuals
 - [ ] Object shadows

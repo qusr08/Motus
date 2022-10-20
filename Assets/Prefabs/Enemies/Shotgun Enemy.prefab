@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 3189487400666286937}
   - component: {fileID: 3189487400666286936}
   m_Layer: 8
-  m_Name: Basic Enemy
+  m_Name: Shotgun Enemy
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayer: 3
   m_SortingOrder: 0
   m_Sprite: {fileID: -394040455, guid: 08e48df4ae45c2c4f8c15610e96854b6, type: 3}
-  m_Color: {r: 1, g: 0, b: 0, a: 1}
+  m_Color: {r: 0.015897036, g: 1, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -150,15 +150,16 @@ MonoBehaviour:
   rigidBody2D: {fileID: 3189487400666286937}
   spriteRenderer: {fileID: 3189487400666286938}
   animator: {fileID: 0}
-  MaxHealth: 8
-  MoveSpeed: 200
+  MaxHealth: 12
+  MoveSpeed: 130
   PlayerController: {fileID: 0}
   enemyAI:
-  - {fileID: 11400000, guid: 4cd2d0f248749064aae2d76e667eab70, type: 2}
-  - {fileID: 11400000, guid: 0636383ccebe0b9499a9712116ff5892, type: 2}
+  - {fileID: 11400000, guid: b3adde088dd9c4e4eb45ef90e622856c, type: 2}
   regularAttack:
-  - {fileID: 11400000, guid: b3dce1f38ae7b274faeccca8c25e7f5a, type: 2}
-  specialAttack:
-  - {fileID: 11400000, guid: 7e55bee8b51f29e4799b801cd1759d14, type: 2}
-  SpecialAttackTime: 5
+  - {fileID: 11400000, guid: 4dccadb258dac104a9d2e1f9ec57a114, type: 2}
+  - {fileID: 11400000, guid: 512d56baf6bd7f34e8eea0364dc9b79e, type: 2}
+  - {fileID: 11400000, guid: bbd4540b828b118419eaa2fe373781a7, type: 2}
+  - {fileID: 11400000, guid: 36c60367e0b222c44b1483935382b33c, type: 2}
+  specialAttack: []
+  SpecialAttackTime: 10
   IsMovementHalted: 0

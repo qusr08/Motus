@@ -313,5 +313,5 @@ MonoBehaviour:
   dashTime: 0.15
   dashCooldownTime: 1
   dashRegenerationTime: 0.1
-  CurrentAmmo: 25
   IsDeflecting: 0
+  CurrentAmmo: 25

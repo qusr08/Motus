@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Editors:				Frank Alfano, Michael Xie, Jacob Braunhut, Steven Feldman
+// Editors:				Frank Alfano, Michael Xie
 // Date Created:		09/16/22
-// Date Last Editted:	10/19/22
+// Date Last Editted:	10/20/22
 
 public class EnemyController : EntityController {
 	[Space]
@@ -18,8 +18,8 @@ public class EnemyController : EntityController {
 	[SerializeField] private List<EnemyEvent> specialAttack;
 	[Tooltip("The time it takes for the enemy's special attack to be triggered.")]
 	[SerializeField] public float SpecialAttackTime;
-
-	private float specialAttackTimer = 0;
+	[Space]
+	[SerializeField] public bool IsMovementHalted;
 
 	private int enemyAIEventIndex = 0;
 	private bool isUpdatingEnemyAIEvent = false;
@@ -35,6 +35,7 @@ public class EnemyController : EntityController {
 		}
 	}
 
+	private float specialAttackTimer = 0;
 	private int specialAttackEventIndex = 0;
 	private bool isUpdatingSpecialAttackEvent = false;
 	/// <summary>
@@ -135,6 +136,14 @@ public class EnemyController : EntityController {
 		specialAttackTimer = Mathf.Clamp(specialAttackTimer - Time.deltaTime, 0, SpecialAttackTime);
 	}
 
+	private new void FixedUpdate ( ) {
+		base.FixedUpdate( );
+
+		// In order to make enemies stop correctly, their movement needs to be set to 0 after each movement frame in the game
+		// The player works differently, though, and this does not need to happen for that
+		Movement = Vector2.zero;
+	}
+
 	/// <summary>
 	/// Update the current enemy event in a certain event list.
 	/// </summary>
@@ -179,7 +188,11 @@ public class EnemyController : EntityController {
 	/// </summary>
 	/// <param name="position">The position to move towards.</param>
 	public void SeekPosition (Vector2 position) {
-		Movement = (position - (Vector2) transform.position).normalized;
+		// If the enemy's movement is currently halted
+		// ... don't have it seek out a new position and change its movement until it is no longer halted
+		if (!IsMovementHalted) {
+			Movement = (position - (Vector2) transform.position).normalized;
+		}
 	}
 
 	/// <summary>

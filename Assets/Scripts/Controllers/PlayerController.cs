@@ -82,7 +82,7 @@ public class PlayerController : EntityController {
 			dashBarController.Percentage += dashRegenerationTime * Time.deltaTime;
 		}
 
-		// Move the aiming object
+		// Move the gun aiming object
 		aimObject.localPosition = Aim * 0.5f;
 		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees + (Mathf.Abs(AimAngleDegrees) > 90f ? -135f : -45f));
 		// Make sure to flip the gun based on the aim angle around the player
