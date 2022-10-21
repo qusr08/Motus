@@ -19,6 +19,7 @@
 	- [ ] Finish jumping back and towards event *****
 	- [ ] Enemy wandering around arena *****
 - [ ] Ammo count + UI *****
+- [ ] Charged bullet
 
 - [X] Change Entity hitboxes to make a more 3D effect
 - [X] Change movement to include acceleration and not just velocity
@@ -32,7 +33,7 @@
 - [ ] Add knockback when firing bullets (to both player and enemy)
 
 # Visuals
-- [ ] Object shadows
+- [X] Object shadows
 - [ ] Trash on ground of arena (+ just better ground sprites)
 - [X] New font
 - [ ] Arena walls
@@ -46,7 +47,6 @@
 - [ ] Lights around arena
 - [ ] Particle effects
 - [ ] Add light to bullets
-- [ ] Bullet movement trails
 
 # Narrative
 - [ ] Come up with enemy designs
