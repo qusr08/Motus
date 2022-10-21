@@ -47,6 +47,9 @@ TagManager:
   - name: Arena Walls Background
     uniqueID: 3283473911
     locked: 0
+  - name: Shadows
+    uniqueID: 4198166031
+    locked: 0
   - name: Objects
     uniqueID: 1746658895
     locked: 0

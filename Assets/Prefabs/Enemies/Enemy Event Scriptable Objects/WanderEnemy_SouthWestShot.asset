@@ -9,8 +9,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 155c4169516519f4aace12d92fab4dc6, type: 3}
-  m_Name: WanderEnemy_DelayShot
+  m_Script: {fileID: 11500000, guid: 625ab22f4718dfb4d8a68fcbf1d012d3, type: 3}
+  m_Name: WanderEnemy_SouthWestShot
   m_EditorClassIdentifier: 
-  delayTime: 2
+  delayTime: 0.1
   delayTimeError: 0
+  bulletInstructions:
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -135
