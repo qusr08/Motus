@@ -20,9 +20,12 @@ public class PlayerController : EntityController {
 	[SerializeField] [Min(0f)] private float dashCooldownTime;
 	[SerializeField] [Min(0f)] private float dashRegenerationTime;
 	[Space]
-	[SerializeField] public bool IsDeflecting;
+	[SerializeField] [Min(0f)] private float playerBulletSpeed;
+	[SerializeField] [Min(0f)] private float playerChargedBulletSpeed;
 	[Space]
-	[SerializeField] [Min(0f)] public int CurrentAmmo;
+	[SerializeField] public bool IsDeflecting;
+	// [Space]
+	// [SerializeField] [Min(0f)] public int CurrentAmmo;
 
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
@@ -63,7 +66,7 @@ public class PlayerController : EntityController {
 		// If the player is no longer alive
 		// ... destroy the player game object (FOR NOW)
 		if (!IsAlive) {
-            Destroy(gameObject);
+			Destroy(gameObject);
 			return;
 		}
 
@@ -83,7 +86,9 @@ public class PlayerController : EntityController {
 			dashBarController.Percentage += dashRegenerationTime * Time.deltaTime;
 		}
 
-		// Move the gun aiming object
+		// If the aim vector has a magnitude of 0, disable the aiming object
+		aimObject.gameObject.SetActive(Aim.magnitude > 0f);
+		// Move and rotate the gun aiming object
 		aimObject.localPosition = Aim * 0.5f;
 		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees + (Mathf.Abs(AimAngleDegrees) > 90f ? -135f : -45f));
 		// Make sure to flip the gun based on the aim angle around the player
@@ -147,13 +152,13 @@ public class PlayerController : EntityController {
 		}
 
 		// If the player has no more ammo left, do not let them shoot
-		if (CurrentAmmo == 0) {
-			return;
-		}
+		// if (CurrentAmmo == 0) {
+		// 	return;
+		// }
 
 		// Spawn a bullet in a certain direction
-		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER);
-		CurrentAmmo--;
+		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER, playerBulletSpeed);
+		// CurrentAmmo--;
 	}
 
 	/// <summary>

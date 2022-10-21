@@ -85,7 +85,9 @@ public class BulletController : ObjectController {
 
 			// Reloads gun when dashing into the bullet
 			if (BulletType == BulletType.DASHABLE && playerCollision.IsDashing) {
-				playerCollision.CurrentAmmo++;
+				// playerCollision.CurrentAmmo++;
+
+				/// TO DO: Implement this doing something for the charged bullet
 			}
 		}
 
