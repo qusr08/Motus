@@ -4,16 +4,16 @@ using UnityEngine;
 
 // Editors:				Frank Alfano
 // Date Created:		10/05/22
-// Date Last Editted:	10/19/22
+// Date Last Editted:	10/21/22
 
 public abstract class EntityController : ObjectController {
+	// The friction that each entity experiences as they move
+	// This will prevent entities from not slowing down if no movement is set
+	private float MOVE_FRICTION = 0.9f;
+
 	[Space]
 	[SerializeField] [Min(0f)] public float MaxHealth;
 	[SerializeField] [Min(0f)] public float MoveSpeed;
-
-	// The friction that each entity experiences as they move
-	// This will prevent entities from not slowing down if no movement is set
-	private float moveFriction = 0.9f;
 
 	public float CurrentHealth { get; protected set; }
 	public Vector2 Movement { get; protected set; }
@@ -69,7 +69,7 @@ public abstract class EntityController : ObjectController {
 			rigidBody2D.velocity = Vector2.ClampMagnitude(rigidBody2D.velocity, MoveSpeed * Time.fixedDeltaTime);
 		} else {
 			// Slowly decrease the velocity to slow the entity down
-			rigidBody2D.velocity *= moveFriction;
+			rigidBody2D.velocity *= MOVE_FRICTION;
 		}
 	}
 

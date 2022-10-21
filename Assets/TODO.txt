@@ -39,7 +39,7 @@
 - [X] New font
 - [ ] Arena walls
 	- [ ] Get updated sprite
-	- [ ] Make foreground wall go slightly invisible when player walks behind it
+	- [X] Make foreground wall go slightly invisible when player walks behind it
 - [ ] Arena crowd sprites
 - [ ] Character sprite/animation
 - [ ] Enemy spawning animation

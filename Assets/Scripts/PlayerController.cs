@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 // Editors:				Frank Alfano, Steven Feldman
 // Date Created:		09/12/22
-// Date Last Editted:	10/19/22
+// Date Last Editted:	10/21/22
 
 public class PlayerController : EntityController {
 	[Space]
@@ -184,22 +184,14 @@ public class PlayerController : EntityController {
 
 		// Send out a raycast in the direction of the dash to see if the player is going to hit something during the dash
 		// The list is ordered from closest objects to furthest objects
-		RaycastHit2D[ ] hits2D = Physics2D.RaycastAll(transform.position, Movement, dashDistance);
+		RaycastHit2D hit2D = Physics2D.Raycast(transform.position, Movement, dashDistance, (1 << LayerMask.NameToLayer("Arena")) | (1 << LayerMask.NameToLayer("Enemy")));
 
 		// If the player hits something
 		// ... make the dash distance meet the object the player hit
-		for (int i = 0; i < hits2D.Length; i++) {
-			// Make sure the player's dash doesn't stop because of bullets
-			if (hits2D[i].transform.GetComponent<BulletController>( ) != null || hits2D[i].transform.GetComponent<PlayerController>( ) != null) {
-				continue;
-			}
-
+		if (hit2D) {
 			// The dash distance is now the distance between the position of the player and the point that the RaycastHit hit
 			// Also subtract 1f to place the player a little bit away from the object hit by the dash
-			newDashDistance = Mathf.Clamp(Vector2.Distance(transform.position, hits2D[i].point) - 1f, 0, dashDistance);
-
-			// Don't need to check the other hits because the closest thing was already found
-			break;
+			newDashDistance = Mathf.Clamp(Vector2.Distance(transform.position, hit2D.point) - 1f, 0, dashDistance);
 		}
 
 		// Set the positions that dictate the players dash
