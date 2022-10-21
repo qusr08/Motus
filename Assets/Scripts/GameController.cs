@@ -6,10 +6,9 @@ using UnityEngine;
 // Date Created:		10/09/22
 // Date Last Editted:	10/09/22
 
-public class GameManager : MonoBehaviour {
+public class GameController : MonoBehaviour {
 	[SerializeField] private GameObject bulletPrefab;
 
-	/// TODO: WAVES WILL EVENTUALLY SPAWN FROM THIS CLASS
 	/// TODO: GAME LOOP FUNCTIONALITY WILL BE FROM THIS CLASS
 
 	/// <summary>

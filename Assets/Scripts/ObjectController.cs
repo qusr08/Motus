@@ -7,7 +7,7 @@ using UnityEngine;
 // Date Last Editted:	10/19/22
 
 public class ObjectController : MonoBehaviour {
-	[SerializeField] protected GameManager gameManager;
+	[SerializeField] protected GameController gameController;
 	[SerializeField] protected Rigidbody2D rigidBody2D;
 	[SerializeField] protected SpriteRenderer spriteRenderer;
 	[SerializeField] protected Animator animator;
@@ -17,7 +17,7 @@ public class ObjectController : MonoBehaviour {
 	/// </summary>
 	protected void OnValidate ( ) {
 		// Get references to these components/gameobjects automatically
-		gameManager = FindObjectOfType<GameManager>( );
+		gameController = FindObjectOfType<GameController>( );
 		rigidBody2D = GetComponent<Rigidbody2D>( );
 		spriteRenderer = GetComponent<SpriteRenderer>( );
 		animator = GetComponent<Animator>( );

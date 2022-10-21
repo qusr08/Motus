@@ -13,7 +13,7 @@ public class OrbitPlayerEnemyEvent : EnemyEvent {
 	[Tooltip("The range at which the enemy should orbit at, as long as the enemy is close enough to the player.")]
 	[SerializeField] [Min(0f)] private float orbitRange;
 
-	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void StartEvent (GameController gameController, EnemyController enemyController, PlayerController playerController) {
 		if (enemyController.DistanceToPlayer >= minimumRange && enemyController.DistanceToPlayer < maximumRange) {
 			// Convert play movement to an angular velocity
 			float angularVelocity = enemyController.MoveSpeed / orbitRange * Time.deltaTime;
@@ -31,7 +31,7 @@ public class OrbitPlayerEnemyEvent : EnemyEvent {
 		IsFinished = true;
 	}
 
-	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void UpdateEvent (GameController gameController, EnemyController enemyController, PlayerController playerController) {
 		throw new System.NotImplementedException( );
 	}
 }

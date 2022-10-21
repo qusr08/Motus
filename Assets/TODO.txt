@@ -1,7 +1,8 @@
 # Bugs
 - [X] Fix enemies all acting the same
 - [ ] Fix mouse aiming
-- [ ] Fix visual glitch with the west/east part of walls
+- [X] Fix visual glitch with the west/east part of walls
+- [ ] Fix visual glitch of gun aiming sprite to weirdly clip through walls
 - [ ] Fix bullets spawning inside walls and immediately despawning
 
 # Coding

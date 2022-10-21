@@ -19,10 +19,10 @@ public abstract class EnemyEvent : ScriptableObject {
 	/// *** If the enemy event does not need to be updated and is a instant change, set IsFinished to true
 	/// *** If the enemy event needs time to be completed, set IsFinished to false and set it to true in Execute().
 	/// </summary>
-	/// <param name="gameManager">A reference to the game manager object.</param>
+	/// <param name="gameController">A reference to the game manager object.</param>
 	/// <param name="enemyController">A reference to the enemy controller that called this event.</param>
 	/// <param name="playerController">A reference to the player controller in the scene.</param>
-	public abstract void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController);
+	public abstract void StartEvent (GameController gameController, EnemyController enemyController, PlayerController playerController);
 
 	/// <summary>
 	/// Called every loop of Update().
@@ -30,10 +30,10 @@ public abstract class EnemyEvent : ScriptableObject {
 	/// *** Make sure if this method is used that IsFinished is set to true at the end of it.
 	/// *** If IsFinished is not set, the enemy controller will never move onto the next event in the list.
 	/// </summary>
-	/// <param name="gameManager">A reference to the game manager object.</param>
+	/// <param name="gameController">A reference to the game manager object.</param>
 	/// <param name="enemyController">A reference to the enemy controller that called this event.</param>
 	/// <param name="playerController">A reference to the player controller in the scene.</param>
-	public abstract void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController);
+	public abstract void UpdateEvent (GameController gameController, EnemyController enemyController, PlayerController playerController);
 }
 
 // Enemy Events List:

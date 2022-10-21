@@ -156,13 +156,13 @@ public class EnemyController : EntityController {
 		// If an event is currently running
 		// ... update it
 		if (isRunningEvent) {
-			enemyEvents[eventIndex].UpdateEvent(gameManager, this, PlayerController);
+			enemyEvents[eventIndex].UpdateEvent(gameController, this, PlayerController);
 		}
 
 		while (eventIndex < enemyEvents.Count) {
 			if (!isRunningEvent) {
 				// Start the next enemy event in the attack list
-				enemyEvents[eventIndex].StartEvent(gameManager, this, PlayerController);
+				enemyEvents[eventIndex].StartEvent(gameController, this, PlayerController);
 				isRunningEvent = true;
 			}
 

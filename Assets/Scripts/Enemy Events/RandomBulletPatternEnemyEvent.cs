@@ -13,16 +13,16 @@ public class RandomBulletPatternEnemyEvent : EnemyEvent {
 
 	private int randomIndex;
 
-	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void StartEvent (GameController gameController, EnemyController enemyController, PlayerController playerController) {
 		// Choose a random bullet pattern and run it
 		randomIndex = Random.Range(0, bulletPatterns.Count);
-		bulletPatterns[randomIndex].StartEvent(gameManager, enemyController, playerController);
+		bulletPatterns[randomIndex].StartEvent(gameController, enemyController, playerController);
 
 		IsFinished = false;
 	}
 
-	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
-		bulletPatterns[randomIndex].UpdateEvent(gameManager, enemyController, playerController);
+	public override void UpdateEvent (GameController gameController, EnemyController enemyController, PlayerController playerController) {
+		bulletPatterns[randomIndex].UpdateEvent(gameController, enemyController, playerController);
 
 		if (bulletPatterns[randomIndex].IsFinished) {
 			IsFinished = true;

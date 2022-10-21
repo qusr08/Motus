@@ -11,7 +11,7 @@ public class PursuePlayerEnemyEvent : EnemyEvent {
 	[SerializeField] [Min(0f)] private float maximumRange;
 	[SerializeField] [Min(0f)] private float minimumRange;
 
-	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void StartEvent (GameController gameController, EnemyController enemyController, PlayerController playerController) {
 		if (enemyController.DistanceToPlayer >= minimumRange && enemyController.DistanceToPlayer < maximumRange) {
 			enemyController.SeekPosition(playerController.transform.position);
 		}
@@ -19,7 +19,7 @@ public class PursuePlayerEnemyEvent : EnemyEvent {
 		IsFinished = true;
 	}
 
-	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void UpdateEvent (GameController gameController, EnemyController enemyController, PlayerController playerController) {
 		throw new System.NotImplementedException( );
 	}
 }

@@ -151,7 +151,7 @@ public class PlayerController : EntityController {
 		}
 
 		// Spawn a bullet in a certain direction
-		gameManager.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER);
+		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER);
 		CurrentAmmo--;
 	}
 

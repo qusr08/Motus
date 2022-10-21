@@ -15,14 +15,14 @@ public class DelayEnemyEvent : EnemyEvent {
 	private float startTime;
 	private float delayTimer;
 
-	public override void StartEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void StartEvent (GameController gameController, EnemyController enemyController, PlayerController playerController) {
 		IsFinished = false;
 
 		startTime = Time.time;
 		delayTimer = delayTime + Random.Range(-delayTimeError, delayTimeError);
 	}
 
-	public override void UpdateEvent (GameManager gameManager, EnemyController enemyController, PlayerController playerController) {
+	public override void UpdateEvent (GameController gameController, EnemyController enemyController, PlayerController playerController) {
 		// Wait a specified amount of time before finishing the event
 		if (Time.time - startTime >= delayTimer) {
 			IsFinished = true;
