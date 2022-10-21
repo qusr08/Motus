@@ -15,8 +15,8 @@ TagManager:
   - Player
   - Enemy
   - Bullet
-  - 
-  - 
+  - Foreground Object
+  - Arena
   - 
   - 
   - 
@@ -46,6 +46,9 @@ TagManager:
     locked: 0
   - name: Arena Walls Background
     uniqueID: 3283473911
+    locked: 0
+  - name: Shadows
+    uniqueID: 4198166031
     locked: 0
   - name: Objects
     uniqueID: 1746658895
