@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 // Editors:				Frank Alfano, Steven Feldman
 // Date Created:		09/12/22
@@ -64,7 +65,7 @@ public class PlayerController : EntityController {
 		// If the player is no longer alive
 		// ... destroy the player game object (FOR NOW)
 		if (!IsAlive) {
-			Destroy(gameObject);
+            Destroy(gameObject);
 			return;
 		}
 
