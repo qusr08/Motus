@@ -9,7 +9,7 @@
 - [ ] Different enemy prefabs *****
 	- [ ] Shotgun enemy special attack
 	- [ ] Tank enemy special attack
-	- [ ] Wander enemy AI
+	- [X] Wander enemy AI
 	- [ ] Hazard enemy landmines
 - [ ] Game loop *****
 	- [ ] Title screen *****
@@ -18,7 +18,7 @@
 - [ ] Enemy event functionality *****
 	- [X] Finish orbit event
 	- [ ] Finish jumping back and towards event *****
-	- [ ] Enemy wandering around arena *****
+	- [X] Enemy wandering around arena *****
 - [ ] Ammo count + UI *****
 - [ ] Charged bullet
 

@@ -147,14 +147,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf9eadd00ba19c40869be1d4a9a9b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameController: {fileID: 0}
   rigidBody2D: {fileID: 3189487400666286937}
   spriteRenderer: {fileID: 3189487400666286938}
   animator: {fileID: 0}
   MaxHealth: 16
   MoveSpeed: 180
   PlayerController: {fileID: 0}
-  enemyAI: []
+  enemyAI:
+  - {fileID: 11400000, guid: 09aac62a8a3ff9643bfd2f585482ce91, type: 2}
   regularAttack:
   - {fileID: 11400000, guid: 594c23e267293f04c83d80e4b79471ed, type: 2}
   - {fileID: 11400000, guid: c5b534585dd2d984fb3487ae0666cae2, type: 2}
