@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano, Michael Xie
 // Date Created:		09/16/22
-// Date Last Editted:	10/20/22
+// Date Last Editted:	10/22/22
 
 public class EnemyController : EntityController {
 	[Space]
@@ -20,7 +20,23 @@ public class EnemyController : EntityController {
 	[SerializeField] public float SpecialAttackTime;
 	[Space]
 	[SerializeField] public bool IsMovementHalted;
-	[SerializeField] public bool IsJumping;
+	[SerializeField] private bool _isJumping;
+
+	/// <summary>
+	/// Whether or not the enemy is jumping.
+	/// </summary>
+	public bool IsJumping {
+		get {
+			return _isJumping;
+		}
+
+		set {
+			_isJumping = value;
+
+			// If the enemy is jumping, disable its collider so it can't get hit by bullets
+			boxCollider2D.enabled = !_isJumping;
+		}
+	}
 
 	private int enemyAIEventIndex = 0;
 	private bool isUpdatingEnemyAIEvent = false;
