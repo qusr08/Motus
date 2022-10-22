@@ -20,6 +20,7 @@ public class EnemyController : EntityController {
 	[SerializeField] public float SpecialAttackTime;
 	[Space]
 	[SerializeField] public bool IsMovementHalted;
+	[SerializeField] public bool IsJumping;
 
 	private int enemyAIEventIndex = 0;
 	private bool isUpdatingEnemyAIEvent = false;
@@ -190,7 +191,7 @@ public class EnemyController : EntityController {
 	public void SeekPosition (Vector2 position) {
 		// If the enemy's movement is currently halted
 		// ... don't have it seek out a new position and change its movement until it is no longer halted
-		if (!IsMovementHalted) {
+		if (!IsMovementHalted && !IsJumping) {
 			Movement = (position - (Vector2) transform.position).normalized;
 		}
 	}

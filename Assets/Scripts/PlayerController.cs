@@ -21,8 +21,6 @@ public class PlayerController : EntityController {
 	[SerializeField] [Min(0f)] private float dashRegenerationTime;
 	[Space]
 	[SerializeField] public bool IsDeflecting;
-	[Space]
-	[SerializeField] [Min(0f)] public int CurrentAmmo;
 
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
@@ -146,14 +144,8 @@ public class PlayerController : EntityController {
 			return;
 		}
 
-		// If the player has no more ammo left, do not let them shoot
-		if (CurrentAmmo == 0) {
-			return;
-		}
-
 		// Spawn a bullet in a certain direction
 		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER);
-		CurrentAmmo--;
 	}
 
 	/// <summary>

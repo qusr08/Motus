@@ -1,53 +1,28 @@
 # Bugs
-- [X] Fix enemies all acting the same
 - [ ] Fix mouse aiming
-- [X] Fix visual glitch with the west/east part of walls
 - [ ] Fix visual glitch of gun aiming sprite to weirdly clip through walls
 - [ ] Fix bullets spawning inside walls and immediately despawning
 
 # Coding
-- [ ] Different enemy prefabs *****
-	- [ ] Shotgun enemy special attack
-	- [ ] Tank enemy special attack
-	- [X] Wander enemy AI
-	- [ ] Hazard enemy landmines
-- [ ] Game loop *****
-	- [ ] Title screen *****
-	- [ ] Game over screen *****
-	- [ ] Enemy waves *****
-- [ ] Enemy event functionality *****
-	- [X] Finish orbit event
-	- [ ] Finish jumping back and towards event *****
-	- [X] Enemy wandering around arena *****
-- [ ] Ammo count + UI *****
+- [ ] Add knockback when firing bullets (to both player and enemy)
+- [ ] Enemy waves
+- [ ] Ammo count + UI
 - [ ] Charged bullet
 
-- [X] Change Entity hitboxes to make a more 3D effect
-- [X] Change movement to include acceleration and not just velocity
-- [X] Health bar + UI
 - [ ] Health pickups
-- [X] Dash cooldown + UI
-- [X] Adjust bullet speed
 - [ ] Adjust enemy movement to have them not bunch up together
 - [ ] Make a better player controller
-- [X] Properly rotate gun sprite around player
-- [ ] Add knockback when firing bullets (to both player and enemy)
+- [ ] Hazard enemy
+- [ ] Landmines
 
 # Visuals
-- [X] Object shadows
 - [ ] Trash on ground of arena (+ just better ground sprites)
-- [X] New font
-- [ ] Arena walls
-	- [ ] Get updated sprite
-	- [X] Make foreground wall go slightly invisible when player walks behind it
+- [ ] Get final sprite for arena walls
 - [ ] Arena crowd sprites
 - [ ] Character sprite/animation
 - [ ] Enemy spawning animation
-- [ ] UI button sprite
-- [ ] Make bullets fade in when shot
-- [ ] Lights around arena
+- [ ] Make bullets fade in when shot ?
 - [ ] Particle effects
-- [ ] Add light to bullets
 
 # Narrative
 - [ ] Come up with enemy designs

@@ -147,10 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf9eadd00ba19c40869be1d4a9a9b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameController: {fileID: 0}
   rigidBody2D: {fileID: 3189487400666286937}
   spriteRenderer: {fileID: 3189487400666286938}
   animator: {fileID: 0}
+  Shadow: {fileID: 4957896747208251362}
   MaxHealth: 24
   MoveSpeed: 95
   PlayerController: {fileID: 0}
@@ -179,9 +180,18 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 78379db8c7f96944b998ba952811d1f9, type: 2}
   - {fileID: 11400000, guid: fba0ec8f684cbf24886b8e26c0987150, type: 2}
   - {fileID: 11400000, guid: bad68f07089c2a443b391961eaf56757, type: 2}
-  specialAttack: []
+  specialAttack:
+  - {fileID: 11400000, guid: 29234ed2e04abee40a49a9efb7d27fb2, type: 2}
+  - {fileID: 11400000, guid: 97308b598d16d98479038a3fcf6860e2, type: 2}
+  - {fileID: 11400000, guid: d66058c0eb013ac469369db2bb0e1e4d, type: 2}
+  - {fileID: 11400000, guid: 78379db8c7f96944b998ba952811d1f9, type: 2}
+  - {fileID: 11400000, guid: d66058c0eb013ac469369db2bb0e1e4d, type: 2}
+  - {fileID: 11400000, guid: 78379db8c7f96944b998ba952811d1f9, type: 2}
+  - {fileID: 11400000, guid: d66058c0eb013ac469369db2bb0e1e4d, type: 2}
+  - {fileID: 11400000, guid: bad68f07089c2a443b391961eaf56757, type: 2}
   SpecialAttackTime: 20
   IsMovementHalted: 0
+  IsJumping: 0
 --- !u!1001 &7912904814731613336
 PrefabInstance:
   m_ObjectHideFlags: 0

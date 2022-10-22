@@ -147,10 +147,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1cf9eadd00ba19c40869be1d4a9a9b56, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gameManager: {fileID: 0}
+  gameController: {fileID: 0}
   rigidBody2D: {fileID: 3189487400666286937}
   spriteRenderer: {fileID: 3189487400666286938}
   animator: {fileID: 0}
+  Shadow: {fileID: 4251458397544451540}
   MaxHealth: 12
   MoveSpeed: 130
   PlayerController: {fileID: 0}
@@ -161,9 +162,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 512d56baf6bd7f34e8eea0364dc9b79e, type: 2}
   - {fileID: 11400000, guid: bbd4540b828b118419eaa2fe373781a7, type: 2}
   - {fileID: 11400000, guid: 36c60367e0b222c44b1483935382b33c, type: 2}
-  specialAttack: []
+  specialAttack:
+  - {fileID: 11400000, guid: 7f6d9fb1413da0645afdcb98b5a2729b, type: 2}
   SpecialAttackTime: 10
   IsMovementHalted: 0
+  IsJumping: 0
 --- !u!1001 &1305343712797839022
 PrefabInstance:
   m_ObjectHideFlags: 0

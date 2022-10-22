@@ -11,6 +11,8 @@ public class ObjectController : MonoBehaviour {
 	[SerializeField] protected Rigidbody2D rigidBody2D;
 	[SerializeField] protected SpriteRenderer spriteRenderer;
 	[SerializeField] protected Animator animator;
+	[Space]
+	[SerializeField] public Transform Shadow;
 
 	/// <summary>
 	/// Update variables each time the Unity Editor is refreshed.
@@ -21,6 +23,8 @@ public class ObjectController : MonoBehaviour {
 		rigidBody2D = GetComponent<Rigidbody2D>( );
 		spriteRenderer = GetComponent<SpriteRenderer>( );
 		animator = GetComponent<Animator>( );
+
+		Shadow = transform.Find("Shadow");
 	}
 
 	/// <summary>
