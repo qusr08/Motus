@@ -507,6 +507,8 @@ MonoBehaviour:
   gameState: 0
   crosshairCursorTexture: {fileID: 2800000, guid: 71b215482f4c82941ba27a15bb19bf85, type: 3}
   crosshairCursorHotspot: {x: 7, y: 7}
+  normalCursorTexture: {fileID: 2800000, guid: a885a328b0fbd3f499e4388e31515b94, type: 3}
+  normalCursorHotspot: {x: 0, y: 0}
 --- !u!4 &461664532
 Transform:
   m_ObjectHideFlags: 0

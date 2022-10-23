@@ -3,6 +3,7 @@
 
 - [ ] Fix visual glitch of gun aiming sprite to weirdly clip through walls
 - [ ] Fix mouse aiming
+- [ ] Fix controller navigating through UI
 
 # Coding
 * [ ] Enemy waves
@@ -19,6 +20,7 @@
 
 # Visuals
 + [ ] Arena crowd sprites
++ [ ] Pause menu
 
 - [ ] Trash on ground of arena (+ just better ground sprites)
 - [ ] Get final sprite for arena walls

@@ -21,6 +21,8 @@ public class GameController : MonoBehaviour {
 	[Space]
 	[SerializeField] private Texture2D crosshairCursorTexture;
 	[SerializeField] private Vector2 crosshairCursorHotspot;
+	[SerializeField] private Texture2D normalCursorTexture;
+	[SerializeField] private Vector2 normalCursorHotspot;
 
 	public GameState GameState {
 		get {
@@ -51,12 +53,16 @@ public class GameController : MonoBehaviour {
 					// Make time move at normal speed
 					Time.timeScale = 1f;
 
+					Cursor.SetCursor(crosshairCursorTexture, crosshairCursorHotspot, CursorMode.Auto);
+
 					break;
 				case GameState.GAMEOVER:
 					GameOverUI.gameObject.SetActive(true);
 
 					// Stop time
 					Time.timeScale = 0f;
+
+					Cursor.SetCursor(normalCursorTexture, normalCursorHotspot, CursorMode.Auto);
 
 					break;
 			}
@@ -71,8 +77,6 @@ public class GameController : MonoBehaviour {
 		OnValidate( );
 
 		GameState = GameState.GAME;
-
-		Cursor.SetCursor(crosshairCursorTexture, crosshairCursorHotspot, CursorMode.Auto);
 	}
 
 	private void Update ( ) {
