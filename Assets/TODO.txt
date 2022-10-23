@@ -9,7 +9,6 @@
 * [ ] Enemy waves
 * [ ] Charged bullet
 
-+ [ ] Add a max jump distance for jump enemy event
 + [ ] Add knockback when firing bullets (to both player and enemy)
 
 - [ ] Health pickups

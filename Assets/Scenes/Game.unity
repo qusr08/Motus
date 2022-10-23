@@ -509,6 +509,12 @@ MonoBehaviour:
   crosshairCursorHotspot: {x: 7, y: 7}
   normalCursorTexture: {fileID: 2800000, guid: a885a328b0fbd3f499e4388e31515b94, type: 3}
   normalCursorHotspot: {x: 0, y: 0}
+  enemyPrefabList:
+  - {fileID: 3189487400666286936, guid: 9a63ddaef2cdbd048abbfb8d1e81d962, type: 3}
+  - {fileID: 3189487400666286936, guid: 5c06ac98b61137149affa1a8cc5675c8, type: 3}
+  - {fileID: 3189487400666286936, guid: e4bf2b77d3c5bcc4e89f91e566068c9b, type: 3}
+  - {fileID: 3189487400666286936, guid: 54cb122474b643e4e90e2ce88f0e60b7, type: 3}
+  enemyTypeCosts: 02000000040000000500000003000000
 --- !u!4 &461664532
 Transform:
   m_ObjectHideFlags: 0
@@ -1212,10 +1218,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3189487400666286936, guid: e4bf2b77d3c5bcc4e89f91e566068c9b, type: 3}
-      propertyPath: SpecialAttackTime
-      value: 5
-      objectReference: {fileID: 0}
     - target: {fileID: 3189487400666286939, guid: e4bf2b77d3c5bcc4e89f91e566068c9b, type: 3}
       propertyPath: m_RootOrder
       value: 6

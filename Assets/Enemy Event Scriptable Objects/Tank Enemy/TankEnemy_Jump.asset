@@ -13,5 +13,6 @@ MonoBehaviour:
   m_Name: TankEnemy_Jump
   m_EditorClassIdentifier: 
   jumpToDistance: 8
+  maximumJumpDistance: 8
   jumpHeight: 4
   jumpTime: 1

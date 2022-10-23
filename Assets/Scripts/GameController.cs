@@ -7,7 +7,7 @@ using UnityEngine;
 // Date Last Editted:	10/22/22
 
 public enum GameState {
-	GAME, PAUSE, GAMEOVER
+	GAME, WAVE, PAUSE, GAMEOVER
 }
 
 public class GameController : MonoBehaviour {
@@ -23,7 +23,14 @@ public class GameController : MonoBehaviour {
 	[SerializeField] private Vector2 crosshairCursorHotspot;
 	[SerializeField] private Texture2D normalCursorTexture;
 	[SerializeField] private Vector2 normalCursorHotspot;
+	[Space]
+	[SerializeField] private List<EnemyController> enemyPrefabList;
+	[Tooltip("The values of the costs should line up with the corresponding index in the enemyPrefabList array.")]
+	[SerializeField] private List<int> enemyTypeCosts;
 
+	/// <summary>
+	/// The current state of the game
+	/// </summary>
 	public GameState GameState {
 		get {
 			return gameState;
@@ -49,19 +56,19 @@ public class GameController : MonoBehaviour {
 			switch (gameState) {
 				case GameState.GAME:
 					GameUI.gameObject.SetActive(true);
-
 					// Make time move at normal speed
 					Time.timeScale = 1f;
-
 					Cursor.SetCursor(crosshairCursorTexture, crosshairCursorHotspot, CursorMode.Auto);
+
+					break;
+				case GameState.WAVE:
+
 
 					break;
 				case GameState.GAMEOVER:
 					GameOverUI.gameObject.SetActive(true);
-
 					// Stop time
 					Time.timeScale = 0f;
-
 					Cursor.SetCursor(normalCursorTexture, normalCursorHotspot, CursorMode.Auto);
 
 					break;

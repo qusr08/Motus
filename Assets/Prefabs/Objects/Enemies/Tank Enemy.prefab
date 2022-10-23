@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
   rigidBody2D: {fileID: 3189487400666286937}
+  boxCollider2D: {fileID: 3189487400666286934}
   spriteRenderer: {fileID: 3189487400666286938}
   animator: {fileID: 0}
   Shadow: {fileID: 4957896747208251362}
@@ -191,7 +192,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: bad68f07089c2a443b391961eaf56757, type: 2}
   SpecialAttackTime: 20
   IsMovementHalted: 0
-  IsJumping: 0
+  _isJumping: 0
 --- !u!1001 &7912904814731613336
 PrefabInstance:
   m_ObjectHideFlags: 0

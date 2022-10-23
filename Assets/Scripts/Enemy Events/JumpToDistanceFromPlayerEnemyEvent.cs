@@ -4,12 +4,14 @@ using UnityEngine;
 
 // Editors:				Frank Alfano
 // Date Created:		10/10/22
-// Date Last Editted:	10/22/22
+// Date Last Editted:	10/23/22
 
 [CreateAssetMenu(fileName = "NewJumpToDistanceFromPlayerEnemyEvent", menuName = "Enemy Events/Jump To Distance From Player Enemy Event")]
 public class JumpToDistanceFromPlayerEnemyEvent : EnemyEvent {
 	[Tooltip("The distance from the player to have the enemy jump to.")]
 	[SerializeField] private float jumpToDistance;
+	[Tooltip("The maximum distance that the enemy is able to jump. This limits the enemies jump in all cases.")]
+	[SerializeField] private float maximumJumpDistance;
 	[Tooltip("How high the enemy should jump.")]
 	[SerializeField] private float jumpHeight;
 	[Tooltip("How long it should take the enemy to complete its jump.")]
@@ -39,6 +41,13 @@ public class JumpToDistanceFromPlayerEnemyEvent : EnemyEvent {
 		// Calculate the starting and ending positions for the jump
 		fromJumpPosition = enemyController.transform.position;
 		toJumpPosition = (enemyController.transform.position * distanceRatio) + (playerController.transform.position * (1 - distanceRatio));
+
+		// Make sure the enemy doesn't jump further than it is allowed to
+		// This prevents the enemies from jumping all the way across the arena to be near the player
+		float maxDistanceRatio = maximumJumpDistance / (fromJumpPosition - toJumpPosition).magnitude;
+		if (maxDistanceRatio < 1f) {
+			toJumpPosition = (toJumpPosition * maxDistanceRatio) + (fromJumpPosition * (1 - maxDistanceRatio));
+		}
 
 		// Make sure the enemy does not jump out of bounds of the arena
 		toJumpPosition = Vector2.ClampMagnitude(toJumpPosition, FindObjectOfType<CalculateArenaBounds>( ).Radius - 1f);
