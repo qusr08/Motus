@@ -61,7 +61,6 @@ public class PlayerController : EntityController {
 		// If the player is no longer alive
 		// ... destroy the player game object (FOR NOW)
 		if (!IsAlive) {
-			SceneManager.LoadScene("Game Over");
 			return;
 		}
 

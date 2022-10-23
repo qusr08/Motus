@@ -99,9 +99,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
   rigidBody2D: {fileID: 0}
+  boxCollider2D: {fileID: 0}
   spriteRenderer: {fileID: 139476637833884896}
-  objectShadow: {fileID: 0}
   animator: {fileID: 0}
+  Shadow: {fileID: 0}
 --- !u!1 &139476638015781128
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,10 +305,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
   rigidBody2D: {fileID: 139476638015781122}
+  boxCollider2D: {fileID: 139476638015781133}
   spriteRenderer: {fileID: 139476638015781132}
-  objectShadow: {fileID: 2077442969983075440}
   animator: {fileID: 6568622921131447124}
-  MaxHealth: 100
+  Shadow: {fileID: 2077442969983075440}
+  MaxHealth: 20
   MoveSpeed: 250
   aimObject: {fileID: 139476637833884899}
   healthBarController: {fileID: 0}
@@ -317,7 +319,6 @@ MonoBehaviour:
   dashCooldownTime: 1
   dashRegenerationTime: 0.1
   IsDeflecting: 0
-  CurrentAmmo: 25
 --- !u!1001 &3875693327955166986
 PrefabInstance:
   m_ObjectHideFlags: 0

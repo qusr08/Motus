@@ -6,10 +6,81 @@ using UnityEngine;
 // Date Created:		10/09/22
 // Date Last Editted:	10/09/22
 
+public enum GameState {
+	GAME, PAUSE, GAMEOVER
+}
+
 public class GameController : MonoBehaviour {
 	[SerializeField] private GameObject bulletPrefab;
+	[SerializeField] private PlayerController playerController;
+	[Space]
+	[SerializeField] private Transform GameUI;
+	[SerializeField] private Transform GameOverUI;
+	[Space]
+	[SerializeField] private GameState gameState = GameState.GAME;
 
-	/// TODO: GAME LOOP FUNCTIONALITY WILL BE FROM THIS CLASS
+	public GameState GameState {
+		get {
+			return gameState;
+		}
+
+		set {
+			// Update the previous state and disable and UI that should not be shown anymore
+			switch (gameState) {
+				case GameState.GAME:
+					GameUI.gameObject.SetActive(false);
+
+					break;
+				case GameState.GAMEOVER:
+					GameOverUI.gameObject.SetActive(false);
+
+					break;
+			}
+
+			// Set the gamestate value
+			gameState = value;
+
+			// Update the new state UI to be visible
+			switch (gameState) {
+				case GameState.GAME:
+					GameUI.gameObject.SetActive(true);
+
+					// Make time move at normal speed
+					Time.timeScale = 1f;
+
+					break;
+				case GameState.GAMEOVER:
+					GameOverUI.gameObject.SetActive(true);
+
+					// Stop time
+					Time.timeScale = 0f;
+
+					break;
+			}
+		}
+	}
+
+	private void OnValidate ( ) {
+		playerController = FindObjectOfType<PlayerController>( );
+	}
+
+	private void Start ( ) {
+		OnValidate( );
+
+		GameState = GameState.GAME;
+	}
+
+	private void Update ( ) {
+		// Update different parts of the game depending on the gamestate
+		switch (gameState) {
+			case GameState.GAME:
+				if (!playerController.IsAlive) {
+					GameState = GameState.GAMEOVER;
+				}
+
+				break;
+		}
+	}
 
 	/// <summary>
 	/// Spawn a bullet that moves in a certain direction from a starting point.

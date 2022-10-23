@@ -1,9 +1,9 @@
 # Bugs
 * [ ] Fix bullets spawning inside walls and immediately despawning
+* [ ] Fix enemies being able to jump out of the arena
 
 - [ ] Fix visual glitch of gun aiming sprite to weirdly clip through walls
 - [ ] Fix mouse aiming
-- [ ] Fix enemy 
 
 # Coding
 * [ ] Add knockback when firing bullets (to both player and enemy)
@@ -19,7 +19,7 @@
 
 # Visuals
 * [ ] Arena crowd sprites
-* [ ] Make title screen look better
+* [X] Make title screen look better
 * [ ] Make game over screen look better
 
 - [ ] Trash on ground of arena (+ just better ground sprites)
@@ -28,6 +28,8 @@
 - [ ] Enemy spawning animation
 - [?] Make bullets fade in when shot
 - [ ] Particle effects
+- [ ] Scene transitions
+- [ ] Title screen background image
 
 # Narrative
 - [ ] Come up with enemy designs
