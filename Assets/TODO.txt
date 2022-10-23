@@ -1,5 +1,5 @@
 # Bugs
-* [ ] Fix bullets spawning inside walls and immediately despawning
+* [ ] Fix bullets spawning inside walls and immediately being destroyed
 
 - [ ] Fix visual glitch of gun aiming sprite to weirdly clip through walls
 - [ ] Fix mouse aiming
@@ -9,6 +9,7 @@
 * [ ] Enemy waves
 * [ ] Charged bullet
 
++ [ ] Add a max jump distance for jump enemy event
 + [ ] Add knockback when firing bullets (to both player and enemy)
 
 - [ ] Health pickups
