@@ -1,26 +1,24 @@
 # Bugs
 * [ ] Fix bullets spawning inside walls and immediately despawning
-* [ ] Fix enemies being able to jump out of the arena
 
 - [ ] Fix visual glitch of gun aiming sprite to weirdly clip through walls
 - [ ] Fix mouse aiming
 
 # Coding
-* [ ] Add knockback when firing bullets (to both player and enemy)
 * [ ] Enemy waves
-* [ ] Ammo count + UI
 * [ ] Charged bullet
+
++ [ ] Add knockback when firing bullets (to both player and enemy)
 
 - [ ] Health pickups
 - [ ] Adjust enemy movement to have them not bunch up together
 - [ ] Make a better player controller
 - [ ] Hazard enemy
 - [ ] Landmines
+- [ ] Make bullets deflect in the direction the player is aiming
 
 # Visuals
-* [ ] Arena crowd sprites
-* [X] Make title screen look better
-* [ ] Make game over screen look better
++ [ ] Arena crowd sprites
 
 - [ ] Trash on ground of arena (+ just better ground sprites)
 - [ ] Get final sprite for arena walls

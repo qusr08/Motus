@@ -39,6 +39,9 @@ public class JumpToDistanceFromPlayerEnemyEvent : EnemyEvent {
 		// Calculate the starting and ending positions for the jump
 		fromJumpPosition = enemyController.transform.position;
 		toJumpPosition = (enemyController.transform.position * distanceRatio) + (playerController.transform.position * (1 - distanceRatio));
+
+		// Make sure the enemy does not jump out of bounds of the arena
+		toJumpPosition = Vector2.ClampMagnitude(toJumpPosition, FindObjectOfType<CalculateArenaBounds>( ).Radius - 1f);
 	}
 
 	public override void UpdateEvent (GameController gameController, EnemyController enemyController, PlayerController playerController) {

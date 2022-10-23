@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano
 // Date Created:		10/09/22
-// Date Last Editted:	10/09/22
+// Date Last Editted:	10/22/22
 
 public enum GameState {
 	GAME, PAUSE, GAMEOVER
@@ -18,6 +18,9 @@ public class GameController : MonoBehaviour {
 	[SerializeField] private Transform GameOverUI;
 	[Space]
 	[SerializeField] private GameState gameState = GameState.GAME;
+	[Space]
+	[SerializeField] private Texture2D crosshairCursorTexture;
+	[SerializeField] private Vector2 crosshairCursorHotspot;
 
 	public GameState GameState {
 		get {
@@ -68,6 +71,8 @@ public class GameController : MonoBehaviour {
 		OnValidate( );
 
 		GameState = GameState.GAME;
+
+		Cursor.SetCursor(crosshairCursorTexture, crosshairCursorHotspot, CursorMode.Auto);
 	}
 
 	private void Update ( ) {

@@ -47,7 +47,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 48
+  spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -121,72 +121,9 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 0
-        y: 261
-        width: 524
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e6db0a2714a66b246be1f6d396de6353
-      internalID: 654856144
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: full_bar_mask
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 213
-        width: 524
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 95757bd3cfb4f6d4eae4763dabb927ee
-      internalID: -1146347979
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: bar_color_red
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 165
-        width: 524
-        height: 48
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a3a7429ddd866ee45a6facc0bc71f43a
-      internalID: -2096937403
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: split_bar_border
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 117
-        width: 524
-        height: 48
+        y: 120
+        width: 262
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -201,13 +138,13 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: full_bar_border
+      name: full_bar_mask
       rect:
         serializedVersion: 2
         x: 0
-        y: 69
-        width: 524
-        height: 48
+        y: 96
+        width: 262
+        height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -222,15 +159,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bar_color_green
+      name: split_bar_border
       rect:
         serializedVersion: 2
         x: 0
-        y: 21
-        width: 524
-        height: 48
+        y: 48
+        width: 262
+        height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -238,6 +175,69 @@ TextureImporter:
       bones: []
       spriteID: fb6880d3b5105f349aef5498e49f6d92
       internalID: -1298169949
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bar_red
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 72
+        width: 262
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 23af1d84e7c40c545be6557d35390553
+      internalID: 189834318
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: full_bar_border
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 24
+        width: 262
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: daeb555ba2e21b64e8ff794462d8efeb
+      internalID: 72594131
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: bar_blue
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 262
+        height: 24
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f62ff3ec15920f43804c714006e5599
+      internalID: 79441838
       vertices: []
       indices: 
       edges: []
@@ -253,12 +253,13 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      full_bar_border: 1775720725
-      split_bar_border: -845831505
-      bar_color_green: -1298169949
+      bar_blue: 79441838
+      full_bar_border: 72594131
+      split_bar_border: -1298169949
       bar_color_red: -2096937403
-      full_bar_mask: -1146347979
-      split_bar_mask: 654856144
+      bar_red: 189834318
+      full_bar_mask: 1775720725
+      split_bar_mask: -845831505
   spritePackingTag: 
   pSDRemoveMatte: 0
   pSDShowRemoveMatteOption: 0
