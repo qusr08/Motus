@@ -318,6 +318,8 @@ MonoBehaviour:
   dashTime: 0.15
   dashCooldownTime: 1
   dashRegenerationTime: 0.1
+  _ammo: 60
+  ammoUIText: {fileID: 0}
   IsDeflecting: 0
 --- !u!1001 &3875693327955166986
 PrefabInstance:

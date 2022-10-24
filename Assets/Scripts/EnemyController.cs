@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano, Michael Xie
 // Date Created:		09/16/22
-// Date Last Editted:	10/22/22
+// Date Last Editted:	10/23/22
 
 public class EnemyController : EntityController {
 	[Space]
@@ -18,6 +18,8 @@ public class EnemyController : EntityController {
 	[SerializeField] private List<EnemyEvent> specialAttack;
 	[Tooltip("The time it takes for the enemy's special attack to be triggered.")]
 	[SerializeField] public float SpecialAttackTime;
+	[Tooltip("The range at which the enemy can 'see' the player. The enemy will not shoot or move if the distance to the player is greater than this amount.")]
+	[SerializeField] public float SightRange;
 	[Space]
 	[SerializeField] public bool IsMovementHalted;
 	[SerializeField] private bool _isJumping;
@@ -133,6 +135,12 @@ public class EnemyController : EntityController {
 		Aim = (PlayerController.transform.position - transform.position).normalized;
 		AimAngleDegrees = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x);
 
+		// If the player is not in sight of the enemy
+		// ... do not move or have the enemy shoot
+		if (DistanceToPlayer > SightRange) {
+			return;
+		}
+
 		// Update event lists
 		// The range needs to be checked before sight because the range will always be smaller than sight.
 		// Range should be for interactions with the player at a close range, and sight should be interactions with the player from a far range.
@@ -172,8 +180,6 @@ public class EnemyController : EntityController {
 	/// <param name="enemyEvents">The enemy event list to update.</param>
 	/// <param name="eventIndex">The index of the current enemy event being updated.</param>
 	/// <param name="isRunningEvent">Whether or not an event from this array is currently being updated.</param>
-	/// <param name="_eventIndex">The output value of the event index after this method finishes.</param>
-	/// <param name="_isRunningEvent">The output value of whether or not an event is currently being run.</param>
 	private void UpdateEventList (List<EnemyEvent> enemyEvents, ref int eventIndex, ref bool isRunningEvent) {
 		// If an event is currently running
 		// ... update it

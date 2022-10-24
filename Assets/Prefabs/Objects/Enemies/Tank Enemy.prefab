@@ -191,6 +191,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: d66058c0eb013ac469369db2bb0e1e4d, type: 2}
   - {fileID: 11400000, guid: bad68f07089c2a443b391961eaf56757, type: 2}
   SpecialAttackTime: 20
+  SightRange: 25
   IsMovementHalted: 0
   _isJumping: 0
 --- !u!1001 &7912904814731613336

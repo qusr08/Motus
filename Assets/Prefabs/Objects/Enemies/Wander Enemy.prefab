@@ -149,8 +149,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   gameController: {fileID: 0}
   rigidBody2D: {fileID: 3189487400666286937}
+  boxCollider2D: {fileID: 3189487400666286934}
   spriteRenderer: {fileID: 3189487400666286938}
   animator: {fileID: 0}
+  Shadow: {fileID: 752357060412752302}
   MaxHealth: 16
   MoveSpeed: 180
   PlayerController: {fileID: 0}
@@ -175,7 +177,9 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 237fcde78ace0624e84016fddeae174b, type: 2}
   - {fileID: 11400000, guid: ba432293b2cf80e499c4da5155321329, type: 2}
   SpecialAttackTime: 6.5
+  SightRange: 100
   IsMovementHalted: 0
+  _isJumping: 0
 --- !u!1001 &2552798892992168660
 PrefabInstance:
   m_ObjectHideFlags: 0

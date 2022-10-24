@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano, Jacob Braunhut, Matthew Meyrowitz
 // Date Created:		09/12/22
-// Date Last Editted:	10/19/22
+// Date Last Editted:	10/23/22
 
 public enum BulletType {
 	PLAYER, DEFLECTABLE, DASHABLE, ENEMY
@@ -90,8 +90,7 @@ public class BulletController : ObjectController {
 			if (BulletType == BulletType.DASHABLE && playerCollision.IsDashing) {
 				// DEBUG STATS
 				gameController.BulletsDashedThrough++;
-
-				// playerCollision.CurrentAmmo++;
+				playerCollision.Ammo += 3;
 
 				/// TO DO: Implement this doing something for the charged bullet
 			}

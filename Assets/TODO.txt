@@ -1,8 +1,8 @@
 # Bugs
 * [ ] Fix bullets spawning inside walls and immediately being destroyed
-* [ ] Fix enemies shooting you all over the entire arena
 
 - [~] Fix visual glitch of gun aiming sprite to weirdly clip through walls
+- [~] Player might still be able to clip out of the arena
 - [ ] Fix mouse aiming
 - [ ] Fix controller navigating through UI
 
@@ -18,6 +18,9 @@
 - [ ] Hazard enemy
 - [ ] Landmines
 - [ ] Make bullets deflect in the direction the player is aiming
+- [ ] Fix up player ammo code
+- [ ] Make getting random point in arena more clean
+- [ ] Make enemies smarter
 
 # Visuals
 + [ ] Arena crowd sprites

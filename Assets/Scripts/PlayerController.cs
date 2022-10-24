@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 // Editors:				Frank Alfano, Steven Feldman
 // Date Created:		09/12/22
@@ -20,7 +21,22 @@ public class PlayerController : EntityController {
 	[SerializeField] [Min(0f)] private float dashCooldownTime;
 	[SerializeField] [Min(0f)] private float dashRegenerationTime;
 	[Space]
+	[SerializeField] private int _ammo;
+	[SerializeField] private TextMeshProUGUI ammoUIText;
+	[Space]
 	[SerializeField] public bool IsDeflecting;
+
+	public int Ammo {
+		get {
+			return _ammo;
+		}
+
+		set {
+			_ammo = value;
+
+			ammoUIText.text = $"{_ammo}";
+		}
+	}
 
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
@@ -50,6 +66,8 @@ public class PlayerController : EntityController {
 
 		healthBarController.Percentage = 1f;
 		dashBarController.Percentage = 1f;
+
+		Ammo = 60;
 	}
 
 	/// <summary>
@@ -111,6 +129,11 @@ public class PlayerController : EntityController {
 	/// </summary>
 	/// <param name="value">The value of the control input.</param>
 	public void OnMove (InputValue value) {
+		// If the player is dashing, prevent them from aiming
+		if (IsDashing) {
+			return;
+		}
+
 		// If the game controller is in a gamestate that pauses the game
 		// ... do not update player controls
 		if (!gameController.IsPlaying) {
@@ -161,8 +184,15 @@ public class PlayerController : EntityController {
 			return;
 		}
 
+		// If the player has no ammo
+		// ... don't allow them to fire bullets
+		if (Ammo == 0) {
+			return;
+		}
+
 		// Spawn a bullet in a certain direction
 		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER);
+		Ammo--;
 
 		// DEBUG STATS
 		gameController.BulletsFired++;
