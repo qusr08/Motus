@@ -98,7 +98,7 @@ public class EnemyController : EntityController {
 	/// Called when this enemy object is created
 	/// </summary>
 	private new void Start ( ) {
-		OnValidate( ); 
+		OnValidate( );
 
 		base.Start( );
 
@@ -121,6 +121,9 @@ public class EnemyController : EntityController {
 		// ... destroy the game object (FOR NOW)
 		if (!IsAlive) {
 			Destroy(gameObject);
+
+			// DEBUG STATS
+			gameController.EnemiesDefeated++;
 
 			return;
 		}

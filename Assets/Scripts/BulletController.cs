@@ -80,11 +80,17 @@ public class BulletController : ObjectController {
 				BulletType = BulletType.PLAYER;
 				Direction *= -1;
 
+				// DEBUG STATS
+				gameController.BulletsDeflected++;
+
 				return;
 			}
 
 			// Reloads gun when dashing into the bullet
 			if (BulletType == BulletType.DASHABLE && playerCollision.IsDashing) {
+				// DEBUG STATS
+				gameController.BulletsDashedThrough++;
+
 				// playerCollision.CurrentAmmo++;
 
 				/// TO DO: Implement this doing something for the charged bullet
@@ -98,6 +104,9 @@ public class BulletController : ObjectController {
 			if (BulletType != BulletType.PLAYER) {
 				return;
 			}
+
+			// DEBUG STATS
+			gameController.BulletsHit++;
 
 			// If the bullet is PLAYER then have the enemy take damage
 			enemyCollision.Damage(1);

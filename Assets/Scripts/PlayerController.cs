@@ -163,6 +163,9 @@ public class PlayerController : EntityController {
 
 		// Spawn a bullet in a certain direction
 		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER);
+
+		// DEBUG STATS
+		gameController.BulletsFired++;
 	}
 
 	/// <summary>
@@ -221,6 +224,9 @@ public class PlayerController : EntityController {
 
 		// Remove one full dash bar
 		dashBarController.Percentage -= 0.25f;
+
+		// DEBUG STATS
+		gameController.DashesUsed++;
 	}
 
 	/// <summary>

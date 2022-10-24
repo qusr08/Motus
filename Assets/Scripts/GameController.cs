@@ -20,13 +20,20 @@ public class GameController : MonoBehaviour {
 	[SerializeField] private Transform gameOverUI;
 	[SerializeField] private Transform waveUI;
 	[SerializeField] private TextMeshProUGUI waveDisplayText;
-	[SerializeField] private TextMeshProUGUI wavesSurvivedText;
+	[SerializeField] private TextMeshProUGUI gameStatsText;
 	[Tooltip("How long the wave UI should stay on screen before enemies spawn again.")]
 	[SerializeField] private float waveUITime;
 	[Space]
 	[SerializeField] private GameState gameState = GameState.GAME;
-	[SerializeField] public int WaveCount;
 	[SerializeField] private bool _isPlaying;
+	[Space]
+	[SerializeField] public int WaveCount;
+	[SerializeField] public int BulletsFired;
+	[SerializeField] public int BulletsHit;
+	[SerializeField] public int BulletsDashedThrough;
+	[SerializeField] public int BulletsDeflected;
+	[SerializeField] public int EnemiesDefeated;
+	[SerializeField] public int DashesUsed;
 	[Space]
 	[SerializeField] private Texture2D crosshairCursorTexture;
 	[SerializeField] private Vector2 crosshairCursorHotspot;
@@ -51,6 +58,9 @@ public class GameController : MonoBehaviour {
 		}
 	}
 
+	/// <summary>
+	/// Whether or not the game is currently updating player/enemies.
+	/// </summary>
 	public bool IsPlaying {
 		get {
 			return _isPlaying;
@@ -161,7 +171,16 @@ public class GameController : MonoBehaviour {
 
 					break;
 				case GameState.GAMEOVER:
-					wavesSurvivedText.text = $"waves survived: {WaveCount}";
+					gameStatsText.text =
+						$"waves survived: {WaveCount - 1}\n" +
+						$"enemies defeated: {EnemiesDefeated}\n" +
+						$"bullets deflected: {BulletsDeflected}\n" +
+						$"bullets dashed through: {BulletsDashedThrough}\n" +
+						$"dashes used: {DashesUsed}\n" +
+						$"dash accuracy: {(float) BulletsDashedThrough / DashesUsed}%\n" +
+						$"bullets fired: {BulletsFired}\n" +
+						$"bullets hit: {BulletsHit}\n" +
+						$"shot accuracy: {(float) BulletsHit / BulletsFired}%";
 					gameOverUI.gameObject.SetActive(true);
 
 					IsPlaying = false;
