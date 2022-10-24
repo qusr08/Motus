@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 // Editors:				Frank Alfano
 // Date Created:		10/09/22
-// Date Last Editted:	10/22/22
+// Date Last Editted:	10/23/22
 
 public enum GameState {
 	GAME, WAVE, PAUSE, GAMEOVER
@@ -14,19 +16,60 @@ public class GameController : MonoBehaviour {
 	[SerializeField] private GameObject bulletPrefab;
 	[SerializeField] private PlayerController playerController;
 	[Space]
-	[SerializeField] private Transform GameUI;
-	[SerializeField] private Transform GameOverUI;
+	[SerializeField] private Transform gameUI;
+	[SerializeField] private Transform gameOverUI;
+	[SerializeField] private Transform waveUI;
+	[SerializeField] private TextMeshProUGUI waveDisplayText;
+	[SerializeField] private TextMeshProUGUI wavesSurvivedText;
+	[Tooltip("How long the wave UI should stay on screen before enemies spawn again.")]
+	[SerializeField] private float waveUITime;
 	[Space]
 	[SerializeField] private GameState gameState = GameState.GAME;
+	[SerializeField] public int WaveCount;
+	[SerializeField] private bool _isPlaying;
 	[Space]
 	[SerializeField] private Texture2D crosshairCursorTexture;
 	[SerializeField] private Vector2 crosshairCursorHotspot;
 	[SerializeField] private Texture2D normalCursorTexture;
 	[SerializeField] private Vector2 normalCursorHotspot;
 	[Space]
-	[SerializeField] private List<EnemyController> enemyPrefabList;
+	[SerializeField] private Transform enemyParentContainer;
+	[SerializeField] private List<GameObject> enemyPrefabList;
 	[Tooltip("The values of the costs should line up with the corresponding index in the enemyPrefabList array.")]
 	[SerializeField] private List<int> enemyTypeCosts;
+
+	private float waveUITimer = 0;
+	// A list of INDECIES corresponding to the enemy prefabs to spawn
+	private List<int> waveEnemies = new List<int>( );
+
+	/// <summary>
+	/// The current amount of enemies that are in the map
+	/// </summary>
+	public int EnemyCount {
+		get {
+			return enemyParentContainer.childCount;
+		}
+	}
+
+	public bool IsPlaying {
+		get {
+			return _isPlaying;
+		}
+
+		set {
+			_isPlaying = value;
+
+			// Set the time scale
+			Time.timeScale = (_isPlaying ? 1f : 0f);
+
+			// Set the cursor
+			if (_isPlaying) {
+				Cursor.SetCursor(crosshairCursorTexture, crosshairCursorHotspot, CursorMode.Auto);
+			} else {
+				Cursor.SetCursor(normalCursorTexture, normalCursorHotspot, CursorMode.Auto);
+			}
+		}
+	}
 
 	/// <summary>
 	/// The current state of the game
@@ -40,11 +83,22 @@ public class GameController : MonoBehaviour {
 			// Update the previous state and disable and UI that should not be shown anymore
 			switch (gameState) {
 				case GameState.GAME:
-					GameUI.gameObject.SetActive(false);
+					gameUI.gameObject.SetActive(false);
+
+					break;
+				case GameState.WAVE:
+					waveUI.gameObject.SetActive(false);
+
+					foreach (int enemyTypeIndex in waveEnemies) {
+						// Spawn in the enemy according to the array type
+						Vector2 randomPosition = FindObjectOfType<CalculateArenaBounds>( ).GetRandomPositionInArena( );
+						Transform enemy = Instantiate(enemyPrefabList[enemyTypeIndex], randomPosition, Quaternion.identity).transform;
+						enemy.SetParent(enemyParentContainer, true);
+					}
 
 					break;
 				case GameState.GAMEOVER:
-					GameOverUI.gameObject.SetActive(false);
+					gameOverUI.gameObject.SetActive(false);
 
 					break;
 			}
@@ -55,21 +109,62 @@ public class GameController : MonoBehaviour {
 			// Update the new state UI to be visible
 			switch (gameState) {
 				case GameState.GAME:
-					GameUI.gameObject.SetActive(true);
-					// Make time move at normal speed
-					Time.timeScale = 1f;
-					Cursor.SetCursor(crosshairCursorTexture, crosshairCursorHotspot, CursorMode.Auto);
+					gameUI.gameObject.SetActive(true);
+
+					IsPlaying = true;
 
 					break;
 				case GameState.WAVE:
+					WaveCount++;
 
+					// Equation to determine difficulty per wave: 4x + 1
+					float costLimit = (4 * WaveCount) + 1;
+
+					List<int> availableEnemyTypeIndecies = new List<int>( );
+					waveEnemies.Clear( );
+
+					// Get random enemies to spawn in the wave
+					while (costLimit > 0) {
+						for (int i = 0; i < enemyTypeCosts.Count; i++) {
+							// If the cost is higher than what is avaiable
+							// ... do not allow that enemy type to spawn
+							if (enemyTypeCosts[i] > costLimit) {
+								continue;
+							}
+
+							// If the enemy type is able to spawn, add it to the array
+							availableEnemyTypeIndecies.Add(i);
+						}
+
+						// If there are no enemies that can spawn with the remaining cost limit left
+						// ... break out of the spawning loop
+						if (availableEnemyTypeIndecies.Count == 0) {
+							break;
+						}
+
+						// Add a random enemy index to the array of enemies that will spawn during the next wave
+						int randomEnemyTypeIndex = availableEnemyTypeIndecies[Random.Range(0, availableEnemyTypeIndecies.Count)];
+						waveEnemies.Add(randomEnemyTypeIndex);
+
+						// Subtract the cost that it takes to spawn that enemy
+						costLimit -= enemyTypeCosts[randomEnemyTypeIndex];
+
+						availableEnemyTypeIndecies.Clear( );
+					}
+
+					// Update the wave UI
+					waveDisplayText.text = $"wave #{WaveCount}";
+					waveUI.gameObject.SetActive(true);
+					waveUITimer = waveUITime;
+
+					IsPlaying = true;
 
 					break;
 				case GameState.GAMEOVER:
-					GameOverUI.gameObject.SetActive(true);
-					// Stop time
-					Time.timeScale = 0f;
-					Cursor.SetCursor(normalCursorTexture, normalCursorHotspot, CursorMode.Auto);
+					wavesSurvivedText.text = $"waves survived: {WaveCount}";
+					gameOverUI.gameObject.SetActive(true);
+
+					IsPlaying = false;
 
 					break;
 			}
@@ -90,8 +185,25 @@ public class GameController : MonoBehaviour {
 		// Update different parts of the game depending on the gamestate
 		switch (gameState) {
 			case GameState.GAME:
+				// If the player has died
+				// ... go to the game over state
 				if (!playerController.IsAlive) {
 					GameState = GameState.GAMEOVER;
+				}
+
+				// If all enemies have been killed
+				// ... spawn the next wave
+				if (EnemyCount == 0) {
+					GameState = GameState.WAVE;
+				}
+
+				break;
+			case GameState.WAVE:
+				// If the wave state has been active for a certain amount of time
+				// ... automatically switch to the game state where enemies will spawn
+				waveUITimer -= Time.deltaTime;
+				if (waveUITimer <= 0f) {
+					GameState = GameState.GAME;
 				}
 
 				break;

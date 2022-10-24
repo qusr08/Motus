@@ -98,6 +98,8 @@ public class EnemyController : EntityController {
 	/// Called when this enemy object is created
 	/// </summary>
 	private new void Start ( ) {
+		OnValidate( ); 
+
 		base.Start( );
 
 		CloneEnemyEventScriptableObjects(ref enemyAI);

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 // Editors:				Frank Alfano, Steven Feldman
 // Date Created:		09/12/22
-// Date Last Editted:	10/21/22
+// Date Last Editted:	10/23/22
 
 public class PlayerController : EntityController {
 	[Space]
@@ -111,6 +111,12 @@ public class PlayerController : EntityController {
 	/// </summary>
 	/// <param name="value">The value of the control input.</param>
 	public void OnMove (InputValue value) {
+		// If the game controller is in a gamestate that pauses the game
+		// ... do not update player controls
+		if (!gameController.IsPlaying) {
+			return;
+		}
+
 		Movement = value.Get<Vector2>( );
 	}
 
@@ -121,6 +127,12 @@ public class PlayerController : EntityController {
 	public void OnAim (InputValue value) {
 		// If the player is dashing, prevent them from aiming
 		if (IsDashing) {
+			return;
+		}
+
+		// If the game controller is in a gamestate that pauses the game
+		// ... do not update player controls
+		if (!gameController.IsPlaying) {
 			return;
 		}
 
@@ -143,6 +155,12 @@ public class PlayerController : EntityController {
 			return;
 		}
 
+		// If the game controller is in a gamestate that pauses the game
+		// ... do not update player controls
+		if (!gameController.IsPlaying) {
+			return;
+		}
+
 		// Spawn a bullet in a certain direction
 		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER);
 	}
@@ -156,6 +174,12 @@ public class PlayerController : EntityController {
 		// If the player is not moving, then do not try to dash in a certain direction
 		// If the player is deflecting, prevent them from breaking out of it with a dash
 		if (IsDashing || !IsMoving || IsDeflecting) {
+			return;
+		}
+
+		// If the game controller is in a gamestate that pauses the game
+		// ... do not update player controls
+		if (!gameController.IsPlaying) {
 			return;
 		}
 
@@ -210,8 +234,11 @@ public class PlayerController : EntityController {
 			return;
 		}
 
-		// TO DO: Maybe have the player move really slow while deflecting?
-		//			Does deflecting act more like a shield or one time action like shooting?
+		// If the game controller is in a gamestate that pauses the game
+		// ... do not update player controls
+		if (!gameController.IsPlaying) {
+			return;
+		}
 
 		IsDeflecting = (value.Get<float>( ) > 0);
 	}

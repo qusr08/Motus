@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors: Frank Alfano
 // Date Created: 9/15/22
-// Date Last Editted: 9/15/22
+// Date Last Editted: 10/23/22
 
 // The purpose of this is to calculate the edge collider points for the bounds of the arena
 // This way the arena can be circular and not square
@@ -31,5 +31,17 @@ public class CalculateArenaBounds : MonoBehaviour {
 
 		points[NumEdges] = points[0];
 		edgeCollider.points = points;
+	}
+
+	/// <summary>
+	/// Get a random Vector2 position inside the arena bounds
+	/// </summary>
+	/// <returns>The random position.</returns>
+	public Vector2 GetRandomPositionInArena ( ) {
+		// https://stackoverflow.com/questions/5837572/generate-a-random-point-within-a-circle-uniformly
+
+		float theta = Random.Range(0f, 1f) * 2 * Mathf.PI;
+		// Subtracting 2 from the total radius so the position has a little padding away from the walls of the arena
+		return ((Radius - 2) * Random.Range(0f, 1f) * new Vector2(Mathf.Cos(theta), Mathf.Sin(theta)));
 	}
 }

@@ -1,17 +1,18 @@
 # Bugs
 * [ ] Fix bullets spawning inside walls and immediately being destroyed
+* [ ] Fix enemies shooting you all over the entire arena
 
-- [ ] Fix visual glitch of gun aiming sprite to weirdly clip through walls
+- [~] Fix visual glitch of gun aiming sprite to weirdly clip through walls
 - [ ] Fix mouse aiming
 - [ ] Fix controller navigating through UI
 
 # Coding
-* [ ] Enemy waves
 * [ ] Charged bullet
 
 + [ ] Add knockback when firing bullets (to both player and enemy)
 
 - [ ] Health pickups
+- [ ] Have deflecting slow down player
 - [ ] Adjust enemy movement to have them not bunch up together
 - [ ] Make a better player controller
 - [ ] Hazard enemy
@@ -24,12 +25,15 @@
 
 - [ ] Trash on ground of arena (+ just better ground sprites)
 - [ ] Get final sprite for arena walls
+- [ ] Add shield when deflecting
+- [ ] Make deflecting and dashing more visually different
 - [ ] Character sprite/animation
 - [ ] Enemy spawning animation
 - [?] Make bullets fade in when shot
 - [ ] Particle effects
 - [ ] Scene transitions
 - [ ] Title screen background image
+- [ ] Make bullets not awkward when firing. Sometimes they appear to clip through enemies/player when fired
 
 # Narrative
 - [ ] Come up with enemy designs
