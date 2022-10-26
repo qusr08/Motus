@@ -6,37 +6,23 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
 
-// Editors:				Frank Alfano, Steven Feldman
+// Editors:				Frank Alfano
 // Date Created:		09/12/22
-// Date Last Editted:	10/23/22
+// Date Last Editted:	10/26/22
 
 public class PlayerController : EntityController {
 	[Space]
 	[SerializeField] private Transform aimObject;
-	[SerializeField] private UIBarController healthBarController;
-	[SerializeField] private UIBarController dashBarController;
+	[SerializeField] public UIBarController HealthBarController;
+	[SerializeField] public UIBarController DashBarController;
+	[SerializeField] public UIBarController ChargedBulletBarController;
 	[Space]
 	[SerializeField] [Min(0f)] private float dashDistance;
 	[SerializeField] [Min(0f)] private float dashTime;
 	[SerializeField] [Min(0f)] private float dashCooldownTime;
 	[SerializeField] [Min(0f)] private float dashRegenerationTime;
 	[Space]
-	[SerializeField] private int _ammo;
-	[SerializeField] private TextMeshProUGUI ammoUIText;
-	[Space]
 	[SerializeField] public bool IsDeflecting;
-
-	public int Ammo {
-		get {
-			return _ammo;
-		}
-
-		set {
-			_ammo = value;
-
-			ammoUIText.text = $"{_ammo}";
-		}
-	}
 
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
@@ -57,17 +43,16 @@ public class PlayerController : EntityController {
 	}
 	public bool CanDash {
 		get {
-			return (dashBarController.Percentage >= 0.25f);
+			return (DashBarController.Percentage >= 0.25f);
 		}
 	}
 
 	private new void Start ( ) {
 		base.Start( );
 
-		healthBarController.Percentage = 1f;
-		dashBarController.Percentage = 1f;
-
-		Ammo = 60;
+		HealthBarController.Percentage = 1f;
+		DashBarController.Percentage = 1f;
+		ChargedBulletBarController.Percentage = 0f;
 	}
 
 	/// <summary>
@@ -95,7 +80,7 @@ public class PlayerController : EntityController {
 		} else if (IsDashOnCooldown) {
 			dashCooldownTimer -= Time.deltaTime;
 		} else {
-			dashBarController.Percentage += dashRegenerationTime * Time.deltaTime;
+			DashBarController.Percentage += dashRegenerationTime * Time.deltaTime;
 		}
 
 		// Move the gun aiming object
@@ -119,7 +104,7 @@ public class PlayerController : EntityController {
 		float returnValue = base.Damage(damage);
 
 		// Update the health bar
-		healthBarController.Percentage = (float) CurrentHealth / MaxHealth;
+		HealthBarController.Percentage = (float) CurrentHealth / MaxHealth;
 
 		return returnValue;
 	}
@@ -184,18 +169,45 @@ public class PlayerController : EntityController {
 			return;
 		}
 
-		// If the player has no ammo
-		// ... don't allow them to fire bullets
-		if (Ammo == 0) {
+		// Spawn a bullet in a certain direction
+		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER, 900);
+
+		// DEBUG STATS
+		gameController.BulletsFired++;
+	}
+
+	/// <summary>
+	/// Called whenever input is detected that will make the player shoot a charged bullet.
+	/// </summary>
+	/// <param name="value">The value of the control input.</param>
+	public void OnSpecialShoot (InputValue value) {
+		// If the player is dashing, prevent them from shooting
+		// If the player is not aiming, then do not try to shoot in a certain direction
+		// If the player is deflecting, prevent them from shooting
+		if (IsDashing || !IsAiming || IsDeflecting) {
+			return;
+		}
+
+		// If the game controller is in a gamestate that pauses the game
+		// ... do not update player controls
+		if (!gameController.IsPlaying) {
+			return;
+		}
+
+		// If the player does not have enough charged up to shoot a charged bullet
+		// ... dont shoot the bullet lol
+		if (ChargedBulletBarController.Percentage < 0.25f) {
 			return;
 		}
 
 		// Spawn a bullet in a certain direction
-		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER);
-		Ammo--;
+		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.CHARGED, 900);
+
+		// Remove one full charged bullet bar
+		ChargedBulletBarController.Percentage -= 0.25f;
 
 		// DEBUG STATS
-		gameController.BulletsFired++;
+		gameController.ChargedBulletsFired++;
 	}
 
 	/// <summary>
@@ -253,7 +265,7 @@ public class PlayerController : EntityController {
 		dashCooldownTimer = dashCooldownTime;
 
 		// Remove one full dash bar
-		dashBarController.Percentage -= 0.25f;
+		DashBarController.Percentage -= 0.25f;
 
 		// DEBUG STATS
 		gameController.DashesUsed++;
@@ -277,5 +289,13 @@ public class PlayerController : EntityController {
 		}
 
 		IsDeflecting = (value.Get<float>( ) > 0);
+	}
+
+	/// <summary>
+	/// Called when the player pauses the game.
+	/// </summary>
+	/// <param name="value">The value of the control input.</param>
+	public void OnPause (InputValue value) {
+		gameController.GameState = (gameController.GameState == GameState.GAME ? GameState.PAUSE : GameState.GAME);
 	}
 }

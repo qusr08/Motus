@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 // Editors:				Frank Alfano
 // Date Created:		10/09/22
-// Date Last Editted:	10/23/22
+// Date Last Editted:	10/26/22
 
 public enum GameState {
 	GAME, WAVE, PAUSE, GAMEOVER
@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour {
 	[SerializeField] private Transform gameUI;
 	[SerializeField] private Transform gameOverUI;
 	[SerializeField] private Transform waveUI;
+	[SerializeField] private Transform pauseUI;
 	[SerializeField] private TextMeshProUGUI waveDisplayText;
 	[SerializeField] private TextMeshProUGUI gameStatsText;
 	[Tooltip("How long the wave UI should stay on screen before enemies spawn again.")]
@@ -30,6 +31,8 @@ public class GameController : MonoBehaviour {
 	[SerializeField] public int WaveCount;
 	[SerializeField] public int BulletsFired;
 	[SerializeField] public int BulletsHit;
+	[SerializeField] public int ChargedBulletsFired;
+	[SerializeField] public int ChargedBulletsHit;
 	[SerializeField] public int BulletsDashedThrough;
 	[SerializeField] public int BulletsDeflected;
 	[SerializeField] public int EnemiesDefeated;
@@ -96,6 +99,10 @@ public class GameController : MonoBehaviour {
 					gameUI.gameObject.SetActive(false);
 
 					break;
+				case GameState.PAUSE:
+					pauseUI.gameObject.SetActive(false);
+
+					break;
 				case GameState.WAVE:
 					waveUI.gameObject.SetActive(false);
 
@@ -120,8 +127,12 @@ public class GameController : MonoBehaviour {
 			switch (gameState) {
 				case GameState.GAME:
 					gameUI.gameObject.SetActive(true);
-
 					IsPlaying = true;
+
+					break;
+				case GameState.PAUSE:
+					pauseUI.gameObject.SetActive(true);
+					IsPlaying = false;
 
 					break;
 				case GameState.WAVE:
@@ -166,7 +177,6 @@ public class GameController : MonoBehaviour {
 					waveDisplayText.text = $"wave #{WaveCount}";
 					waveUI.gameObject.SetActive(true);
 					waveUITimer = waveUITime;
-
 					IsPlaying = true;
 
 					break;
@@ -177,12 +187,14 @@ public class GameController : MonoBehaviour {
 						$"bullets deflected: {BulletsDeflected}\n" +
 						$"bullets dashed through: {BulletsDashedThrough}\n" +
 						$"dashes used: {DashesUsed}\n" +
-						$"dash accuracy: {(float) BulletsDashedThrough / DashesUsed}%\n" +
+						$"dash accuracy: {((float) BulletsDashedThrough / DashesUsed) * 100}%\n" +
 						$"bullets fired: {BulletsFired}\n" +
 						$"bullets hit: {BulletsHit}\n" +
-						$"shot accuracy: {(float) BulletsHit / BulletsFired}%";
+						$"shot accuracy: {((float) BulletsHit / BulletsFired) * 100}%\n" +
+						$"charged bullets fired: {ChargedBulletsFired}\n" +
+						$"charged bullets hit: {ChargedBulletsHit}\n" +
+						$"charged shot accuracy: {((float) ChargedBulletsHit / ChargedBulletsFired) * 100}%";
 					gameOverUI.gameObject.SetActive(true);
-
 					IsPlaying = false;
 
 					break;

@@ -50,7 +50,7 @@ public class JumpToDistanceFromPlayerEnemyEvent : EnemyEvent {
 		}
 
 		// Make sure the enemy does not jump out of bounds of the arena
-		toJumpPosition = Vector2.ClampMagnitude(toJumpPosition, FindObjectOfType<CalculateArenaBounds>( ).Radius - 1f);
+		toJumpPosition = Vector2.ClampMagnitude(toJumpPosition, FindObjectOfType<CalculateArenaBounds>( ).Radius - 2f);
 	}
 
 	public override void UpdateEvent (GameController gameController, EnemyController enemyController, PlayerController playerController) {

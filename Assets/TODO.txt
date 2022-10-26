@@ -1,14 +1,13 @@
 # Bugs
+* [~] Fix mouse aiming
 * [ ] Fix bullets spawning inside walls and immediately being destroyed
 
 - [~] Fix visual glitch of gun aiming sprite to weirdly clip through walls
 - [~] Player might still be able to clip out of the arena
-- [ ] Fix mouse aiming
 - [ ] Fix controller navigating through UI
+- [~] Might be a little buggy with bigger player dash collider, need more testing
 
 # Coding
-* [ ] Charged bullet
-
 + [ ] Add knockback when firing bullets (to both player and enemy)
 
 - [ ] Health pickups
@@ -24,7 +23,6 @@
 
 # Visuals
 + [ ] Arena crowd sprites
-+ [ ] Pause menu
 
 - [ ] Trash on ground of arena (+ just better ground sprites)
 - [ ] Get final sprite for arena walls
@@ -37,6 +35,7 @@
 - [ ] Scene transitions
 - [ ] Title screen background image
 - [ ] Make bullets not awkward when firing. Sometimes they appear to clip through enemies/player when fired
+- [ ] Make shadows the size of the object
 
 # Narrative
 - [ ] Come up with enemy designs

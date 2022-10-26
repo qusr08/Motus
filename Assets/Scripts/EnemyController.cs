@@ -36,7 +36,7 @@ public class EnemyController : EntityController {
 			_isJumping = value;
 
 			// If the enemy is jumping, disable its collider so it can't get hit by bullets
-			boxCollider2D.enabled = !_isJumping;
+			objectCollider2D.enabled = !_isJumping;
 		}
 	}
 
