@@ -8,7 +8,7 @@ using TMPro;
 
 // Editors:				Frank Alfano
 // Date Created:		09/12/22
-// Date Last Editted:	10/26/22
+// Date Last Editted:	10/28/22
 
 public class PlayerController : EntityController {
 	[Space]
@@ -21,8 +21,15 @@ public class PlayerController : EntityController {
 	[SerializeField] [Min(0f)] private float dashTime;
 	[SerializeField] [Min(0f)] private float dashCooldownTime;
 	[SerializeField] [Min(0f)] private float dashRegenerationTime;
+	[SerializeField] private ParticleSystem dashParticleSystem;
 	[Space]
 	[SerializeField] public bool IsDeflecting;
+	[SerializeField] private GameObject shieldObject;
+	[Space]
+	[SerializeField] public bool IsShooting;
+	[SerializeField] public float shootDelayTime;
+
+	private float shootDelayTimer;
 
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
@@ -65,6 +72,22 @@ public class PlayerController : EntityController {
 		// ... destroy the player game object (FOR NOW)
 		if (!IsAlive) {
 			return;
+		}
+
+		// Make player shots rapid fire
+		if (IsShooting) {
+			if (shootDelayTimer <= 0f) {
+				// Spawn a bullet in a certain direction
+				gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER, 900);
+
+				// Reset the shoot delay timer
+				shootDelayTimer = shootDelayTime;
+
+				// DEBUG STATS
+				gameController.BulletsFired++;
+			} else {
+				shootDelayTimer -= Time.deltaTime;
+			}
 		}
 
 		// If the player is dashing
@@ -169,11 +192,12 @@ public class PlayerController : EntityController {
 			return;
 		}
 
-		// Spawn a bullet in a certain direction
-		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER, 900);
+		IsShooting = (value.Get<float>() > 0);
 
-		// DEBUG STATS
-		gameController.BulletsFired++;
+		// If the player is just now pressing the button to shoot, make a bullet immediately shoot
+		if (IsShooting) {
+			shootDelayTimer = 0f;
+		}
 	}
 
 	/// <summary>
@@ -267,6 +291,10 @@ public class PlayerController : EntityController {
 		// Remove one full dash bar
 		DashBarController.Percentage -= 0.25f;
 
+		// Set the dash particle system to the proper rotation
+		dashParticleSystem.transform.rotation = Quaternion.Euler(0, 0, (Mathf.Rad2Deg * Mathf.Atan2(Movement.y, Movement.x)) + 90f);
+		dashParticleSystem.Play( );
+
 		// DEBUG STATS
 		gameController.DashesUsed++;
 	}
@@ -289,6 +317,7 @@ public class PlayerController : EntityController {
 		}
 
 		IsDeflecting = (value.Get<float>( ) > 0);
+		shieldObject.SetActive(IsDeflecting);
 	}
 
 	/// <summary>

@@ -53,6 +53,9 @@ TagManager:
   - name: Objects
     uniqueID: 1746658895
     locked: 0
+  - name: Object Foreground
+    uniqueID: 482164691
+    locked: 0
   - name: Arena Walls Foreground
     uniqueID: 1551488897
     locked: 0

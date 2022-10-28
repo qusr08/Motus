@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Editors:				Frank Alfano, Jacob Braunhut, Matthew Meyrowitz
+// Editors:				Frank Alfano
 // Date Created:		09/12/22
-// Date Last Editted:	10/26/22
+// Date Last Editted:	10/28/22
 
 public enum BulletType {
 	PLAYER, DEFLECTABLE, DASHABLE, ENEMY, CHARGED
@@ -91,7 +91,8 @@ public class BulletController : ObjectController {
 					gameController.BulletsDashedThrough++;
 
 					// Increase the player's charged bullet charge
-					playerCollision.ChargedBulletBarController.Percentage += 1f / 12f;
+					// 0.0834f is 1/12 but because of decimal errors we need to write it out like this
+					playerCollision.ChargedBulletBarController.Percentage += 0.0834f;
 
 					DidCollide = true;
 				}
