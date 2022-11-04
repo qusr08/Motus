@@ -107,10 +107,9 @@ public class PlayerController : EntityController {
 		}
 
 		// Move the gun aiming object
+		aimObject.gameObject.SetActive(Aim.magnitude > 0);
 		aimObject.localPosition = Aim * 0.5f;
 		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees + (Mathf.Abs(AimAngleDegrees) > 90f ? -135f : -45f));
-		// Make sure to flip the gun based on the aim angle around the player
-		// This way the gun sprite is always facing up
 		aimObject.GetComponent<SpriteRenderer>( ).flipX = (Mathf.Abs(AimAngleDegrees) > 90f);
 
 		// Update the animator
@@ -192,7 +191,7 @@ public class PlayerController : EntityController {
 			return;
 		}
 
-		IsShooting = (value.Get<float>() > 0);
+		IsShooting = (value.Get<float>( ) == 1);
 
 		// If the player is just now pressing the button to shoot, make a bullet immediately shoot
 		if (IsShooting) {
@@ -225,7 +224,7 @@ public class PlayerController : EntityController {
 		}
 
 		// Spawn a bullet in a certain direction
-		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.CHARGED, 900);
+		gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.CHARGED, 500);
 
 		// Remove one full charged bullet bar
 		ChargedBulletBarController.Percentage -= 0.25f;
@@ -242,7 +241,7 @@ public class PlayerController : EntityController {
 		// If the player is dashing, prevent them from dashing again as they are dashing
 		// If the player is not moving, then do not try to dash in a certain direction
 		// If the player is deflecting, prevent them from breaking out of it with a dash
-		if (IsDashing || !IsMoving || IsDeflecting) {
+		if (IsDashing || !IsMoving || IsDeflecting || IsShooting) {
 			return;
 		}
 
@@ -306,7 +305,7 @@ public class PlayerController : EntityController {
 	public void OnDeflect (InputValue value) {
 		// If the player is dashing, prevent them from dashing again as they are dashing
 		// If the player is not aiming, then do not try to deflect in a certain direction
-		if (IsDashing || !IsAiming) {
+		if (IsDashing || !IsAiming || IsShooting) {
 			return;
 		}
 
