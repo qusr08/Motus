@@ -116,6 +116,9 @@ public class BulletController : ObjectController {
 					gameController.ChargedBulletsHit++;
 
 					DidCollide = true;
+
+					// The charged bullet is going to pierce through enemies
+					return;
 				} else {
 					// If the bullet type is not PLAYER
 					// ... then an enemy shot the bullet and it should not collide with any other enemies
