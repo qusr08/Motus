@@ -16,6 +16,7 @@ public enum GameState {
 
 public class GameController : MonoBehaviour {
 	[SerializeField] private GameObject bulletPrefab;
+	[SerializeField] private GameObject HealthPrefab;
 	[SerializeField] private PlayerController playerController;
 	[Space]
 	[SerializeField] private Transform gameUI;
@@ -265,5 +266,15 @@ public class GameController : MonoBehaviour {
 		// Since all of the variables of the bullet have been set, it can be initialized
 		// This flag means that the bullet can now function properly
 		bullet.IsInitialized = true;
+	}
+
+	/// <summary>
+	/// Spawn a health pickup
+	/// </summary>
+	/// <param name="position">position the health pickup will spawn in</param>
+	public void SpawnHealth (Vector2 position)
+	{
+		HealthPickup health = Instantiate(HealthPrefab, position, Quaternion.identity).GetComponent<HealthPickup>();
+		health.IsInitialized = true;
 	}
 }
