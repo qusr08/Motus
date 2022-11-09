@@ -1,0 +1,161 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 625ab22f4718dfb4d8a68fcbf1d012d3, type: 3}
+  m_Name: Boss_360Spread_Blue
+  m_EditorClassIdentifier: 
+  delayTime: 1
+  delayTimeError: 0
+  bulletInstructions:
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -180
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -175
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -170
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -165
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -160
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -155
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -150
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -145
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -140
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -135
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -130
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -125
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -120
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -115
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -110
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -105
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -100
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -95
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -90
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -85
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -80
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -75
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -70
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -65
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -60
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -55
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -50
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -45
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -40
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -35
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -30
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -25
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -20
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -15
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -10
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -5
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 0
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 5
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 10
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 15
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 20
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 25
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 30
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 35
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 40
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 45
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 50
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 55
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 60
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 65
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 70
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 75
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 80
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 85
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 90
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 95
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 100
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 105
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 110
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 115
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 120
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 125
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 130
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 135
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 140
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 145
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 150
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 155
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 160
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 165
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 175
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 170

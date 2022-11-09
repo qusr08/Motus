@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 625ab22f4718dfb4d8a68fcbf1d012d3, type: 3}
+  m_Name: Boss_RapidShotAlternate
+  m_EditorClassIdentifier: 
+  delayTime: 0
+  delayTimeError: 0
+  bulletInstructions:
+  - BulletType: 3
+    BulletAngleOffsetDegrees: -180
+  - BulletType: 1
+    BulletAngleOffsetDegrees: -160
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -140
+  - BulletType: 3
+    BulletAngleOffsetDegrees: -120
+  - BulletType: 1
+    BulletAngleOffsetDegrees: -100
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -80
+  - BulletType: 3
+    BulletAngleOffsetDegrees: -60
+  - BulletType: 1
+    BulletAngleOffsetDegrees: -40
+  - BulletType: 2
+    BulletAngleOffsetDegrees: -20
+  - BulletType: 3
+    BulletAngleOffsetDegrees: 0
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 20
+  - BulletType: 3
+    BulletAngleOffsetDegrees: 40
+  - BulletType: 1
+    BulletAngleOffsetDegrees: 60
+  - BulletType: 3
+    BulletAngleOffsetDegrees: 80
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 100
+  - BulletType: 1
+    BulletAngleOffsetDegrees: 120
+  - BulletType: 3
+    BulletAngleOffsetDegrees: 140
+  - BulletType: 2
+    BulletAngleOffsetDegrees: 160
