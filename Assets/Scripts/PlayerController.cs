@@ -131,6 +131,15 @@ public class PlayerController : EntityController {
 		return returnValue;
 	}
 
+	public new float Heal (float heal)
+	{
+		float returnValue = base.Heal(heal);
+
+		HealthBarController.Percentage = (float)CurrentHealth / MaxHealth;
+
+		return returnValue;
+	}
+
 	/// <summary>
 	/// Called whenever input is detected that will make the player move.
 	/// </summary>
