@@ -9,7 +9,8 @@ using UnityEngine;
 public class EnemyController : EntityController {
 	[Space]
 	[SerializeField] public PlayerController PlayerController;
-	[Space]
+    //[SerializeField] public GameController gameController;
+    [Space]
 	[Tooltip("Run these events in order to tell the enemy how to move.")]
 	[SerializeField] private List<EnemyEvent> enemyAI;
 	[Tooltip("Run these events in order while the player is in sight or in range of the enemy.")]
@@ -20,7 +21,8 @@ public class EnemyController : EntityController {
 	[SerializeField] public float SpecialAttackTime;
 	[Tooltip("The range at which the enemy can 'see' the player. The enemy will not shoot or move if the distance to the player is greater than this amount.")]
 	[SerializeField] public float SightRange;
-	[Space]
+    [SerializeField] private GameObject HealthPrefab;
+    [Space]
 	[SerializeField] public bool IsMovementHalted;
 	[SerializeField] private bool _isJumping;
 
@@ -94,6 +96,7 @@ public class EnemyController : EntityController {
 		base.OnValidate( );
 
 		PlayerController = FindObjectOfType<PlayerController>( );
+		//gameController = FindObjectOfType<gameController>();
 	}
 
 	/// <summary>
@@ -122,7 +125,9 @@ public class EnemyController : EntityController {
 		// If the enemy is no longer alive
 		// ... destroy the game object (FOR NOW)
 		if (!IsAlive) {
-			Destroy(gameObject);
+            SpawnHealth(transform.position);
+            Destroy(gameObject);
+
 
 			// DEBUG STATS
 			gameController.EnemiesDefeated++;
@@ -232,4 +237,14 @@ public class EnemyController : EntityController {
 			eventList[i] = Instantiate(eventList[i]);
 		}
 	}
+
+    /// <summary>
+    /// Spawn a health pickup
+    /// </summary>
+    /// <param name="position">position the health pickup will spawn in</param>
+    public void SpawnHealth(Vector2 position)
+    {
+        HealthPickup health = Instantiate(HealthPrefab, position, Quaternion.identity).GetComponent<HealthPickup>();
+        health.IsInitialized = true;
+    }
 }
