@@ -24,6 +24,7 @@ public class HealthPickup : ObjectController
         //check to see if the collider is a circle collider
         bool IsCircleCollider = collisionGameObject.GetComponent<CircleCollider2D>();
 
+        //check for collision
         if (!DidCollide)
         {
             if(playerCollision != null)
@@ -31,9 +32,8 @@ public class HealthPickup : ObjectController
                 playerCollision.Heal(1);
                 DidCollide = true;
             }
+            //destroy health pickup
+            Destroy(gameObject);
         }
-
-        //destroy the health pickup
-        Destroy(gameObject);
     }
 }
