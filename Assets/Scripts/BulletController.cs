@@ -17,6 +17,8 @@ public class BulletController : ObjectController {
 	[SerializeField] public Vector2 Direction;
 	[SerializeField] public bool IsInitialized;
 	[SerializeField] public bool DidCollide = false;
+	[SerializeField] public AudioSource source;
+	[SerializeField] public AudioSource deflectSFX;
 
 	/// <summary>
 	/// The type of this bullet.
@@ -79,6 +81,7 @@ public class BulletController : ObjectController {
 				if (BulletType == BulletType.DEFLECTABLE && playerCollision.IsDeflecting) {
 					BulletType = BulletType.PLAYER;
 					Direction *= -1;
+					deflectSFX.Play();
 
 					// DEBUG STATS
 					gameController.BulletsDeflected++;

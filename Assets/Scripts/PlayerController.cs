@@ -28,6 +28,11 @@ public class PlayerController : EntityController {
 	[Space]
 	[SerializeField] public bool IsShooting;
 	[SerializeField] public float shootDelayTime;
+	[Space]
+	[SerializeField] public AudioSource shootSFX;
+	[SerializeField] public AudioSource dashSFX;
+	[SerializeField] public AudioSource runSFX;
+
 
 	private float shootDelayTimer;
 
@@ -157,6 +162,7 @@ public class PlayerController : EntityController {
 		}
 
 		Movement = value.Get<Vector2>( );
+		runSFX.Play();
 	}
 
 	/// <summary>
@@ -203,8 +209,10 @@ public class PlayerController : EntityController {
 		IsShooting = (value.Get<float>( ) == 1);
 
 		// If the player is just now pressing the button to shoot, make a bullet immediately shoot
+		// Now it will call the Shoot SFX
 		if (IsShooting) {
 			shootDelayTimer = 0f;
+			shootSFX.Play();
 		}
 	}
 
@@ -290,6 +298,9 @@ public class PlayerController : EntityController {
 		// Set the positions that dictate the players dash
 		fromDashPosition = transform.position;
 		toDashPosition = transform.position + (Vector3) (Movement * newDashDistance);
+
+		//Play the Dash sound effect
+		dashSFX.Play();
 
 		// Reset the dash time
 		// This equation makes sure that even if the player hits something with the dash, the speed of the dash stays the same
