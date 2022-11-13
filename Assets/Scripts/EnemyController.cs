@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 // Editors:				Frank Alfano, Michael Xie
 // Date Created:		09/16/22
@@ -124,8 +126,17 @@ public class EnemyController : EntityController {
 
 		// If the enemy is no longer alive
 		// ... destroy the game object (FOR NOW)
-		if (!IsAlive) {
-            SpawnHealth(transform.position);
+		if (!IsAlive) 
+		{
+			//get random value for health drop
+			int healthRan = Random.Range(0, 101);
+
+			
+            if (healthRan <= 30)
+			{
+                SpawnHealth(transform.position);
+            }
+            
             Destroy(gameObject);
 
 
