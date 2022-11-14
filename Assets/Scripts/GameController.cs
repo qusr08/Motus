@@ -147,32 +147,43 @@ public class GameController : MonoBehaviour {
 					waveEnemies.Clear( );
 
 					// Get random enemies to spawn in the wave
-					while (costLimit > 0) {
-						for (int i = 0; i < enemyTypeCosts.Count; i++) {
-							// If the cost is higher than what is avaiable
-							// ... do not allow that enemy type to spawn
-							if (enemyTypeCosts[i] > costLimit) {
-								continue;
+					if(WaveCount == 10)
+                    {
+						waveEnemies.Add(4);
+                    }
+					else
+                    {
+						while (costLimit > 0)
+						{
+							for (int i = 0; i < enemyTypeCosts.Count; i++)
+							{
+								// If the cost is higher than what is avaiable
+								// ... do not allow that enemy type to spawn
+								if (enemyTypeCosts[i] > costLimit)
+								{
+									continue;
+								}
+
+								// If the enemy type is able to spawn, add it to the array
+								availableEnemyTypeIndecies.Add(i);
 							}
 
-							// If the enemy type is able to spawn, add it to the array
-							availableEnemyTypeIndecies.Add(i);
+							// If there are no enemies that can spawn with the remaining cost limit left
+							// ... break out of the spawning loop
+							if (availableEnemyTypeIndecies.Count == 0)
+							{
+								break;
+							}
+
+							// Add a random enemy index to the array of enemies that will spawn during the next wave
+							int randomEnemyTypeIndex = availableEnemyTypeIndecies[Random.Range(0, availableEnemyTypeIndecies.Count)];
+							waveEnemies.Add(randomEnemyTypeIndex);
+
+							// Subtract the cost that it takes to spawn that enemy
+							costLimit -= enemyTypeCosts[randomEnemyTypeIndex];
+
+							availableEnemyTypeIndecies.Clear();
 						}
-
-						// If there are no enemies that can spawn with the remaining cost limit left
-						// ... break out of the spawning loop
-						if (availableEnemyTypeIndecies.Count == 0) {
-							break;
-						}
-
-						// Add a random enemy index to the array of enemies that will spawn during the next wave
-						int randomEnemyTypeIndex = availableEnemyTypeIndecies[Random.Range(0, availableEnemyTypeIndecies.Count)];
-						waveEnemies.Add(randomEnemyTypeIndex);
-
-						// Subtract the cost that it takes to spawn that enemy
-						costLimit -= enemyTypeCosts[randomEnemyTypeIndex];
-
-						availableEnemyTypeIndecies.Clear( );
 					}
 
 					// Update the wave UI
