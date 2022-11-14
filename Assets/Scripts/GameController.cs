@@ -147,7 +147,7 @@ public class GameController : MonoBehaviour {
 					waveEnemies.Clear( );
 
 					// Get random enemies to spawn in the wave
-					if(WaveCount == 10)
+					if(WaveCount == 5)
                     {
 						waveEnemies.Add(4);
                     }
