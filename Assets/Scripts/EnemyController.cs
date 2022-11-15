@@ -132,7 +132,7 @@ public class EnemyController : EntityController {
 			int healthRan = Random.Range(0, 101);
 
 			
-            if (healthRan <= 30)
+            if (healthRan <= 50)
 			{
                 SpawnHealth(transform.position);
             }
