@@ -29,7 +29,7 @@ public class HealthPickup : ObjectController
         {
             if(playerCollision != null)
             {
-                playerCollision.Heal(1);
+                playerCollision.Heal(3);
                 DidCollide = true;
                 //destroy health pickup
                 Destroy(gameObject);
