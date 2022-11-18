@@ -15,11 +15,11 @@ MonoBehaviour:
   delayTime: 0
   delayTimeError: 0
   bulletInstructions:
-  - BulletType: 1
+  - BulletType: 2
     BulletAngleOffsetDegrees: 0
-  - BulletType: 1
+  - BulletType: 2
     BulletAngleOffsetDegrees: 90
-  - BulletType: 1
+  - BulletType: 2
     BulletAngleOffsetDegrees: 180
-  - BulletType: 1
+  - BulletType: 2
     BulletAngleOffsetDegrees: -90

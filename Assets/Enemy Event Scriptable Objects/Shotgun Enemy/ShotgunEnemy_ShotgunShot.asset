@@ -15,9 +15,9 @@ MonoBehaviour:
   delayTime: 0
   delayTimeError: 0
   bulletInstructions:
-  - BulletType: 3
+  - BulletType: 2
     BulletAngleOffsetDegrees: 5
-  - BulletType: 3
+  - BulletType: 2
     BulletAngleOffsetDegrees: 0
-  - BulletType: 3
+  - BulletType: 2
     BulletAngleOffsetDegrees: -5

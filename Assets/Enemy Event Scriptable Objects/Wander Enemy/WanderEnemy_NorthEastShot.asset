@@ -15,5 +15,5 @@ MonoBehaviour:
   delayTime: 0.1
   delayTimeError: 0
   bulletInstructions:
-  - BulletType: 2
+  - BulletType: 1
     BulletAngleOffsetDegrees: 45
