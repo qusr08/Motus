@@ -8,7 +8,7 @@ using TMPro;
 
 // Editors:				Frank Alfano
 // Date Created:		09/12/22
-// Date Last Editted:	10/28/22
+// Date Last Editted:	11/18/22
 
 public class PlayerController : EntityController {
 	[Space]
@@ -80,7 +80,7 @@ public class PlayerController : EntityController {
 		}
 
 		// Make player shots rapid fire
-		if (IsShooting) {
+		if (IsAiming && IsShooting) {
 			if (shootDelayTimer <= 0f) {
 				// Spawn a bullet in a certain direction
 				gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER, 900);
@@ -181,11 +181,6 @@ public class PlayerController : EntityController {
 		// The position of the aim arrow is also the direction the player is aiming
 		Aim = value.Get<Vector2>( ).normalized;
 		AimAngleDegrees = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x);
-
-		if (!IsAiming) {
-			IsShooting = false;
-			IsDeflecting = false;
-		}
 	}
 
 	/// <summary>

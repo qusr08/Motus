@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 // Editors:				Frank Alfano
 // Date Created:		10/09/22
-// Date Last Editted:	10/26/22
+// Date Last Editted:	11/18/22
 
 public enum GameState {
 	GAME, WAVE, PAUSE, GAMEOVER
@@ -142,26 +142,24 @@ public class GameController : MonoBehaviour {
 					WaveCount++;
 
 					// Equation to determine difficulty per wave: 4x + 1
-					float costLimit = (4 * WaveCount) + 1;
+					// float costLimit = (4 * WaveCount) + 1;
+					// Equation to determine difficulty per wave: 0.3636x^2 + 4.6363
+					float costLimit = (0.3636f * WaveCount * WaveCount) + 4.6363f;
 
 					List<int> availableEnemyTypeIndecies = new List<int>( );
 					waveEnemies.Clear( );
 
 					// Get random enemies to spawn in the wave
-					if(WaveCount == 5)
-                    {
-						waveEnemies.Add(4);
-                    }
-					else
-                    {
-						while (costLimit > 0)
-						{
-							for (int i = 0; i < enemyTypeCosts.Count; i++)
-							{
+					if (WaveCount % 10 == 0) {
+						for (int i = 0; i < WaveCount / 10; i++) {
+							waveEnemies.Add(4);
+						}
+					} else {
+						while (costLimit > 0) {
+							for (int i = 0; i < enemyTypeCosts.Count; i++) {
 								// If the cost is higher than what is avaiable
 								// ... do not allow that enemy type to spawn
-								if (enemyTypeCosts[i] > costLimit)
-								{
+								if (enemyTypeCosts[i] > costLimit) {
 									continue;
 								}
 
@@ -171,8 +169,7 @@ public class GameController : MonoBehaviour {
 
 							// If there are no enemies that can spawn with the remaining cost limit left
 							// ... break out of the spawning loop
-							if (availableEnemyTypeIndecies.Count == 0)
-							{
+							if (availableEnemyTypeIndecies.Count == 0) {
 								break;
 							}
 
@@ -183,12 +180,12 @@ public class GameController : MonoBehaviour {
 							// Subtract the cost that it takes to spawn that enemy
 							costLimit -= enemyTypeCosts[randomEnemyTypeIndex];
 
-							availableEnemyTypeIndecies.Clear();
+							availableEnemyTypeIndecies.Clear( );
 						}
 					}
 
 					// Update the wave UI
-					waveDisplayText.text = $"wave #{WaveCount}";
+					waveDisplayText.text = $"< wave #{WaveCount} >";
 					waveUI.gameObject.SetActive(true);
 					waveUITimer = waveUITime;
 					IsPlaying = true;
@@ -279,5 +276,5 @@ public class GameController : MonoBehaviour {
 		bullet.IsInitialized = true;
 	}
 
-	
+
 }

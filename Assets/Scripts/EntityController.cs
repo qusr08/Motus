@@ -4,7 +4,7 @@ using UnityEngine;
 
 // Editors:				Frank Alfano
 // Date Created:		10/05/22
-// Date Last Editted:	10/21/22
+// Date Last Editted:	11/18/22
 
 public abstract class EntityController : ObjectController {
 	// The friction that each entity experiences as they move

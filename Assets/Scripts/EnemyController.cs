@@ -11,8 +11,8 @@ using Random = UnityEngine.Random;
 public class EnemyController : EntityController {
 	[Space]
 	[SerializeField] public PlayerController PlayerController;
-    //[SerializeField] public GameController gameController;
-    [Space]
+	//[SerializeField] public GameController gameController;
+	[Space]
 	[Tooltip("Run these events in order to tell the enemy how to move.")]
 	[SerializeField] private List<EnemyEvent> enemyAI;
 	[Tooltip("Run these events in order while the player is in sight or in range of the enemy.")]
@@ -23,8 +23,8 @@ public class EnemyController : EntityController {
 	[SerializeField] public float SpecialAttackTime;
 	[Tooltip("The range at which the enemy can 'see' the player. The enemy will not shoot or move if the distance to the player is greater than this amount.")]
 	[SerializeField] public float SightRange;
-    [SerializeField] private GameObject HealthPrefab;
-    [Space]
+	[SerializeField] private GameObject HealthPrefab;
+	[Space]
 	[SerializeField] public bool IsMovementHalted;
 	[SerializeField] private bool _isJumping;
 
@@ -126,18 +126,16 @@ public class EnemyController : EntityController {
 
 		// If the enemy is no longer alive
 		// ... destroy the game object (FOR NOW)
-		if (!IsAlive) 
-		{
+		if (!IsAlive) {
 			//get random value for health drop
 			int healthRan = Random.Range(0, 101);
 
-			
-            if (healthRan <= 50)
-			{
-                SpawnHealth(transform.position);
-            }
-            
-            Destroy(gameObject);
+
+			if (healthRan <= 50) {
+				SpawnHealth(transform.position);
+			}
+
+			Destroy(gameObject);
 
 
 			// DEBUG STATS
@@ -249,13 +247,11 @@ public class EnemyController : EntityController {
 		}
 	}
 
-    /// <summary>
-    /// Spawn a health pickup
-    /// </summary>
-    /// <param name="position">position the health pickup will spawn in</param>
-    public void SpawnHealth(Vector2 position)
-    {
-        HealthPickup health = Instantiate(HealthPrefab, position, Quaternion.identity).GetComponent<HealthPickup>();
-        health.IsInitialized = true;
-    }
+	/// <summary>
+	/// Spawn a health pickup
+	/// </summary>
+	/// <param name="position">position the health pickup will spawn in</param>
+	public void SpawnHealth (Vector2 position) {
+		Instantiate(HealthPrefab, position, Quaternion.identity).GetComponent<HealthPickup>( );
+	}
 }
