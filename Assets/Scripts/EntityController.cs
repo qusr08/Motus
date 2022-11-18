@@ -14,6 +14,7 @@ public abstract class EntityController : ObjectController {
 	[Space]
 	[SerializeField] [Min(0f)] public float MaxHealth;
 	[SerializeField] [Min(0f)] public float MoveSpeed;
+	[SerializeField] public bool IsInvincible = false;
 
 	public float CurrentHealth { get; protected set; }
 	public Vector2 Movement { get; protected set; }
@@ -79,8 +80,10 @@ public abstract class EntityController : ObjectController {
 	/// <param name="damage">The damage to deal to the entity.</param>
 	/// <returns>The current health of the entity after the damage has been applied.</returns>
 	public float Damage (float damage) {
-		// Clamp the health to make sure it does not go below 0 or above the maximum health of the entity
-		CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, MaxHealth);
+		if (!IsInvincible) {
+			// Clamp the health to make sure it does not go below 0 or above the maximum health of the entity
+			CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, MaxHealth);
+		}
 
 		return CurrentHealth;
 	}
