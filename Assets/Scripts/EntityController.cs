@@ -16,6 +16,8 @@ public abstract class EntityController : ObjectController {
 	[SerializeField] [Min(0f)] public float MoveSpeed;
 	[SerializeField] public bool IsInvincible = false;
 	[SerializeField] public bool CanMove = true;
+	
+	private Color spriteOriginalColor;
 
 	public float CurrentHealth { get; protected set; }
 	public Vector2 Movement { get; protected set; }
@@ -56,6 +58,7 @@ public abstract class EntityController : ObjectController {
 		base.Start( );
 
 		CurrentHealth = MaxHealth;
+		spriteOriginalColor = spriteRenderer.color;
 
 		// If this entity cannot move, make sure you can't move its rigidbody
 		rigidBody2D.bodyType = (CanMove ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static);
@@ -91,6 +94,9 @@ public abstract class EntityController : ObjectController {
 		if (!IsInvincible) {
 			// Clamp the health to make sure it does not go below 0 or above the maximum health of the entity
 			CurrentHealth = Mathf.Clamp(CurrentHealth - damage, 0, MaxHealth);
+
+			StopAllCoroutines( );
+			StartCoroutine(FlashColor(Color.red));
 		}
 
 		return CurrentHealth;
@@ -105,6 +111,20 @@ public abstract class EntityController : ObjectController {
 		// Clamp the health to make sure it does not go below 0 or above the maximum health of the entity
 		CurrentHealth = Mathf.Clamp(CurrentHealth + health, 0, MaxHealth);
 
+		StopAllCoroutines( );
+		StartCoroutine(FlashColor(Color.green));
+
 		return CurrentHealth;
+	}
+
+
+	private IEnumerator FlashColor (Color color) {
+		spriteRenderer.color = color;
+
+		yield return new WaitForSeconds(0.1f);
+
+		spriteRenderer.color = spriteOriginalColor;
+
+		yield return null;
 	}
 }

@@ -114,7 +114,7 @@ public class BulletController : ObjectController {
 					DidCollide = true;
 				} else if (BulletType == BulletType.CHARGED) {
 					// If the bullet is CHARGED then have the enemy take damage
-					enemyCollision.Damage(15);
+					enemyCollision.Damage(25);
 
 					// DEBUG STATS
 					gameController.ChargedBulletsHit++;

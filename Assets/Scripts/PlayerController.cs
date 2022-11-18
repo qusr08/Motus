@@ -170,11 +170,6 @@ public class PlayerController : EntityController {
 	/// </summary>
 	/// <param name="value">The value of the control input.</param>
 	public void OnAim (InputValue value) {
-		// If the player is dashing, prevent them from aiming
-		/*if (IsDashing) {
-			return;
-		}*/
-
 		// If the game controller is in a gamestate that pauses the game
 		// ... do not update player controls
 		if (!gameController.IsPlaying) {
@@ -186,6 +181,11 @@ public class PlayerController : EntityController {
 		// The position of the aim arrow is also the direction the player is aiming
 		Aim = value.Get<Vector2>( ).normalized;
 		AimAngleDegrees = Mathf.Rad2Deg * Mathf.Atan2(Aim.y, Aim.x);
+
+		if (!IsAiming) {
+			IsShooting = false;
+			IsDeflecting = false;
+		}
 	}
 
 	/// <summary>
@@ -196,7 +196,7 @@ public class PlayerController : EntityController {
 		// If the player is dashing, prevent them from shooting
 		// If the player is not aiming, then do not try to shoot in a certain direction
 		// If the player is deflecting, prevent them from shooting
-		if (/*IsDashing || */!IsAiming || IsDeflecting) {
+		if (!IsAiming || IsDeflecting) {
 			return;
 		}
 
@@ -224,7 +224,7 @@ public class PlayerController : EntityController {
 		// If the player is dashing, prevent them from shooting
 		// If the player is not aiming, then do not try to shoot in a certain direction
 		// If the player is deflecting, prevent them from shooting
-		if (/*IsDashing || */!IsAiming || IsDeflecting) {
+		if (!IsAiming || IsDeflecting) {
 			return;
 		}
 
@@ -258,7 +258,7 @@ public class PlayerController : EntityController {
 		// If the player is dashing, prevent them from dashing again as they are dashing
 		// If the player is not moving, then do not try to dash in a certain direction
 		// If the player is deflecting, prevent them from breaking out of it with a dash
-		if (IsDashing || !IsMoving || IsDeflecting/* || IsShooting*/) {
+		if (IsDashing || !IsMoving || IsDeflecting) {
 			return;
 		}
 

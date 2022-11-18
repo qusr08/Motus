@@ -330,6 +330,8 @@ MonoBehaviour:
   Shadow: {fileID: 2077442969983075440}
   MaxHealth: 30
   MoveSpeed: 250
+  IsInvincible: 0
+  CanMove: 1
   aimObject: {fileID: 139476637833884899}
   HealthBarController: {fileID: 0}
   DashBarController: {fileID: 0}
@@ -342,7 +344,10 @@ MonoBehaviour:
   IsDeflecting: 0
   shieldObject: {fileID: 1285367437769918183}
   IsShooting: 0
-  shootDelayTime: 0.2
+  shootDelayTime: 0.1
+  shootSFX: {fileID: 0}
+  dashSFX: {fileID: 0}
+  runSFX: {fileID: 0}
 --- !u!1 &476460714831849306
 GameObject:
   m_ObjectHideFlags: 0

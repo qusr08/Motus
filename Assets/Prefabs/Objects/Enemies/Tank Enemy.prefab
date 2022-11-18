@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 4
   m_SortingOrder: 0
   m_Sprite: {fileID: -394040455, guid: 08e48df4ae45c2c4f8c15610e96854b6, type: 3}
-  m_Color: {r: 0.60617876, g: 0, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -153,8 +153,10 @@ MonoBehaviour:
   spriteRenderer: {fileID: 3189487400666286938}
   animator: {fileID: 0}
   Shadow: {fileID: 4957896747208251362}
-  MaxHealth: 24
+  MaxHealth: 30
   MoveSpeed: 95
+  IsInvincible: 0
+  CanMove: 1
   PlayerController: {fileID: 0}
   enemyAI:
   - {fileID: 11400000, guid: 6f5ac3fa4fe05a44aba4bbb50742e716, type: 2}
