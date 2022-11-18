@@ -29,6 +29,7 @@ public class GameController : MonoBehaviour {
 	[Space]
 	[SerializeField] private GameState gameState = GameState.GAME;
 	[SerializeField] private bool _isPlaying;
+	[SerializeField] private bool DoSpawningEnemyWaves = true;
 	[Space]
 	[SerializeField] public int WaveCount;
 	[SerializeField] public int BulletsFired;
@@ -237,7 +238,7 @@ public class GameController : MonoBehaviour {
 
 				// If all enemies have been killed
 				// ... spawn the next wave
-				if (EnemyCount == 0) {
+				if (DoSpawningEnemyWaves && EnemyCount == 0) {
 					GameState = GameState.WAVE;
 				}
 

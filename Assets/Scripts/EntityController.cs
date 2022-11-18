@@ -15,6 +15,7 @@ public abstract class EntityController : ObjectController {
 	[SerializeField] [Min(0f)] public float MaxHealth;
 	[SerializeField] [Min(0f)] public float MoveSpeed;
 	[SerializeField] public bool IsInvincible = false;
+	[SerializeField] public bool CanMove = true;
 
 	public float CurrentHealth { get; protected set; }
 	public Vector2 Movement { get; protected set; }
@@ -55,12 +56,19 @@ public abstract class EntityController : ObjectController {
 		base.Start( );
 
 		CurrentHealth = MaxHealth;
+
+		// If this entity cannot move, make sure you can't move its rigidbody
+		rigidBody2D.bodyType = (CanMove ? RigidbodyType2D.Dynamic : RigidbodyType2D.Static);
 	}
 
 	/// <summary>
 	/// Called at a constant 60 frames per second during game.
 	/// </summary>
 	protected void FixedUpdate ( ) {
+		if (!CanMove) {
+			return;
+		}
+
 		// Move the entity in the direction they should travel
 		if (Movement.magnitude > 0) {
 			// Doing kinda some fancy math to make the smoothing right, this can change in the future if a better method is found
