@@ -47,11 +47,17 @@ public class BulletController : ObjectController {
 		// For example, if the collision game object has a PlayerController component, we know that this bullet has collided with the player
 		PlayerController playerCollision = collisionGameObject.GetComponent<PlayerController>( );
 		EnemyController enemyCollision = collisionGameObject.GetComponent<EnemyController>( );
+		OffscreenEnemyPointer offscreenEnemy = collisionGameObject.GetComponent<OffscreenEnemyPointer>( );
 
 		// Check to see if the collider is a circle collider
 		bool IsCircleCollider = collisionGameObject.GetComponent<CircleCollider2D>( );
 
 		if (!DidCollide) {
+			if (offscreenEnemy != null)
+            {
+				return;
+            }
+
 			// If this bullet collides with the player ...
 			if (playerCollision != null) {
 				// If the bullet type is not PLAYER
