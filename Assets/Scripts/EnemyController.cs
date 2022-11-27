@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.IO;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -27,6 +28,8 @@ public class EnemyController : EntityController {
 	[Space]
 	[SerializeField] public bool IsMovementHalted;
 	[SerializeField] private bool _isJumping;
+	[SerializeField] public Sprite shootSprite;
+	[SerializeField] public Sprite normalSprite;
 
 	/// <summary>
 	/// Whether or not the enemy is jumping.
@@ -116,6 +119,7 @@ public class EnemyController : EntityController {
 		specialAttackTimer = SpecialAttackTime;
 
 		ModValue = Random.Range(0, 2);
+		spriteRenderer = gameObject.GetComponent<SpriteRenderer>();
 	}
 
 	/// <summary>
@@ -164,7 +168,8 @@ public class EnemyController : EntityController {
 		// Only either update the special attack events or the regular attack events, never both at the same time
 		if (!IsUpdatingSpecialAttackEvents) {
 			UpdateEventList(regularAttack, ref regularAttackEventIndex, ref isUpdatingRegularAttackEvent);
-		}
+            ChangeSpriteNormal();
+        }
 
 		// If it is time for the special attack of the enemy
 		// and the regular attack is finished updating
@@ -172,7 +177,9 @@ public class EnemyController : EntityController {
 		if (specialAttackTimer <= 0f && !IsUpdatingRegularAttackEvents) {
 			UpdateEventList(specialAttack, ref specialAttackEventIndex, ref isUpdatingSpecialAttackEvent);
 
-			if (!IsUpdatingSpecialAttackEvents) {
+            ChangeSpriteShoot();
+
+            if (!IsUpdatingSpecialAttackEvents) {
 				specialAttackTimer = SpecialAttackTime;
 			}
 		}
@@ -253,5 +260,22 @@ public class EnemyController : EntityController {
 	/// <param name="position">position the health pickup will spawn in</param>
 	public void SpawnHealth (Vector2 position) {
 		Instantiate(HealthPrefab, position, Quaternion.identity).GetComponent<HealthPickup>( );
+	}
+
+	/// <summary>
+	/// change enemy to their shooting sprites
+	/// </summary>
+	private void ChangeSpriteShoot()
+	{
+		spriteRenderer.sprite = shootSprite;
+
+    }
+
+	/// <summary>
+	/// change enemy to their defalt sprite
+	/// </summary>
+	private void ChangeSpriteNormal()
+	{
+		spriteRenderer.sprite = normalSprite;
 	}
 }

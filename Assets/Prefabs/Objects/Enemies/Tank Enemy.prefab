@@ -197,6 +197,8 @@ MonoBehaviour:
   HealthPrefab: {fileID: 7350311149242949220, guid: 34b496755c064da4bb1f6585b0d5f68c, type: 3}
   IsMovementHalted: 0
   _isJumping: 0
+  shootSprite: {fileID: 3661420, guid: 0ced41ee5ebfb534d869b338e536275a, type: 3}
+  normalSprite: {fileID: 933416074, guid: 0ced41ee5ebfb534d869b338e536275a, type: 3}
 --- !u!1001 &7912904814731613336
 PrefabInstance:
   m_ObjectHideFlags: 0
