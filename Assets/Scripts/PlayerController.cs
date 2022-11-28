@@ -82,8 +82,9 @@ public class PlayerController : EntityController {
 		// Make player shots rapid fire
 		if (IsAiming && IsShooting) {
 			if (shootDelayTimer <= 0f) {
-				// Spawn a bullet in a certain direction
+				// Spawn a bullet in a certain direction and let the sound effect play
 				gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER, 900);
+				shootSFX.Play();
 
 				// Reset the shoot delay timer
 				shootDelayTimer = shootDelayTime;
@@ -207,7 +208,6 @@ public class PlayerController : EntityController {
 		// Now it will call the Shoot SFX
 		if (IsShooting) {
 			shootDelayTimer = 0f;
-			shootSFX.Play();
 		}
 	}
 
