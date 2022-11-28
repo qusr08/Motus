@@ -36,6 +36,8 @@ public class PlayerController : EntityController {
 
 	private float shootDelayTimer;
 
+	private bool animatorIsMoving;
+
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
 	private float dashTimer;
@@ -117,10 +119,6 @@ public class PlayerController : EntityController {
 		aimObject.localPosition = Aim * 0.5f;
 		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees + (Mathf.Abs(AimAngleDegrees) > 90f ? -135f : -45f));
 		aimObject.GetComponent<SpriteRenderer>( ).flipX = (Mathf.Abs(AimAngleDegrees) > 90f);
-
-		// Update the animator
-		animator.SetFloat("MovementX", Movement.x);
-		animator.SetFloat("MovementY", Movement.y);
 	}
 
 	/// <summary>
@@ -164,6 +162,11 @@ public class PlayerController : EntityController {
 
 		Movement = value.Get<Vector2>( );
 		runSFX.Play();
+
+		// Update the animator
+		animator.SetFloat("MovementX", Movement.x);
+		animator.SetFloat("MovementY", Movement.y);
+		animator.SetBool("IsMoving", IsMoving);
 	}
 
 	/// <summary>

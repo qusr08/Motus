@@ -448,8 +448,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f669b4d5d2ab4f8438807d655acc7d85, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   spriteRenderer: {fileID: 330080566}
   playerController: {fileID: 2131832805}
 --- !u!1 &445616826
@@ -618,8 +618,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f22bfe3345b48864cbb24b75790c79c9, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   playerController: {fileID: 2131832805}
   smoothness: 0.3
   aimDistance: 3
@@ -749,8 +749,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a7c577a841856c04ea87451f82edb82c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   NumEdges: 64
   Radius: 24.5
 --- !u!68 &649446004
@@ -22030,8 +22030,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1337fc95336c5ce4d83480e969a605c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1106406977
 GameObject:
   m_ObjectHideFlags: 0
@@ -22131,8 +22131,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b85c79d94bd60464daf88f490b2f0e0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
   enemyPointer: {fileID: 856560653}
   target: {fileID: 2121338885}
 --- !u!4 &1286735480 stripped
@@ -22149,7 +22149,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 107343104721532098, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: gameController
-      value: 
+      value:
       objectReference: {fileID: 1314721788}
     - target: {fileID: 1002662237238177981, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -22177,7 +22177,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1002662238324707291, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: m_Camera
-      value: 
+      value:
       objectReference: {fileID: 519420031}
     - target: {fileID: 1002662238949784475, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: m_RootOrder
@@ -22229,23 +22229,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2425608524894187749, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: gameController
-      value: 
+      value:
       objectReference: {fileID: 1314721788}
     - target: {fileID: 2425608525814159924, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: gameController
-      value: 
+      value:
       objectReference: {fileID: 1314721788}
     - target: {fileID: 2425608525849917312, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: gameController
-      value: 
+      value:
       objectReference: {fileID: 1314721788}
     - target: {fileID: 2425608526357232522, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: gameController
-      value: 
+      value:
       objectReference: {fileID: 1314721788}
     - target: {fileID: 3462570874936744198, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: gameController
-      value: 
+      value:
       objectReference: {fileID: 1314721788}
     - target: {fileID: 5792286227824340793, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: m_AnchorMax.y
@@ -22297,11 +22297,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6463894598047294717, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: gameController
-      value: 
+      value:
       objectReference: {fileID: 1314721788}
     - target: {fileID: 9128956757835088704, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
       propertyPath: gameController
-      value: 
+      value:
       objectReference: {fileID: 1314721788}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cf219c802a0dd0a4fb3d6e1b5acdc73f, type: 3}
@@ -22314,8 +22314,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8ac9ba0461e96dd4cb1ea87ec70becec, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1358178605
 GameObject:
   m_ObjectHideFlags: 0
@@ -22453,8 +22453,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1337fc95336c5ce4d83480e969a605c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &1728824556
 GameObject:
   m_ObjectHideFlags: 0
@@ -22615,8 +22615,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1337fc95336c5ce4d83480e969a605c5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1 &2005742702
 GameObject:
   m_ObjectHideFlags: 0
@@ -23001,8 +23001,8 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 53d283a920aada941b1f724ae5777996, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  m_Name:
+  m_EditorClassIdentifier:
 --- !u!1001 &139476636691355370
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -23020,6 +23020,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 139476638015781128, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 139476638015781132, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
+      propertyPath: m_FlipX
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 139476638015781132, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
+      propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 139476638015781134, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
@@ -23068,47 +23076,47 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: runSFX
-      value: 
+      value:
       objectReference: {fileID: 445616828}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: source
-      value: 
+      value:
       objectReference: {fileID: 1729299389}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: dashSFX
-      value: 
+      value:
       objectReference: {fileID: 1358178607}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: shootSFX
-      value: 
+      value:
       objectReference: {fileID: 2084011570}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: ammoUIText
-      value: 
+      value:
       objectReference: {fileID: 0}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: DashBarController
-      value: 
+      value:
       objectReference: {fileID: 1378622701}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: dashBarController
-      value: 
+      value:
       objectReference: {fileID: 0}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: HealthBarController
-      value: 
+      value:
       objectReference: {fileID: 992971119}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: healthBarController
-      value: 
+      value:
       objectReference: {fileID: 0}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: ChargedBulletBarController
-      value: 
+      value:
       objectReference: {fileID: 1835711087}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: chargedBulletBarController
-      value: 
+      value:
       objectReference: {fileID: 0}
     - target: {fileID: 139476638015781135, guid: 1b2092c9cb7aab14a9f60a13ab101bec, type: 3}
       propertyPath: dashRaycastCollisionLayers.Array.data[2].m_Bits
