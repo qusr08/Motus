@@ -146,6 +146,10 @@ PrefabInstance:
       propertyPath: PlayerController
       value: 
       objectReference: {fileID: 2131832805}
+    - target: {fileID: 3189487400666286938, guid: e4bf2b77d3c5bcc4e89f91e566068c9b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 1877121371, guid: 0ced41ee5ebfb534d869b338e536275a, type: 3}
     - target: {fileID: 3189487400666286939, guid: e4bf2b77d3c5bcc4e89f91e566068c9b, type: 3}
       propertyPath: m_RootOrder
       value: 2
