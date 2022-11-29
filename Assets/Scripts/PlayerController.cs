@@ -36,6 +36,8 @@ public class PlayerController : EntityController {
 
 	private float shootDelayTimer;
 
+	private bool animatorIsMoving;
+
 	private Vector2 fromDashPosition;
 	private Vector2 toDashPosition;
 	private float dashTimer;
@@ -82,8 +84,9 @@ public class PlayerController : EntityController {
 		// Make player shots rapid fire
 		if (IsAiming && IsShooting) {
 			if (shootDelayTimer <= 0f) {
-				// Spawn a bullet in a certain direction
+				// Spawn a bullet in a certain direction and let the sound effect play
 				gameController.SpawnBullet(transform.position, AimAngleDegrees, BulletType.PLAYER, 900);
+				shootSFX.Play();
 
 				// Reset the shoot delay timer
 				shootDelayTimer = shootDelayTime;
@@ -121,10 +124,6 @@ public class PlayerController : EntityController {
 		aimObject.localPosition = Aim * 0.5f;
 		aimObject.rotation = Quaternion.Euler(0, 0, AimAngleDegrees + (Mathf.Abs(AimAngleDegrees) > 90f ? -135f : -45f));
 		aimObject.GetComponent<SpriteRenderer>( ).flipX = (Mathf.Abs(AimAngleDegrees) > 90f);
-
-		// Update the animator
-		animator.SetFloat("MovementX", Movement.x);
-		animator.SetFloat("MovementY", Movement.y);
 	}
 
 	/// <summary>
@@ -170,6 +169,11 @@ public class PlayerController : EntityController {
 
 		Movement = value.Get<Vector2>( );
 		runSFX.Play();
+
+		// Update the animator
+		animator.SetFloat("MovementX", Movement.x);
+		animator.SetFloat("MovementY", Movement.y);
+		animator.SetBool("IsMoving", IsMoving);
 	}
 
 	/// <summary>
@@ -214,7 +218,6 @@ public class PlayerController : EntityController {
 		// Now it will call the Shoot SFX
 		if (IsShooting) {
 			shootDelayTimer = 0f;
-			shootSFX.Play();
 		}
 	}
 
