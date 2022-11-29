@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 3189487400666286941}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
+  m_LocalScale: {x: 0.65, y: 0.55, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 4957896747208251362}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 1746658895
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 933416074, guid: 0ced41ee5ebfb534d869b338e536275a, type: 3}
+  m_Sprite: {fileID: 1877121371, guid: 0ced41ee5ebfb534d869b338e536275a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -106,7 +106,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 3.125, y: 2.65625}
+    oldSize: {x: 1.3125, y: 2.65625}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -198,8 +198,8 @@ MonoBehaviour:
   HealthPrefab: {fileID: 7350311149242949220, guid: 34b496755c064da4bb1f6585b0d5f68c, type: 3}
   IsMovementHalted: 0
   _isJumping: 0
-  shootSprite: {fileID: 3661420, guid: 0ced41ee5ebfb534d869b338e536275a, type: 3}
-  normalSprite: {fileID: 933416074, guid: 0ced41ee5ebfb534d869b338e536275a, type: 3}
+  shootSprite: {fileID: -894049489, guid: 0ced41ee5ebfb534d869b338e536275a, type: 3}
+  normalSprite: {fileID: 1877121371, guid: 0ced41ee5ebfb534d869b338e536275a, type: 3}
 --- !u!1001 &6152679410137275735
 PrefabInstance:
   m_ObjectHideFlags: 0
