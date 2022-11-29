@@ -97,7 +97,8 @@ public class PlayerController : EntityController {
 
 		// If the player is dashing
 		// ... update the position based on the dash
-		if (IsDashing) {
+		if (IsDashing)
+		{
 			// Lerp between the last position of the player and the new dash position
 			// 'dashTime' is the time the player has taken as it travels between the two points
 			// Dividing 'dashTime' by 'dashSpeed' will get a value between 0 and 1 which is used to linearly interpolate between the two points
@@ -105,9 +106,13 @@ public class PlayerController : EntityController {
 
 			// Increment the 'dashTime' by the time that has passed
 			dashTimer += Time.deltaTime;
-		} else if (IsDashOnCooldown) {
+		}
+		else if (IsDashOnCooldown)
+		{
 			dashCooldownTimer -= Time.deltaTime;
-		} else {
+		}
+		else
+		{
 			DashBarController.Percentage += dashRegenerationTime * Time.deltaTime;
 		}
 
@@ -150,6 +155,8 @@ public class PlayerController : EntityController {
 	/// </summary>
 	/// <param name="value">The value of the control input.</param>
 	public void OnMove (InputValue value) {
+		Movement = Vector2.zero;
+
 		// If the player is dashing, prevent them from aiming
 		if (IsDashing) {
 			return;
