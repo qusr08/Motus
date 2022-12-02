@@ -29,7 +29,7 @@ Transform:
   m_GameObject: {fileID: 9168822262153361712}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.49, y: 0, z: 0}
-  m_LocalScale: {x: 2.5, y: 2.5, z: 2.5}
+  m_LocalScale: {x: 4, y: 4, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 7529262403392470969}
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayerID: 1746658895
   m_SortingLayer: 4
   m_SortingOrder: 0
-  m_Sprite: {fileID: 542734048, guid: 08e48df4ae45c2c4f8c15610e96854b6, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c5e712d05bfb93147804ccfbdb98a20b, type: 3}
   m_Color: {r: 0, g: 0.7647071, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -102,18 +102,18 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -0.25}
+  m_Offset: {x: 0, y: -0.16}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1, y: 1}
+    oldSize: {x: 0.58, y: 0.56}
     newSize: {x: 1, y: 1}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.45, y: 0.23}
   m_EdgeRadius: 0
 --- !u!50 &9168822262153361716
 Rigidbody2D:
@@ -304,7 +304,7 @@ MonoBehaviour:
   specialAttack: []
   SpecialAttackTime: 10
   SightRange: 50
-  HealthPrefab: {fileID: 0}
+  HealthPrefab: {fileID: 7350311149242949220, guid: 34b496755c064da4bb1f6585b0d5f68c, type: 3}
   IsMovementHalted: 0
   _isJumping: 0
   shootSprite: {fileID: 0}
@@ -331,6 +331,14 @@ PrefabInstance:
     - target: {fileID: 1200339891133061887, guid: 734bf6db298634f4f92fc228aec8076c, type: 3}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200339891133061887, guid: 734bf6db298634f4f92fc228aec8076c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1200339891133061887, guid: 734bf6db298634f4f92fc228aec8076c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 1200339891133061887, guid: 734bf6db298634f4f92fc228aec8076c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -422,6 +430,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 9168822262153361718}
     m_Modifications:
+    - target: {fileID: 2200838767220812544, guid: cb1f30b8f182edc479d9fca33cc88b15, type: 3}
+      propertyPath: gameController
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 2962724051982205818, guid: cb1f30b8f182edc479d9fca33cc88b15, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -432,7 +444,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2962724051982205818, guid: cb1f30b8f182edc479d9fca33cc88b15, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.25
       objectReference: {fileID: 0}
     - target: {fileID: 2962724051982205818, guid: cb1f30b8f182edc479d9fca33cc88b15, type: 3}
       propertyPath: m_LocalPosition.z

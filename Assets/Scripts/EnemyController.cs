@@ -267,6 +267,10 @@ public class EnemyController : EntityController {
 	/// </summary>
 	private void ChangeSpriteShoot()
 	{
+		if (shootSprite == null) {
+			return;
+		}
+
 		spriteRenderer.sprite = shootSprite;
 
     }
@@ -276,6 +280,10 @@ public class EnemyController : EntityController {
 	/// </summary>
 	private void ChangeSpriteNormal()
 	{
+		if (normalSprite == null) {
+			return;
+		}
+
 		spriteRenderer.sprite = normalSprite;
 	}
 }

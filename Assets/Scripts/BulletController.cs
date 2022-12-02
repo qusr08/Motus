@@ -86,7 +86,7 @@ public class BulletController : ObjectController {
 				if (BulletType == BulletType.DEFLECTABLE && playerCollision.IsDeflecting) {
 					BulletType = BulletType.PLAYER;
 					Direction *= -1;
-					deflectSFX.Play();
+					// deflectSFX.Play();
 
 					// DEBUG STATS
 					gameController.BulletsDeflected++;
